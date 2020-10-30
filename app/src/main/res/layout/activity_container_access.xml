@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ContainerAccessActivity">
 
- 
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:text="Blah blah blah"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
