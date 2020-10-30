@@ -10,9 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LostAndFoundApp">
         <activity
+            android:name=".ContainerAccessActivity"
+            android:label="@string/title_activity_container_access"
+            android:theme="@style/Theme.LostAndFoundApp.NoActionBar"></activity>
+        <activity
+            android:name=".CustomerLoginActivity"
+            android:label="@string/title_activity_customer_login"
+            android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
+        <activity
             android:name=".RegistractionActivity"
             android:label="@string/title_activity_registraction"
-            android:theme="@style/Theme.LostAndFoundApp.NoActionBar"></activity>
+            android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
