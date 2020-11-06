@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "396426294337",
+    "firebase_url": "https://lost-founddatabase.firebaseio.com",
+    "project_id": "lost-founddatabase",
+    "storage_bucket": "lost-founddatabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396426294337:android:6fdda967e099852c7e42c0",
+        "android_client_info": {
+          "package_name": "com.example.lostandfoundapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396426294337-oa5pi67iroqd3l9qq9254er568nujcdj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7KlhXT9QrraqHWiBEmzqKYhnXwLBDpl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396426294337-oa5pi67iroqd3l9qq9254er568nujcdj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
