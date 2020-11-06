@@ -11,4 +11,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_customer_login">CustomerLoginActivity</string>
     <string name="title_activity_container_access">ContainerAccessActivity</string>
+    <string name="title_activity_items_registration">ItemsRegistrationActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
