@@ -1,12 +1,11 @@
 package com.example.lostandfoundapp;
 
 public class Users {
-
     String username;
     String email;
     Long phone;
     int password;
-    int confirmPassword;
+    int confPassword;
 
     public Users() { }
 
@@ -42,11 +41,11 @@ public class Users {
         this.password = password;
     }
 
-    public int getConfirmPassword() {
-        return confirmPassword;
+    public int getConfPassword() {
+        return confPassword;
     }
 
-    public void setConfirmPassword(int confirmPassword) {
-        this.confirmPassword = confirmPassword;
+    public void setConfPassword(int confPassword) {
+        this.confPassword = confPassword;
     }
 }
