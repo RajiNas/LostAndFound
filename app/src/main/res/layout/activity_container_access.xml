@@ -11,8 +11,18 @@
         android:id="@+id/buttonSignout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="604dp"
+        android:layout_marginTop="8dp"
         android:text="Signout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="349dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="520dp"
+        android:text="Guys. this sighout button is just for now. It is important to signout from the firebase otherwise the app gets locked by the firebase, so just keep it even if you want to add fragments until we know at which point we should signout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
