@@ -6,24 +6,24 @@
         android:id="@+id/messages_item"
         android:icon="@drawable/messages_icon"
         android:title="Messages"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/profile_item"
         android:icon="@drawable/profile_icon"
         android:title="Profile"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/lostList_item"
         android:icon="@drawable/lost_icon"
         android:title="LostList"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/foundList_item"
         android:icon="@drawable/found_icon"
         android:title="FoundList"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
 </menu>

@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +34,7 @@ public class ContainerAccessActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btnSignout = (Button)findViewById(R.id.buttonSignout);
+        btnSignout = (Button) findViewById(R.id.buttonSignout);
         mAuth = FirebaseAuth.getInstance();
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,13 +48,14 @@ public class ContainerAccessActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.messages_item:
                 fr = new MessageFragment();
                 displayFragment();
@@ -74,8 +76,9 @@ public class ContainerAccessActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void displayFragment(){
-        FragmentManager manager =getSupportFragmentManager();
+
+    public void displayFragment() {
+        FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragment, fr);
         transaction.commit();
