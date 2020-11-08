@@ -6,25 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ContainerAccessActivity">
 
-    <Button
+    <include android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.lostandfoundapp.FoundFragment"
+        android:layout_width="match_parent"
+        android:layout_height="605dp"
+        android:paddingTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:layout="@layout/fragment_found" />
+
+    <Button
         android:id="@+id/buttonSignout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_alignParentBottom="true"
+
         android:text="Signout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="349dp"
-        android:layout_height="109dp"
-        android:layout_marginTop="520dp"
-        android:text="Guys. this sighout button is just for now. It is important to signout from the firebase otherwise the app gets locked by the firebase, so just keep it even if you want to add fragments until we know at which point we should signout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
