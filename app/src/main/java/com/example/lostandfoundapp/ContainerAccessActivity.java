@@ -21,7 +21,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class ContainerAccessActivity extends AppCompatActivity {
-    Button btnSignout;
+
     private FirebaseAuth mAuth;
 
     Fragment fr;
@@ -34,16 +34,7 @@ public class ContainerAccessActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btnSignout = (Button) findViewById(R.id.buttonSignout);
         mAuth = FirebaseAuth.getInstance();
-        btnSignout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                finish();
-                startActivity(new Intent(ContainerAccessActivity.this, MainActivity.class));
-            }
-        });
     }
 
     @Override
@@ -71,6 +62,11 @@ public class ContainerAccessActivity extends AppCompatActivity {
             case R.id.foundList_item:
                 fr = new FoundFragment();
                 displayFragment();
+                return true;
+            case R.id.logout_item:
+                mAuth.signOut();
+                finish();
+                startActivity(new Intent(ContainerAccessActivity.this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

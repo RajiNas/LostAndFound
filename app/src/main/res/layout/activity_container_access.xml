@@ -13,22 +13,11 @@
     <fragment
         android:id="@+id/fragment"
         android:name="com.example.lostandfoundapp.FoundFragment"
-        android:layout_width="match_parent"
-        android:layout_height="605dp"
+        android:layout_width="409dp"
+        android:layout_height="673dp"
         android:paddingTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
-
-    <Button
-        android:id="@+id/buttonSignout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Signout"
-        app:backgroundTint="#D85BB343"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

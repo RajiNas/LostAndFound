@@ -26,4 +26,11 @@
         android:title="FoundList"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/logout_item"
+        android:icon="@drawable/signout_icon"
+        android:title="@string/sign_out"
+        app:showAsAction="ifRoom" />
+
+
 </menu>

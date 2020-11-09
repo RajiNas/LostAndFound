@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class ProfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
+
 
         // init firebase
         firebaseAuth = FirebaseAuth.getInstance();

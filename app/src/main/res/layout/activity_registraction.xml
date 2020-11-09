@@ -24,14 +24,14 @@
         android:id="@+id/editText_registrationActivity_username"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="112dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/editText_registrationActivity_email"
@@ -78,15 +78,31 @@
 
     <Button
         android:id="@+id/button_registrationAcitvity_register"
-        android:layout_width="349dp"
-        android:layout_height="42dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="Register"
+        android:drawableLeft="@drawable/profile_icon"
         app:backgroundTint="#D85BB343"
+        android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_registrationActivity_confirmPassword" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="Register"
+        android:textSize="20dp"
+        android:textColor="#D85BB343"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

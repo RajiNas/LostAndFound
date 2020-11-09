@@ -15,6 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:text="Login"
+        android:drawableLeft="@drawable/key_icom"
+        android:drawablePadding="20dp"
+        android:textSize="20dp"
         app:backgroundTint="#D85BB343"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -27,8 +30,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Register"
+        android:drawableLeft="@drawable/profile_icon"
         app:backgroundTint="#D85BB343"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_mainActivity_Login" />
 

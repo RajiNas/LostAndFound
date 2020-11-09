@@ -11,14 +11,14 @@
         android:id="@+id/editText_loginActivity_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="144dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/button_loginActivity_Login"
@@ -26,6 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="Login"
+        android:textSize="17dp"
+        android:drawableLeft="@drawable/key_icom"
         app:backgroundTint="#D85BB343"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,5 +45,19 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_loginActivity_email" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="Login"
+        android:textSize="20dp"
+        android:textColor="#D85BB343"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
