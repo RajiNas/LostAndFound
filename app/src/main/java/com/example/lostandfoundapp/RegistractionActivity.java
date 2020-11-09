@@ -1,9 +1,11 @@
 package com.example.lostandfoundapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -15,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -26,6 +29,7 @@ import android.widget.Toast;
 public class RegistractionActivity extends AppCompatActivity {
     EditText editTextUsername, editTextEmail, editTextPhone, editTextPassword, editTextConfrimPass;
     Button btnRegister;
+    ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
     DatabaseReference reff;
@@ -37,6 +41,7 @@ public class RegistractionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registraction);
 
+
         editTextUsername = (EditText)findViewById(R.id.editText_registrationActivity_username);
         editTextEmail = (EditText)findViewById(R.id.editText_registrationActivity_email);
         editTextPhone = (EditText)findViewById(R.id.editText_registrationActivity_phone);
@@ -44,6 +49,9 @@ public class RegistractionActivity extends AppCompatActivity {
         editTextConfrimPass = (EditText)findViewById(R.id.editText_registrationActivity_confirmPassword);
 
         btnRegister = (Button)findViewById(R.id.button_registrationAcitvity_register);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Registering User...");
 
         reff = FirebaseDatabase.getInstance().getReference().child("Users");
         users = new Users();
@@ -107,16 +115,24 @@ public class RegistractionActivity extends AppCompatActivity {
 
     // create account in FB
     private void callSignup(String email, String password){
-
+        progressDialog.show();
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(! task.isSuccessful()){
+                    progressDialog.dismiss();
                     Toast.makeText(RegistractionActivity.this, "Sign up failed",Toast.LENGTH_LONG).show();
                 }else{
+                    progressDialog.dismiss();
                     userProfile();
                     Toast.makeText(RegistractionActivity.this, "Account created",Toast.LENGTH_LONG).show();
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(RegistractionActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -132,6 +148,7 @@ public class RegistractionActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
+                        progressDialog.dismiss();
                         System.out.println("sign in successful" + task.isSuccessful());
                     }
                     if(! task.isSuccessful()){
