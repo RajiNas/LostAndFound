@@ -98,7 +98,7 @@ public class RegistractionActivity extends AppCompatActivity {
                 users.setEmail(email);
                 users.setPhone(Long.parseLong(phone));
                 users.setPassword(Integer.parseInt(password));
-                users.setConfPassword(Integer.parseInt(confPass));
+//                users.setConfPassword(Integer.parseInt(confPass));
 
                 reff.push().setValue(users);
             }
