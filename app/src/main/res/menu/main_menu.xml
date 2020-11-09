@@ -31,6 +31,11 @@
         android:icon="@drawable/signout_icon"
         android:title="@string/sign_out"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/addItem"
+        android:title="add Item"
+        app:showAsAction="ifRoom"
+        />
 
 
 </menu>

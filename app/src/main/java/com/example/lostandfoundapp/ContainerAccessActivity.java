@@ -68,6 +68,10 @@ public class ContainerAccessActivity extends AppCompatActivity {
                 finish();
                 startActivity(new Intent(ContainerAccessActivity.this, MainActivity.class));
                 return true;
+            case R.id.addItem:
+                Intent intent = new Intent(ContainerAccessActivity.this, ItemsRegistrationActivity.class);
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
