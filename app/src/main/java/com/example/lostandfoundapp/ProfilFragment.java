@@ -21,26 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-//public class ProfilFragment extends Fragment {
-//
-//    DatabaseReference databaseReference;
-//    FirebaseUser user;
-//
-//    String uid;
-//    TextView txtUsername, txtEmail,txtPhone, txtPassword;
-//    Button btnEdit;
-//
-//    public ProfilFragment() {
-//        // Required empty public constructor
-//    }
-//
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_profil, container, false);
-//    }
 
 public class ProfilFragment extends Fragment {
 
