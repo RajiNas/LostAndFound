@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Edit"
+        app:backgroundTint="#D85BB343"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_password_ProfileFragment" />
