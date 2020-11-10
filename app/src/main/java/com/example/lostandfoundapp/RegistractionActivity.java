@@ -26,6 +26,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class RegistractionActivity extends AppCompatActivity {
     EditText editTextUsername, editTextEmail, editTextPhone, editTextPassword, editTextConfrimPass;
     Button btnRegister;
@@ -73,6 +76,11 @@ public class RegistractionActivity extends AppCompatActivity {
                 String password = editTextPassword.getText().toString().trim();
                 String confPass = editTextConfrimPass.getText().toString().trim();
 
+                //generate date upon creating a new account
+                Calendar calendar =Calendar.getInstance();
+                SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MM-yyyy");
+                String date =simpleDateFormat.format(calendar.getTime());
+
                 if(username.isEmpty()){
                     Toast.makeText(RegistractionActivity.this, "Type username", Toast.LENGTH_SHORT).show();
                     return;
@@ -106,6 +114,7 @@ public class RegistractionActivity extends AppCompatActivity {
                 users.setEmail(email);
                 users.setPhone(Long.parseLong(phone));
                 users.setPassword(Integer.parseInt(password));
+                users.setDate(date);
 //                users.setConfPassword(Integer.parseInt(confPass));
 
                 reff.push().setValue(users);
