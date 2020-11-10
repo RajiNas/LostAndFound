@@ -78,6 +78,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(ItemsRegistrationActivity.this, "Item saved", Toast.LENGTH_SHORT).show();
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -85,6 +86,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity {
                             Toast.makeText(ItemsRegistrationActivity.this, "Item not saved", Toast.LENGTH_SHORT).show();
                         }
                     });
+
             }
         });
     }
