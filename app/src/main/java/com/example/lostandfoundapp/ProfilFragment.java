@@ -31,7 +31,7 @@ public class ProfilFragment extends Fragment {
     DatabaseReference databaseReference;
 
 
-    TextView txtUsername, txtEmail,txtPhone, txtPassword;
+    TextView txtUsername, txtEmail,txtPhone, txtPassword, txtDate;
     Button btnEdit;
 
     public ProfilFragment() {
@@ -57,6 +57,7 @@ public class ProfilFragment extends Fragment {
         txtEmail = view.findViewById(R.id.textView_email_ProfileFragment);
         txtPhone = view.findViewById(R.id.textView_phone_ProfileFragment);
         txtPassword = view.findViewById(R.id.textView_password_ProfileFragment);
+        txtDate = view.findViewById(R.id.textView_date_ProfileFragment);
 
         btnEdit = (Button)getActivity().findViewById(R.id.button_edit_ProfileFragment);
 
@@ -69,11 +70,13 @@ public class ProfilFragment extends Fragment {
                     String email = " " + ds.child("email").getValue();
                     String phone = " " + ds.child("phone").getValue();
                     String password = " " + ds.child("password").getValue();
+                    String date = " " + ds.child("date").getValue();
 
                     txtUsername.setText(name);
                     txtEmail.setText(email);
                     txtPhone.setText(phone);
                     txtPassword.setText(password);
+                    txtDate.setText(date);
                 }
             }
 

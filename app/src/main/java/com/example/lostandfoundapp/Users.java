@@ -5,6 +5,7 @@ public class Users {
     String email;
     Long phone;
     int password;
+    String date;
 //    int confPassword;
 
     public Users() { }
@@ -41,11 +42,11 @@ public class Users {
         this.password = password;
     }
 
-//    public int getConfPassword() {
-//        return confPassword;
-//    }
-//
-//    public void setConfPassword(int confPassword) {
-//        this.confPassword = confPassword;
-//    }
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
