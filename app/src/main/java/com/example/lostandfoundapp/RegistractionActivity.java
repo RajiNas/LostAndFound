@@ -78,7 +78,7 @@ public class RegistractionActivity extends AppCompatActivity {
 
                 //generate date upon creating a new account
                 Calendar calendar =Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
                 String date =simpleDateFormat.format(calendar.getTime());
 
                 if(username.isEmpty()){
