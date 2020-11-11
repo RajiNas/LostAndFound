@@ -47,18 +47,21 @@
         android:hint="Description of item"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/editTextCategory"
+    <Spinner
+        android:id="@+id/editTextCategoryspinner"
         android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+       android:spinnerMode="dropdown"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Category"
-        android:inputType="textPersonName" />
+
+        />
 
     <Button
         android:id="@+id/buttonaddItem"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="120dp"
+
         android:layout_width="match_parent"
+        android:hint="Please select a category"
         android:layout_height="wrap_content"
         android:text="Add" />
 

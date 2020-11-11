@@ -16,8 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -25,12 +29,14 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ItemsRegistrationActivity extends AppCompatActivity {
+public class ItemsRegistrationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
-    EditText titletxt, longtxt,lattxt,descriptiontxt, categorytxt;
+    EditText titletxt, longtxt,lattxt,descriptiontxt;
+    Spinner categorysp;
     Button additem , returnback;
 
+    String chosenCategory;
     // initialize fireStore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 //    DocumentReference notereference = db.document("TypeOfItems/ Item");
@@ -50,7 +56,14 @@ public class ItemsRegistrationActivity extends AppCompatActivity {
         longtxt =(EditText) findViewById(R.id.editTextLongitude);
         lattxt =(EditText) findViewById(R.id.editTextLatitude);
         descriptiontxt =(EditText) findViewById(R.id.editTextDescriptionItem);
-        categorytxt = (EditText)findViewById(R.id.editTextCategory);
+
+        //set the categori of the item
+        categorysp = (Spinner) findViewById(R.id.editTextCategoryspinner);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.Categories, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        categorysp.setAdapter(adapter);
+        categorysp.setOnItemSelectedListener(this);
 
         additem =(Button) findViewById(R.id.buttonaddItem);
         returnback =(Button) findViewById(R.id.buttonBacktoContainer);
@@ -72,20 +85,30 @@ public class ItemsRegistrationActivity extends AppCompatActivity {
                     Float itemlong = Float.parseFloat(longtxt.getText().toString());
                     Float itemlat = Float.parseFloat(lattxt.getText().toString());
                     String descriptionitem = descriptiontxt.getText().toString();
-                    String category = categorytxt.getText().toString();
+                  //  String category = categorytxt.getText().toString();
 
-                Calendar calendar =Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
-                String date =simpleDateFormat.format(calendar.getTime());
 
-                Items items = new Items(itemTitle,itemlong,itemlat,descriptionitem,category, date);
 
-                reff.add(items).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(ItemsRegistrationActivity.this, "Data added", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                // if Category is not selected the user won't be able to add item
+                if( itemTitle.equals("") || itemlong == null || itemlat == null ||descriptionitem.equals(""))
+                {
+                    Toast.makeText(ItemsRegistrationActivity.this, "Empty fields", Toast.LENGTH_SHORT).show();
+                }else {
+                    Calendar calendar =Calendar.getInstance();
+                    SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
+                    String date =simpleDateFormat.format(calendar.getTime());
+
+                    Items items = new Items(itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date);
+                    if (chosenCategory == "Select Category") {
+                        Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
+
+                    } else
+                        reff.add(items).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(ItemsRegistrationActivity.this, "Data added", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
 //                    Map<String , Object> note = new HashMap<>();
 //                    note.put(ITEM_TITLE, itemTitle);
@@ -105,8 +128,20 @@ public class ItemsRegistrationActivity extends AppCompatActivity {
 //                            Toast.makeText(ItemsRegistrationActivity.this, "Item not saved", Toast.LENGTH_SHORT).show();
 //                        }
 //                    });
-
+                }
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        String categoryText = adapterView.getItemAtPosition(position).toString();
+       // Toast.makeText(adapterView.getContext(),categoryText,Toast.LENGTH_SHORT).show();
+        chosenCategory = categoryText;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
