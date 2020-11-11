@@ -7,6 +7,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,11 +40,16 @@ import java.util.Map;
 public class ItemsRegistrationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
+    FirebaseDatabase firebaseDatabase;
+    FirebaseUser user;
+    FirebaseAuth firebaseAuth;
+    DatabaseReference databaseReference;
+
     EditText titletxt, longtxt,lattxt,descriptiontxt;
     Spinner categorysp;
     Button additem , returnback;
 
-    String chosenCategory;
+    String chosenCategory , chosenCurrentUser;
     // initialize fireStore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 //    DocumentReference notereference = db.document("TypeOfItems/ Item");
@@ -81,15 +94,19 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         additem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    String itemTitle = titletxt.getText().toString();
+                String itemTitle = titletxt.getText().toString();
+                String descriptionitem = descriptiontxt.getText().toString();
+               // Initialize float
                 Float itemlong;
                 Float itemlat;
-                  // add values so that the float wont be empty
-                if( longtxt.getText().toString().equals(""))
+
+                  // add values so that the float wont be empty with the string
+                if( longtxt.getText().toString().equals("") )
                     {
                          itemlong = 0.0f;
 
-                    }else {
+                    }
+                else {
                     itemlong = Float.parseFloat(longtxt.getText().toString());
                 }
                 if( lattxt.getText().toString().equals("")){
@@ -97,8 +114,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 }else {
                     itemlat = Float.parseFloat(lattxt.getText().toString());
                 }
-                    String descriptionitem = descriptiontxt.getText().toString();
-                  //  String category = categorytxt.getText().toString();
+
+
 
 
 
@@ -111,8 +128,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
                     String date =simpleDateFormat.format(calendar.getTime());
 
-                    Items items = new Items(itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date);
-                    if (chosenCategory == "Select Category") {
+                    Items items = new Items(chosenCurrentUser,itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date);
+                    if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 
                     } else
@@ -123,33 +140,45 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                             }
                         });
 
-//                    Map<String , Object> note = new HashMap<>();
-//                    note.put(ITEM_TITLE, itemTitle);
-//                    note.put(ITEM_LONGITUDE,itemlong);
-//                    note.put(ITEM_LATITUDE,itemlat);
-//                    note.put(ITEM_DESCRIPTION,descriptionitem);
-
-//                    reff.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Toast.makeText(ItemsRegistrationActivity.this, "Item saved", Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(ItemsRegistrationActivity.this, "Item not saved", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
                 }
             }
         });
+        // init firebase
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Users");
+
+
+
+        // obtain the name of the user to add into the firestoe
+        Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    String name = " " + ds.child("username").getValue();
+
+
+                    // Select user name and add it into the item
+                    chosenCurrentUser = name;
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         String categoryText = adapterView.getItemAtPosition(position).toString();
-       // Toast.makeText(adapterView.getContext(),categoryText,Toast.LENGTH_SHORT).show();
+       Toast.makeText(adapterView.getContext(),categoryText,Toast.LENGTH_SHORT).show();
         chosenCategory = categoryText;
     }
 
@@ -157,4 +186,9 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+
+
+
+
 }

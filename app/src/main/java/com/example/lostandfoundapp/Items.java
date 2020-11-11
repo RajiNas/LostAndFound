@@ -1,6 +1,7 @@
 package com.example.lostandfoundapp;
 
 public class Items {
+    String UserName;
     String title;
     Float lon;
     Float lat;
@@ -8,13 +9,22 @@ public class Items {
     String category;
     String date;
 
-    public Items(String title, Float lon, Float lat, String description, String category, String date) {
+    public Items(String userName, String title, Float lon, Float lat, String description, String category, String date) {
+        UserName = userName;
         this.title = title;
         this.lon = lon;
         this.lat = lat;
         this.description = description;
         this.category = category;
         this.date = date;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String userName) {
+        UserName = userName;
     }
 
     public String getTitle() {
