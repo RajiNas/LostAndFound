@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -19,22 +20,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ItemsRegistrationActivity extends AppCompatActivity {
 
 
-    EditText titletxt, longtxt,lattxt,descriptiontxt;
+    EditText titletxt, longtxt,lattxt,descriptiontxt, categorytxt;
     Button additem , returnback;
 
     // initialize fireStore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    DocumentReference notereference = db.document("TypeOfItems/ Item");
+//    DocumentReference notereference = db.document("TypeOfItems/ Item");
+    CollectionReference reff = db.collection("Item");
+
     private static final String ITEM_TITLE ="title";
     private static final String ITEM_LATITUDE ="latitude";
     private static final String ITEM_LONGITUDE ="longitude";
     private static final String ITEM_DESCRIPTION ="description";
+    private static final String ITEM_CATEGORY = "category";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +50,10 @@ public class ItemsRegistrationActivity extends AppCompatActivity {
         longtxt =(EditText) findViewById(R.id.editTextLongitude);
         lattxt =(EditText) findViewById(R.id.editTextLatitude);
         descriptiontxt =(EditText) findViewById(R.id.editTextDescriptionItem);
+        categorytxt = (EditText)findViewById(R.id.editTextCategory);
 
         additem =(Button) findViewById(R.id.buttonaddItem);
         returnback =(Button) findViewById(R.id.buttonBacktoContainer);
-
-
-
 
         //Go back to the Container activity
         returnback.setOnClickListener(new View.OnClickListener() {
@@ -65,27 +69,42 @@ public class ItemsRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     String itemTitle = titletxt.getText().toString();
-                    String itemlong = longtxt.getText().toString();
-                    String itemlat = lattxt.getText().toString();
+                    Float itemlong = Float.parseFloat(longtxt.getText().toString());
+                    Float itemlat = Float.parseFloat(lattxt.getText().toString());
                     String descriptionitem = descriptiontxt.getText().toString();
+                    String category = categorytxt.getText().toString();
 
-                    Map<String , Object> note = new HashMap<>();
-                    note.put(ITEM_TITLE, itemTitle);
-                    note.put(ITEM_LONGITUDE,itemlong);
-                    note.put(ITEM_LATITUDE,itemlat);
-                    note.put(ITEM_DESCRIPTION,descriptionitem);
-                    notereference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(ItemsRegistrationActivity.this, "Item saved", Toast.LENGTH_SHORT).show();
+                Calendar calendar =Calendar.getInstance();
+                SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
+                String date =simpleDateFormat.format(calendar.getTime());
 
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ItemsRegistrationActivity.this, "Item not saved", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                Items items = new Items(itemTitle,itemlong,itemlat,descriptionitem,category, date);
+
+                reff.add(items).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(ItemsRegistrationActivity.this, "Data added", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+//                    Map<String , Object> note = new HashMap<>();
+//                    note.put(ITEM_TITLE, itemTitle);
+//                    note.put(ITEM_LONGITUDE,itemlong);
+//                    note.put(ITEM_LATITUDE,itemlat);
+//                    note.put(ITEM_DESCRIPTION,descriptionitem);
+
+//                    reff.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Toast.makeText(ItemsRegistrationActivity.this, "Item saved", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(ItemsRegistrationActivity.this, "Item not saved", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
 
             }
         });

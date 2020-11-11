@@ -47,6 +47,14 @@
         android:hint="Description of item"
         android:inputType="textPersonName" />
 
+    <EditText
+        android:id="@+id/editTextCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Category"
+        android:inputType="textPersonName" />
+
     <Button
         android:id="@+id/buttonaddItem"
         android:layout_marginTop="30dp"
