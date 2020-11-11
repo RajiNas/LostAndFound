@@ -6,6 +6,7 @@ public class Users {
     Long phone;
     int password;
     String date;
+    String image;
 //    int confPassword;
 
     public Users() { }
@@ -48,5 +49,13 @@ public class Users {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

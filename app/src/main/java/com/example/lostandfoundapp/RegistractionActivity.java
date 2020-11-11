@@ -31,6 +31,8 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistractionActivity extends AppCompatActivity {
     EditText editTextUsername, editTextEmail, editTextPhone, editTextPassword, editTextConfrimPass;
@@ -129,7 +131,7 @@ public class RegistractionActivity extends AppCompatActivity {
                 users.setPhone(Long.parseLong(phone));
                 users.setPassword(Integer.parseInt(password));
                 users.setDate(date);
-//                users.setConfPassword(Integer.parseInt(confPass));
+                users.setImage("");
 
                 reff.push().setValue(users);
             }

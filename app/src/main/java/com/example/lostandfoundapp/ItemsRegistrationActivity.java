@@ -50,6 +50,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     Button additem , returnback;
 
     String chosenCategory , chosenCurrentUser;
+
     // initialize fireStore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -80,6 +81,12 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
         additem =(Button) findViewById(R.id.buttonaddItem);
         returnback =(Button) findViewById(R.id.buttonBacktoContainer);
+
+        // init firebase
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Users");
 
         //Go back to the Container activity
         returnback.setOnClickListener(new View.OnClickListener() {
@@ -137,11 +144,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 }
             }
         });
-        // init firebase
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Users");
+
 
         // obtain the name of the user to add into the firestoe
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
@@ -161,8 +164,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
             }
         });
-
-
     }
 
     @Override
@@ -176,9 +177,4 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-
-
-
-
-
 }

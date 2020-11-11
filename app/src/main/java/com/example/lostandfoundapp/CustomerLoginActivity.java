@@ -57,6 +57,7 @@ public class CustomerLoginActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
+
         // import call
         mAuth = FirebaseAuth.getInstance();
 
@@ -130,7 +131,6 @@ public class CustomerLoginActivity extends AppCompatActivity {
                 // input email
                 String email = emailEt.getText().toString().trim();
                 beginRecovery(email);
-
             }
         });
 
