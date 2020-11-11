@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,10 +39,13 @@ public class ProfilFragment extends Fragment {
     DatabaseReference databaseReference;
 
 
+    FloatingActionButton updateImgprofilebtn;
+
     TextView txtUsername, txtEmail,txtPhone, txtDate;
     CircleImageView img;
     Button btnEdit;
 
+    String imgProfilPicture;
     public ProfilFragment() {
         // Required empty public constructor
     }
@@ -68,8 +72,10 @@ public class ProfilFragment extends Fragment {
         txtDate = view.findViewById(R.id.textView_date_ProfileFragment);
         img = view.findViewById(R.id.imageview_ProfileFragment);
 
+        updateImgprofilebtn =(FloatingActionButton)view.findViewById(R.id.UpdateUserPicture_ProfilGragment);
+
         btnEdit = (Button)getActivity().findViewById(R.id.button_edit_ProfileFragment);
-     //   Picasso.get().load("https://en.wikipedia.org/wiki/File:Donald_Trump_official_portrait.jpg").into(img);
+
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,7 +86,7 @@ public class ProfilFragment extends Fragment {
                     String phone = "" + ds.child("phone").getValue();
 //                    String password = "" + ds.child("password").getValue();
                     String date = "" + ds.child("date").getValue();
-                    String image = "" + ds.child("image").getValue();
+                     imgProfilPicture = "" + ds.child("image").getValue();
 
                     txtUsername.setText(name);
                     txtEmail.setText(email);
@@ -89,7 +95,8 @@ public class ProfilFragment extends Fragment {
                     txtDate.setText(date);
 //                    Log.d("ProfilFragment", "http://i.imgur.com/DvpvklR.png");
 
-                    Picasso.get().load(image).into(img);
+                    Picasso.get().load(imgProfilPicture).into(img);
+
 
 
                 }
@@ -100,6 +107,19 @@ public class ProfilFragment extends Fragment {
 
             }
         });
+
+
+        //update images
+
+        updateImgprofilebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Picasso.get().load("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRoX6lhTZKutDXlSB0r6828aCbXuxj91BgHUg&usqp=CAU").into(img);
+            }
+        });
+
 
 
         return view;

@@ -20,11 +20,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.139" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/UpdateUserPicture_ProfilGragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    android:src="@drawable/add_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.735"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.306" />
+
     <TextView
         android:id="@+id/textView_username_ProfileFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="80dp"
         android:padding="7dp"
         android:text="Username"
         app:layout_constraintEnd_toEndOf="parent"
