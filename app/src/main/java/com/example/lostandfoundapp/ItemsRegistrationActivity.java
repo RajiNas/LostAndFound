@@ -82,15 +82,28 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
             @Override
             public void onClick(View view) {
                     String itemTitle = titletxt.getText().toString();
-                    Float itemlong = Float.parseFloat(longtxt.getText().toString());
-                    Float itemlat = Float.parseFloat(lattxt.getText().toString());
+                Float itemlong;
+                Float itemlat;
+                  // add values so that the float wont be empty
+                if( longtxt.getText().toString().equals(""))
+                    {
+                         itemlong = 0.0f;
+
+                    }else {
+                    itemlong = Float.parseFloat(longtxt.getText().toString());
+                }
+                if( lattxt.getText().toString().equals("")){
+                    itemlat = 0.0f;
+                }else {
+                    itemlat = Float.parseFloat(lattxt.getText().toString());
+                }
                     String descriptionitem = descriptiontxt.getText().toString();
                   //  String category = categorytxt.getText().toString();
 
 
 
                 // if Category is not selected the user won't be able to add item
-                if( itemTitle.equals("") || itemlong == null || itemlat == null ||descriptionitem.equals(""))
+                if( itemTitle.equals("") || itemlong == 0.0 || itemlat == 0.0 ||descriptionitem.equals(""))
                 {
                     Toast.makeText(ItemsRegistrationActivity.this, "Empty fields", Toast.LENGTH_SHORT).show();
                 }else {
