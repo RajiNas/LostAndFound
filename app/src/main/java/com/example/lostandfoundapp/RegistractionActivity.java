@@ -24,7 +24,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,6 +35,7 @@ import java.util.Calendar;
 public class RegistractionActivity extends AppCompatActivity {
     EditText editTextUsername, editTextEmail, editTextPhone, editTextPassword, editTextConfrimPass;
     Button btnRegister;
+    TextView txtLogin;
     ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
@@ -50,6 +54,7 @@ public class RegistractionActivity extends AppCompatActivity {
         editTextPhone = (EditText)findViewById(R.id.editText_registrationActivity_phone);
         editTextPassword = (EditText)findViewById(R.id.editText_registrationActivity_password);
         editTextConfrimPass = (EditText)findViewById(R.id.editText_registrationActivity_confirmPassword);
+        txtLogin = (TextView)findViewById(R.id.textView_RegistrationAct_login);
 
         btnRegister = (Button)findViewById(R.id.button_registrationAcitvity_register);
 
@@ -66,6 +71,15 @@ public class RegistractionActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, CustomerLoginActivity.class));
         }
+
+        //login textview click
+        txtLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegistractionActivity.this, CustomerLoginActivity.class));
+                finish();
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override

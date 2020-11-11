@@ -52,7 +52,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     String chosenCategory , chosenCurrentUser;
     // initialize fireStore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    DocumentReference notereference = db.document("TypeOfItems/ Item");
+
     CollectionReference reff = db.collection("Item");
 
     private static final String ITEM_TITLE ="title";
@@ -101,11 +101,9 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 Float itemlat;
 
                   // add values so that the float wont be empty with the string
-                if( longtxt.getText().toString().equals("") )
-                    {
-                         itemlong = 0.0f;
-
-                    }
+                if( longtxt.getText().toString().equals("")){
+                    itemlong = 0.0f;
+                }
                 else {
                     itemlong = Float.parseFloat(longtxt.getText().toString());
                 }
@@ -114,10 +112,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 }else {
                     itemlat = Float.parseFloat(lattxt.getText().toString());
                 }
-
-
-
-
 
                 // if Category is not selected the user won't be able to add item
                 if( itemTitle.equals("") || itemlong == 0.0 || itemlat == 0.0 ||descriptionitem.equals(""))
@@ -149,8 +143,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
 
-
-
         // obtain the name of the user to add into the firestoe
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
         query.addValueEventListener(new ValueEventListener() {
@@ -159,10 +151,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 for(DataSnapshot ds : snapshot.getChildren()){
                     String name = " " + ds.child("username").getValue();
 
-
                     // Select user name and add it into the item
                     chosenCurrentUser = name;
-
                 }
             }
 
@@ -178,7 +168,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         String categoryText = adapterView.getItemAtPosition(position).toString();
-       Toast.makeText(adapterView.getContext(),categoryText,Toast.LENGTH_SHORT).show();
+        Toast.makeText(adapterView.getContext(),categoryText,Toast.LENGTH_SHORT).show();
         chosenCategory = categoryText;
     }
 
