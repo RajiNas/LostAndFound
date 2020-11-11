@@ -7,13 +7,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +27,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ProfilFragment extends Fragment {
 
@@ -33,8 +38,8 @@ public class ProfilFragment extends Fragment {
     DatabaseReference databaseReference;
 
 
-    TextView txtUsername, txtEmail,txtPhone, txtPassword, txtDate;
-    ImageView img;
+    TextView txtUsername, txtEmail,txtPhone, txtDate;
+    CircleImageView img;
     Button btnEdit;
 
     public ProfilFragment() {
@@ -59,37 +64,33 @@ public class ProfilFragment extends Fragment {
         txtUsername = view.findViewById(R.id.textView_username_ProfileFragment);
         txtEmail = view.findViewById(R.id.textView_email_ProfileFragment);
         txtPhone = view.findViewById(R.id.textView_phone_ProfileFragment);
-        txtPassword = view.findViewById(R.id.textView_password_ProfileFragment);
+//        txtPassword = view.findViewById(R.id.textView_password_ProfileFragment);
         txtDate = view.findViewById(R.id.textView_date_ProfileFragment);
         img = view.findViewById(R.id.imageview_ProfileFragment);
 
         btnEdit = (Button)getActivity().findViewById(R.id.button_edit_ProfileFragment);
-
+     //   Picasso.get().load("https://en.wikipedia.org/wiki/File:Donald_Trump_official_portrait.jpg").into(img);
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()){
-                    String name = " " + ds.child("username").getValue();
-                    String email = " " + ds.child("email").getValue();
-                    String phone = " " + ds.child("phone").getValue();
-                    String password = " " + ds.child("password").getValue();
-                    String date = " " + ds.child("date").getValue();
-                    String image = " " + ds.child("image").getValue();
+                    String name = "" + ds.child("username").getValue();
+                    String email = "" + ds.child("email").getValue();
+                    String phone = "" + ds.child("phone").getValue();
+//                    String password = "" + ds.child("password").getValue();
+                    String date = "" + ds.child("date").getValue();
+                    String image = "" + ds.child("image").getValue();
 
                     txtUsername.setText(name);
                     txtEmail.setText(email);
                     txtPhone.setText(phone);
-                    txtPassword.setText(password);
+//                    txtPassword.setText(password);
                     txtDate.setText(date);
-//                    Picasso.get().load(image).into(img);
+//                    Log.d("ProfilFragment", "http://i.imgur.com/DvpvklR.png");
 
-                    try {
-                        Picasso.get().load(image).into(img);
-                    }catch (Exception e){
-                        Picasso.get().load(R.mipmap.ic_launcher_round).into(img);
-//                        e.printStackTrace();
-                    }
+                    Picasso.get().load(image).into(img);
+
 
                 }
             }
