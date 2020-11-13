@@ -1,6 +1,7 @@
 package com.example.lostandfoundapp;
 
-public class Items {
+public class Items
+{
     String UserName;
     String title;
     Float lon;
