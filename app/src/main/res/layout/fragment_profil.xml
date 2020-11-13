@@ -21,16 +21,16 @@
         app:layout_constraintVertical_bias="0.139" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/UpdateUserPicture_ProfilGragment"
+        android:id="@+id/UpdateUserPicture_ProfilFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-    android:src="@drawable/add_icon"
+        android:src="@drawable/edit_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.735"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.306" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <TextView
         android:id="@+id/textView_username_ProfileFragment"
@@ -64,19 +64,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_email_ProfileFragment" />
 
-
-
-    <Button
-        android:id="@+id/button_edit_ProfileFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Edit"
-        app:backgroundTint="#D85BB343"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_date_ProfileFragment" />
 
     <TextView
         android:id="@+id/textView_date_ProfileFragment"

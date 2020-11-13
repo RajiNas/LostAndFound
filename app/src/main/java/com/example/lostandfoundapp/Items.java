@@ -8,8 +8,10 @@ public class Items {
     String description;
     String category;
     String date;
+    String status;
 
-    public Items(String userName, String title, Float lon, Float lat, String description, String category, String date) {
+
+    public Items(String userName, String title, Float lon, Float lat, String description, String category, String date, String status) {
         UserName = userName;
         this.title = title;
         this.lon = lon;
@@ -17,6 +19,7 @@ public class Items {
         this.description = description;
         this.category = category;
         this.date = date;
+        this.status = status;
     }
 
     public String getUserName() {
@@ -73,5 +76,13 @@ public class Items {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

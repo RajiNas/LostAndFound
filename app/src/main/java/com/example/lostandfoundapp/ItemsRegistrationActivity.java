@@ -45,7 +45,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
 
-    EditText titletxt, longtxt,lattxt,descriptiontxt;
+    EditText titletxt, longtxt,lattxt,descriptiontxt, edStatus;
     Spinner categorysp;
     Button additem , returnback;
 
@@ -70,6 +70,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         longtxt =(EditText) findViewById(R.id.editTextLongitude);
         lattxt =(EditText) findViewById(R.id.editTextLatitude);
         descriptiontxt =(EditText) findViewById(R.id.editTextDescriptionItem);
+        edStatus = (EditText)findViewById(R.id.editextItemStatus_Itemregisration);
 
         //set the categori of the item
         categorysp = (Spinner) findViewById(R.id.editTextCategoryspinner);
@@ -103,6 +104,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
             public void onClick(View view) {
                 String itemTitle = titletxt.getText().toString();
                 String descriptionitem = descriptiontxt.getText().toString();
+                String status = edStatus.getText().toString();
                // Initialize float
                 Float itemlong;
                 Float itemlat;
@@ -121,7 +123,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 }
 
                 // if Category is not selected the user won't be able to add item
-                if( itemTitle.equals("") || itemlong == 0.0 || itemlat == 0.0 ||descriptionitem.equals(""))
+                if( itemTitle.equals("") || itemlong == 0.0 || itemlat == 0.0 ||descriptionitem.equals("") || status.equals(""))
                 {
                     Toast.makeText(ItemsRegistrationActivity.this, "Empty fields", Toast.LENGTH_SHORT).show();
                 }else {
@@ -129,7 +131,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
                     String date =simpleDateFormat.format(calendar.getTime());
 
-                    Items items = new Items(chosenCurrentUser,itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date);
+                    Items items = new Items(chosenCurrentUser,itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date, status);
                     if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 

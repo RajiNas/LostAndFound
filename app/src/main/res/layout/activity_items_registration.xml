@@ -16,6 +16,14 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <EditText
+        android:id="@+id/editextItemStatus_Itemregisration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Status"
+        android:inputType="textPersonName" />
+
+    <EditText
         android:id="@+id/editextTitleItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
