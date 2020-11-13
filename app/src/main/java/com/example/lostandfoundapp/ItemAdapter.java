@@ -79,11 +79,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter .ViewHolder>
         public ViewHolder(View itemView)
         {
             super(itemView);
-            username = (TextView) itemView.findViewById(R.id.);
-            title = (TextView) itemView.findViewById(R.id.);
-            description = (TextView) itemView.findViewById(R.id.);
-            date = (TextView) itemView.findViewById(R.id.);
-            cv = (CardView) itemView.findViewById(R.id.cv);
+//            username = (TextView) itemView.findViewById(R.id.);
+//            title = (TextView) itemView.findViewById(R.id.);
+//            description = (TextView) itemView.findViewById(R.id.);
+//            date = (TextView) itemView.findViewById(R.id.);
+//            cv = (CardView) itemView.findViewById(R.id.cv);
         }
 
     }
