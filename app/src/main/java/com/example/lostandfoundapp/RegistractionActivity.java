@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -43,7 +44,7 @@ public class RegistractionActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     DatabaseReference reff;
     Users users;
-
+    FirebaseUser fUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +64,15 @@ public class RegistractionActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Registering User...");
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Users");
+
+
+        reff = FirebaseDatabase.getInstance().getReference("Users");
         users = new Users();
+
 
         //import call
         mAuth =FirebaseAuth.getInstance();
+        fUser = mAuth.getCurrentUser();
 
         if(mAuth.getCurrentUser() != null){
             finish();
@@ -126,14 +131,18 @@ public class RegistractionActivity extends AppCompatActivity {
                     return;
                 }
                 callSignup(email,password);
-                users.setUsername(username);
-                users.setEmail(email);
-                users.setPhone(Long.parseLong(phone));
-                users.setPassword(Integer.parseInt(password));
-                users.setDate(date);
-                users.setImage("");
 
-                reff.push().setValue(users);
+
+//                users.setUsername(username);
+//                users.setEmail(email);
+//                users.setPhone(Long.parseLong(phone));
+//                users.setPassword(Integer.parseInt(password));
+//                users.setDate(date);
+//                users.setImage("");
+
+ //               Users users1 = new Users(username,email,Long.parseLong(phone),Integer.parseInt(password),date,"");
+//                reff.child("Joel").setValue(users1);
+                //reff.push().setValue(users);
             }
         });
     }

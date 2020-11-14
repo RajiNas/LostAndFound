@@ -9,6 +9,15 @@ public class Users {
     String image;
 //    int confPassword;
 
+    public Users(String username, String email, Long phone, int password, String date, String image) {
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.date = date;
+        this.image = image;
+    }
+
     public Users() { }
 
     public String getUsername() {
