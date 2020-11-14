@@ -211,7 +211,7 @@ public class RegistractionActivity extends AppCompatActivity {
                     hashMap.put("username", "Please Enter a Username");
                     hashMap.put("phone", "Please Enter Your Phone");
                     hashMap.put("date", date);
-                    hashMap.put("image", "");
+                    hashMap.put("image", "https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero.jpg");
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
