@@ -38,10 +38,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter .ViewHolder>
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_found, parent, false); //Idk which layout
         ViewHolder viewHolder = new ViewHolder(view);
         context = parent.getContext();
         return viewHolder;
+
+
+
     }
 
     @SuppressLint("SetTextI18n")
