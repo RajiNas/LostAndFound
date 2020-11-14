@@ -46,11 +46,6 @@ public class RegistractionActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     DatabaseReference reff;
 
-    Users users;
-    FirebaseUser fUser;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,18 +62,10 @@ public class RegistractionActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Registering User...");
 
-
-
-
         reff = FirebaseDatabase.getInstance().getReference("Users");
-        users = new Users();
-
-
-
 
         //import call
         mAuth =FirebaseAuth.getInstance();
-        fUser = mAuth.getCurrentUser();
 
         if(mAuth.getCurrentUser() != null){
             finish();
@@ -97,18 +84,10 @@ public class RegistractionActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String username = editTextUsername.getText().toString().trim();
                 String email = editTextEmail.getText().toString().trim();
-//                String phone = editTextPhone.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
                 String confPass = editTextConfrimPass.getText().toString().trim();
 
-
-
-//                if(username.isEmpty()){
-//                    Toast.makeText(RegistractionActivity.this, "Type username", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
                 if(Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     editTextEmail.setError("Invalid Email");
                     editTextEmail.setFocusable(true);
@@ -117,10 +96,6 @@ public class RegistractionActivity extends AppCompatActivity {
                     Toast.makeText(RegistractionActivity.this, "Type email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                if(phone.isEmpty()){
-//                    Toast.makeText(RegistractionActivity.this, "Type phone", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
                 if(password.isEmpty()){
                     Toast.makeText(RegistractionActivity.this, "Type password", Toast.LENGTH_SHORT).show();
                     return;
@@ -138,46 +113,6 @@ public class RegistractionActivity extends AppCompatActivity {
                     return;
                 }
                 callSignup(email,password);
-
-
-
-//                users.setUsername(username);
-//                users.setEmail(email);
-//                users.setPhone(Long.parseLong(phone));
-//                users.setPassword(Integer.parseInt(password));
-//                users.setDate(date);
-//                users.setImage("");
-
- //               Users users1 = new Users(username,email,Long.parseLong(phone),Integer.parseInt(password),date,"");
-//                reff.child("Joel").setValue(users1);
-                //reff.push().setValue(users);
-
-//                HashMap<String, Object> data = new HashMap<>();
-//                data.put("username", "");
-//                data.put("email", email);
-//                data.put("phone", "");
-//                data.put("password", password);
-
-//                reff.child(user.getUid()).push().setValue(data)
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                //update, dismiss progress
-////                                pd.dismiss();
-//                                Toast.makeText(getApplicationContext(), "Updated...", Toast.LENGTH_SHORT).show();
-//
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                //failed, dismiss progress, get and show error message
-////                                pd.dismiss();
-//                                Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//
-//                            }
-//                        });
-
             }
         });
     }
@@ -231,31 +166,4 @@ public class RegistractionActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void userProfile(){
-//        FirebaseUser user = mAuth.getCurrentUser();
-//        if(user != null){
-//            UserProfileChangeRequest profileUpates = new UserProfileChangeRequest.Builder()
-//                    .setDisplayName(editTextEmail.getText().toString().trim())
-//                    .build();
-//
-//            user.updateProfile(profileUpates).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                    if(task.isSuccessful()){
-//                        progressDialog.dismiss();
-//                        System.out.println("sign in successful" + task.isSuccessful());
-//                    }
-//                    if(! task.isSuccessful()){
-//                        Toast.makeText(RegistractionActivity.this, "Failed",Toast.LENGTH_LONG).show();
-//                    }else{
-//                        Intent intent = new Intent(RegistractionActivity.this, CustomerLoginActivity.class);
-//
-//                        finish();
-//                        startActivity(intent);
-//                    }
-//                }
-//            });
-//        }
-//    }
 }
