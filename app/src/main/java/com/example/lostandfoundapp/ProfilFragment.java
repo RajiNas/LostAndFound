@@ -94,7 +94,6 @@ public class ProfilFragment extends Fragment {
     String storagePermission[];
 
     //uri of picked image
-    Uri image_uri; //uri of picked image
     Uri image_uri;
 
 //    //for test

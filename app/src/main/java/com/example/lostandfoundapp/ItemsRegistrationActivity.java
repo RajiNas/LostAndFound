@@ -1,6 +1,7 @@
 package com.example.lostandfoundapp;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -65,6 +66,11 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     Button additem , returnback;
 
     String chosenCategory , chosenCurrentUser;
+    //init progress dialog
+
+    //path where images of user profile will be stored
+    String storagePath = "Users_Profile_Cover_Imgs/";
+
 
     //Permission constants
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -75,6 +81,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     String cameraPermission [];
     String storagePermission[];
 
+    //Progress dialog
+    ProgressDialog pd;
     //uri of picked image
     Uri image_uri;
     // initialize fireStore
@@ -99,7 +107,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         descriptiontxt =(EditText) findViewById(R.id.editTextDescriptionItem);
         edStatus = (EditText)findViewById(R.id.editextItemStatus_Itemregisration);
         imgItem = (ImageView)findViewById(R.id.imageViewItemActivity);
-
+        pd = new ProgressDialog(this);
         //set the categori of the item
         categorysp = (Spinner) findViewById(R.id.editTextCategoryspinner);
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.Categories, android.R.layout.simple_spinner_item);
@@ -224,6 +232,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestStoragePermission(){
         //request runtime storage permission
         requestPermissions(storagePermission, STORAGE_REQUEST_CODE);
@@ -242,6 +251,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestCameraPermission(){
         //request runtime camera permission
         requestPermissions(cameraPermission, CAMERA_REQUEST_CODE);
@@ -336,7 +346,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                                             //url in database of user is added successfully
                                             //dismiss progress bar
                                             pd.dismiss();
-                                            Toast.makeText(getActivity(), "Image Updated...", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ItemsRegistrationActivity.this, "Image Updated...", Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -345,14 +355,14 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                                             //error adding url in database of user
                                             //dismiss progress bar
                                             pd.dismiss();
-                                            Toast.makeText(getActivity(), "Error Updating Image...", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ItemsRegistrationActivity.this, "Error Updating Image...", Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
                         }else{
                             //error
                             pd.dismiss();
-                            Toast.makeText(getActivity(), "Some error occured", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ItemsRegistrationActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -361,7 +371,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     public void onFailure(@NonNull Exception e) {
                         //there were some error(s), get and show message, dismiss progress dialog
                         pd.dismiss();
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ItemsRegistrationActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
