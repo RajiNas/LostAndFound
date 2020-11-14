@@ -22,6 +22,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,17 +35,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegistractionActivity extends AppCompatActivity {
-    EditText editTextUsername, editTextEmail, editTextPhone, editTextPassword, editTextConfrimPass;
+    EditText editTextEmail, editTextPassword, editTextConfrimPass;
     Button btnRegister;
     TextView txtLogin;
     ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
     DatabaseReference reff;
+
     Users users;
     FirebaseUser fUser;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +57,7 @@ public class RegistractionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registraction);
 
 
-        editTextUsername = (EditText)findViewById(R.id.editText_registrationActivity_username);
         editTextEmail = (EditText)findViewById(R.id.editText_registrationActivity_email);
-        editTextPhone = (EditText)findViewById(R.id.editText_registrationActivity_phone);
         editTextPassword = (EditText)findViewById(R.id.editText_registrationActivity_password);
         editTextConfrimPass = (EditText)findViewById(R.id.editText_registrationActivity_confirmPassword);
         txtLogin = (TextView)findViewById(R.id.textView_RegistrationAct_login);
@@ -66,8 +69,11 @@ public class RegistractionActivity extends AppCompatActivity {
 
 
 
+
         reff = FirebaseDatabase.getInstance().getReference("Users");
         users = new Users();
+
+
 
 
         //import call
@@ -91,29 +97,30 @@ public class RegistractionActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = editTextUsername.getText().toString().trim();
+//                String username = editTextUsername.getText().toString().trim();
                 String email = editTextEmail.getText().toString().trim();
-                String phone = editTextPhone.getText().toString().trim();
+//                String phone = editTextPhone.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
                 String confPass = editTextConfrimPass.getText().toString().trim();
 
-                //generate date upon creating a new account
-                Calendar calendar =Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
-                String date =simpleDateFormat.format(calendar.getTime());
 
-                if(username.isEmpty()){
-                    Toast.makeText(RegistractionActivity.this, "Type username", Toast.LENGTH_SHORT).show();
-                    return;
+
+//                if(username.isEmpty()){
+//                    Toast.makeText(RegistractionActivity.this, "Type username", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+                if(Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    editTextEmail.setError("Invalid Email");
+                    editTextEmail.setFocusable(true);
                 }
                 if(email.isEmpty()){
                     Toast.makeText(RegistractionActivity.this, "Type email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(phone.isEmpty()){
-                    Toast.makeText(RegistractionActivity.this, "Type phone", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if(phone.isEmpty()){
+//                    Toast.makeText(RegistractionActivity.this, "Type phone", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 if(password.isEmpty()){
                     Toast.makeText(RegistractionActivity.this, "Type password", Toast.LENGTH_SHORT).show();
                     return;
@@ -133,6 +140,7 @@ public class RegistractionActivity extends AppCompatActivity {
                 callSignup(email,password);
 
 
+
 //                users.setUsername(username);
 //                users.setEmail(email);
 //                users.setPhone(Long.parseLong(phone));
@@ -143,6 +151,33 @@ public class RegistractionActivity extends AppCompatActivity {
  //               Users users1 = new Users(username,email,Long.parseLong(phone),Integer.parseInt(password),date,"");
 //                reff.child("Joel").setValue(users1);
                 //reff.push().setValue(users);
+
+//                HashMap<String, Object> data = new HashMap<>();
+//                data.put("username", "");
+//                data.put("email", email);
+//                data.put("phone", "");
+//                data.put("password", password);
+
+//                reff.child(user.getUid()).push().setValue(data)
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                //update, dismiss progress
+////                                pd.dismiss();
+//                                Toast.makeText(getApplicationContext(), "Updated...", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                //failed, dismiss progress, get and show error message
+////                                pd.dismiss();
+//                                Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        });
+
             }
         });
     }
@@ -150,7 +185,8 @@ public class RegistractionActivity extends AppCompatActivity {
     // create account in FB
     private void callSignup(String email, String password){
         progressDialog.show();
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(! task.isSuccessful()){
@@ -158,8 +194,33 @@ public class RegistractionActivity extends AppCompatActivity {
                     Toast.makeText(RegistractionActivity.this, "Sign up failed",Toast.LENGTH_LONG).show();
                 }else{
                     progressDialog.dismiss();
-                    userProfile();
-                    Toast.makeText(RegistractionActivity.this, "Account created",Toast.LENGTH_LONG).show();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    //get user email and uid from auth
+                    String email = user.getEmail();
+                    String uid = user.getUid();
+
+                    //generate date upon creating a new account
+                    Calendar calendar =Calendar.getInstance();
+                    SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
+                    String date =simpleDateFormat.format(calendar.getTime());
+
+                    //using HashMap
+                    HashMap<Object, String> hashMap = new HashMap<>();
+                    hashMap.put("email", email);
+                    hashMap.put("uid", uid);
+                    hashMap.put("username", "");
+                    hashMap.put("phone", "");
+                    hashMap.put("date", date);
+                    hashMap.put("image", "");
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+                    reff = database.getReference().child("Users");
+                    reff.child(uid).setValue(hashMap);
+
+                    Toast.makeText(RegistractionActivity.this, "Account created " + user.getEmail(),Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(RegistractionActivity.this, CustomerLoginActivity.class));
+                    finish();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -171,30 +232,30 @@ public class RegistractionActivity extends AppCompatActivity {
         });
     }
 
-    private void userProfile(){
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null){
-            UserProfileChangeRequest profileUpates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(editTextUsername.getText().toString().trim())
-                    .build();
-
-            user.updateProfile(profileUpates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        progressDialog.dismiss();
-                        System.out.println("sign in successful" + task.isSuccessful());
-                    }
-                    if(! task.isSuccessful()){
-                        Toast.makeText(RegistractionActivity.this, "Failed",Toast.LENGTH_LONG).show();
-                    }else{
-                        Intent intent = new Intent(RegistractionActivity.this, CustomerLoginActivity.class);
-
-                        finish();
-                        startActivity(intent);
-                    }
-                }
-            });
-        }
-    }
+//    private void userProfile(){
+//        FirebaseUser user = mAuth.getCurrentUser();
+//        if(user != null){
+//            UserProfileChangeRequest profileUpates = new UserProfileChangeRequest.Builder()
+//                    .setDisplayName(editTextEmail.getText().toString().trim())
+//                    .build();
+//
+//            user.updateProfile(profileUpates).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    if(task.isSuccessful()){
+//                        progressDialog.dismiss();
+//                        System.out.println("sign in successful" + task.isSuccessful());
+//                    }
+//                    if(! task.isSuccessful()){
+//                        Toast.makeText(RegistractionActivity.this, "Failed",Toast.LENGTH_LONG).show();
+//                    }else{
+//                        Intent intent = new Intent(RegistractionActivity.this, CustomerLoginActivity.class);
+//
+//                        finish();
+//                        startActivity(intent);
+//                    }
+//                }
+//            });
+//        }
+//    }
 }

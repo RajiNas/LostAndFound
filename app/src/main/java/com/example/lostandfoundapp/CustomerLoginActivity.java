@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.InputType;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,16 +31,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+
 public class CustomerLoginActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
     TextView txtRecoverPass, txtReg;
     Button btnLogin;
     ProgressDialog progressDialog;
 
-    FirebaseDatabase firebaseDatabase;
-    FirebaseUser user;
-    FirebaseAuth firebaseAuth;
-    DatabaseReference databaseReference;
+
+    DatabaseReference reff;
 
     private FirebaseAuth mAuth;
 
@@ -48,12 +51,12 @@ public class CustomerLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_login);
 
-        editTextEmail = (EditText)findViewById(R.id.editText_loginActivity_email);
-        editTextPassword = (EditText)findViewById(R.id.editText_loginActivity_Password);
-        txtRecoverPass = (TextView)findViewById(R.id.textView_Login_recoverpassword);
-        txtReg = (TextView)findViewById(R.id.textView_Login_register);
+        editTextEmail = (EditText) findViewById(R.id.editText_loginActivity_email);
+        editTextPassword = (EditText) findViewById(R.id.editText_loginActivity_Password);
+        txtRecoverPass = (TextView) findViewById(R.id.textView_Login_recoverpassword);
+        txtReg = (TextView) findViewById(R.id.textView_Login_register);
 
-        btnLogin = (Button)findViewById(R.id.button_loginActivity_Login);
+        btnLogin = (Button) findViewById(R.id.button_loginActivity_Login);
 
         progressDialog = new ProgressDialog(this);
 
@@ -61,7 +64,7 @@ public class CustomerLoginActivity extends AppCompatActivity {
         // import call
         mAuth = FirebaseAuth.getInstance();
 
-        if(mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             finish();
             startActivity(new Intent(CustomerLoginActivity.this, ContainerAccessActivity.class));
         }
@@ -72,11 +75,15 @@ public class CustomerLoginActivity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
 
-                if(email.isEmpty()){
+                if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    editTextEmail.setError("Invalid Email");
+                    editTextEmail.setFocusable(true);
+                }
+                if (email.isEmpty()) {
                     Toast.makeText(CustomerLoginActivity.this, "Type email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(password.isEmpty()){
+                if (password.isEmpty()) {
                     Toast.makeText(CustomerLoginActivity.this, "Type password", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -121,7 +128,7 @@ public class CustomerLoginActivity extends AppCompatActivity {
         emailEt.setMinEms(16);
 
         linearLayout.addView(emailEt);
-        linearLayout.setPadding(10,10,10,10);
+        linearLayout.setPadding(10, 10, 10, 10);
         builder.setView(linearLayout);
 
         //button recover
@@ -155,10 +162,10 @@ public class CustomerLoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 progressDialog.dismiss();
-                if(task.isComplete()){
+                if (task.isComplete()) {
                     Toast.makeText(CustomerLoginActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else {
                     Toast.makeText(CustomerLoginActivity.this, "Failed...", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -173,19 +180,52 @@ public class CustomerLoginActivity extends AppCompatActivity {
         });
     }
 
-    private void callSignin(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                System.out.println("Sign in successful" + task.isSuccessful());
+    private void callSignin(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        System.out.println("Sign in successful" + task.isSuccessful());
 
-                if(! task.isSuccessful()){
-                    Toast.makeText(CustomerLoginActivity.this, "Failed",Toast.LENGTH_LONG).show();
-                }else{
-                    Intent intent = new Intent(CustomerLoginActivity.this, ContainerAccessActivity.class);
-                    finish();
-                    startActivity(intent);
-                }
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(CustomerLoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                        } else {
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            //get user email and uid from auth
+//                            String email = user.getEmail();
+//                            String uid = user.getUid();
+//
+//                            //generate date upon creating a new account
+//                            Calendar calendar =Calendar.getInstance();
+//                            SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
+//                            String date =simpleDateFormat.format(calendar.getTime());
+//
+//                            //using HashMap
+//                            HashMap<Object, String> hashMap = new HashMap<>();
+//                            hashMap.put("email", email);
+//                            hashMap.put("uid", uid);
+//                            hashMap.put("username", "");
+//                            hashMap.put("phone", "");
+//                            hashMap.put("date", date);
+//                            hashMap.put("image","");
+//
+//                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//                            reff = database.getReference().child("Users");
+//                            reff.child(uid).setValue(hashMap);
+
+                            Intent intent = new Intent(CustomerLoginActivity.this, ContainerAccessActivity.class);
+                            finish();
+                            startActivity(intent);
+                        }
+                    }
+
+                })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //error, get and show error message
+                Toast.makeText(CustomerLoginActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

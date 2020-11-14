@@ -12,10 +12,13 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.example.lostandfoundapp.FoundFragment"
-        android:layout_width="409dp"
+        android:name="com.example.lostandfoundapp.ProfilFragment"
+        android:layout_width="412dp"
         android:layout_height="673dp"
-        android:paddingTop="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
