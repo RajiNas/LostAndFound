@@ -38,17 +38,13 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class RegistractionActivity extends AppCompatActivity {
-    EditText editTextUsername, editTextEmail, editTextPhone, editTextPassword, editTextConfrimPass;
+    EditText editTextEmail, editTextPassword, editTextConfrimPass;
     Button btnRegister;
     TextView txtLogin;
     ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
     DatabaseReference reff;
-//    Users users;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +52,7 @@ public class RegistractionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registraction);
 
 
-//        editTextUsername = (EditText)findViewById(R.id.editText_registrationActivity_username);
         editTextEmail = (EditText)findViewById(R.id.editText_registrationActivity_email);
-//        editTextPhone = (EditText)findViewById(R.id.editText_registrationActivity_phone);
         editTextPassword = (EditText)findViewById(R.id.editText_registrationActivity_password);
         editTextConfrimPass = (EditText)findViewById(R.id.editText_registrationActivity_confirmPassword);
         txtLogin = (TextView)findViewById(R.id.textView_RegistrationAct_login);
@@ -69,9 +63,6 @@ public class RegistractionActivity extends AppCompatActivity {
         progressDialog.setMessage("Registering User...");
 
 
-//        users = new Users();
-
-
         //import call
         mAuth =FirebaseAuth.getInstance();
 
@@ -79,8 +70,6 @@ public class RegistractionActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, CustomerLoginActivity.class));
         }
-
-
 
         //login textview click
         txtLogin.setOnClickListener(new View.OnClickListener() {

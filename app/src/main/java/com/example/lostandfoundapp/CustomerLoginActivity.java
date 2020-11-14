@@ -190,29 +190,29 @@ public class CustomerLoginActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(CustomerLoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
                         } else {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //get user email and uid from auth
-                            String email = user.getEmail();
-                            String uid = user.getUid();
-
-                            //generate date upon creating a new account
-                            Calendar calendar =Calendar.getInstance();
-                            SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
-                            String date =simpleDateFormat.format(calendar.getTime());
-
-                            //using HashMap
-                            HashMap<Object, String> hashMap = new HashMap<>();
-                            hashMap.put("email", email);
-                            hashMap.put("uid", uid);
-                            hashMap.put("username", "");
-                            hashMap.put("phone", "");
-                            hashMap.put("date", date);
-                            hashMap.put("image","");
-
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-                            reff = database.getReference().child("Users");
-                            reff.child(uid).setValue(hashMap);
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            //get user email and uid from auth
+//                            String email = user.getEmail();
+//                            String uid = user.getUid();
+//
+//                            //generate date upon creating a new account
+//                            Calendar calendar =Calendar.getInstance();
+//                            SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
+//                            String date =simpleDateFormat.format(calendar.getTime());
+//
+//                            //using HashMap
+//                            HashMap<Object, String> hashMap = new HashMap<>();
+//                            hashMap.put("email", email);
+//                            hashMap.put("uid", uid);
+//                            hashMap.put("username", "");
+//                            hashMap.put("phone", "");
+//                            hashMap.put("date", date);
+//                            hashMap.put("image","");
+//
+//                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//                            reff = database.getReference().child("Users");
+//                            reff.child(uid).setValue(hashMap);
 
                             Intent intent = new Intent(CustomerLoginActivity.this, ContainerAccessActivity.class);
                             finish();
