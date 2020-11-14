@@ -1,10 +1,16 @@
 package com.example.lostandfoundapp;
 
+import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,17 +24,25 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -44,6 +58,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+    ImageView imgItem;
 
     EditText titletxt, longtxt,lattxt,descriptiontxt, edStatus;
     Spinner categorysp;
@@ -51,9 +66,21 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
     String chosenCategory , chosenCurrentUser;
 
+    //Permission constants
+    private static final int CAMERA_REQUEST_CODE = 100;
+    private static final int STORAGE_REQUEST_CODE = 200;
+    private static final int IMAGE_PICK_GALLERY_CODE = 300;
+    private static final int IMAGE_PICK_CAMERA_CODE = 400;
+    //Arrays of permissions to be requested
+    String cameraPermission [];
+    String storagePermission[];
+
+    //uri of picked image
+    Uri image_uri;
     // initialize fireStore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    FirebaseStorage storage;
+    StorageReference storageReference;
     CollectionReference reff = db.collection("Item");
 
     private static final String ITEM_TITLE ="title";
@@ -71,11 +98,17 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         lattxt =(EditText) findViewById(R.id.editTextLatitude);
         descriptiontxt =(EditText) findViewById(R.id.editTextDescriptionItem);
         edStatus = (EditText)findViewById(R.id.editextItemStatus_Itemregisration);
+        imgItem = (ImageView)findViewById(R.id.imageViewItemActivity);
 
         //set the categori of the item
         categorysp = (Spinner) findViewById(R.id.editTextCategoryspinner);
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.Categories, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            //intialize the storage for the pictures
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
 
         categorysp.setAdapter(adapter);
         categorysp.setOnItemSelectedListener(this);
@@ -105,6 +138,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 String itemTitle = titletxt.getText().toString();
                 String descriptionitem = descriptiontxt.getText().toString();
                 String status = edStatus.getText().toString();
+                String imgItem  = "";
                // Initialize float
                 Float itemlong;
                 Float itemlat;
@@ -178,5 +212,178 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    private boolean checkStoragePermission(){
+        //check if storage permission is enabled or not
+        //return true if enabled
+        //return false if not enabled
+        boolean result = ContextCompat.checkSelfPermission(ItemsRegistrationActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == (PackageManager.PERMISSION_GRANTED);
+        return result;
+    }
+
+
+    private void requestStoragePermission(){
+        //request runtime storage permission
+        requestPermissions(storagePermission, STORAGE_REQUEST_CODE);
+    }
+
+    private boolean checkCameraPermission(){
+        //check if camera permission is enabled or not
+        //return true if enabled
+        //return false if not enabled
+        boolean result = ContextCompat.checkSelfPermission(
+                ItemsRegistrationActivity.this, Manifest.permission.CAMERA)
+                == (PackageManager.PERMISSION_GRANTED);
+        boolean result1 = ContextCompat.checkSelfPermission(ItemsRegistrationActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == (PackageManager.PERMISSION_GRANTED);
+        return result && result1;
+    }
+
+
+    private void requestCameraPermission(){
+        //request runtime camera permission
+        requestPermissions(cameraPermission, CAMERA_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //This method called when user press allow or deny from permission request dialog
+        switch (requestCode){
+            case CAMERA_REQUEST_CODE:{
+                //Picking from camera, first check if camera and storage permissions allowed or not
+                if(grantResults.length > 0){
+                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    if(cameraAccepted && writeStorageAccepted){
+                        //permissions enabled
+                        pickFromCamera();
+                    }else{
+                        //permissions denied
+                        Toast.makeText(ItemsRegistrationActivity.this, "Please enable camera && storage permission", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+            break;
+            case STORAGE_REQUEST_CODE:{
+                //Picking from gallery, first check if storage permissions allowed or not
+                if(grantResults.length > 0){
+                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    if(writeStorageAccepted){
+                        //permissions enabled
+                        pickFromGallery();
+                    }else{
+                        //permissions denied
+                        Toast.makeText(ItemsRegistrationActivity.this, "Please enable storage permission", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+            break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //This method will be called after picking image from Camera or Gallery
+        if(resultCode == RESULT_OK){
+
+            if(requestCode == IMAGE_PICK_GALLERY_CODE){
+                // image is picked from gallery, get uri of image
+                image_uri = data.getData();
+                uploadProfilePhoto(image_uri);
+
+            }
+            if(requestCode == IMAGE_PICK_CAMERA_CODE){
+                // image is picked from camera, get uri of image
+                uploadProfilePhoto(image_uri);
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void uploadProfilePhoto(Uri uri) {
+        //show progress
+        pd.show();
+
+        //path of image to be stored in firebase storage
+        String filePath = storagePath + "_" + user.getUid();//getUid ---> getEmail()
+
+        StorageReference storageReference2nd = storageReference.child(filePath);
+        storageReference2nd.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        //image is uploaded to storage, now get it's url and store it in user's database
+                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                        while (!uriTask.isSuccessful());
+                        Uri downloadUri = uriTask.getResult();
+
+                        //check if image is uploaded  or not
+                        if(uriTask.isSuccessful()){
+                            //image uploaded
+                            //add/update url in user's database
+                            HashMap<String, Object> results = new HashMap<>();
+                            results.put("image", downloadUri.toString());
+                            databaseReference.child(user.getUid()).updateChildren(results)//getUid ---> getEmail()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            //url in database of user is added successfully
+                                            //dismiss progress bar
+                                            pd.dismiss();
+                                            Toast.makeText(getActivity(), "Image Updated...", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            //error adding url in database of user
+                                            //dismiss progress bar
+                                            pd.dismiss();
+                                            Toast.makeText(getActivity(), "Error Updating Image...", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                        }else{
+                            //error
+                            pd.dismiss();
+                            Toast.makeText(getActivity(), "Some error occured", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //there were some error(s), get and show message, dismiss progress dialog
+                        pd.dismiss();
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void pickFromCamera() {
+        //Intent of picking image from device camera
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "Temp Pic");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
+
+        //put uri
+        image_uri = ItemsRegistrationActivity.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        //intent to start camera
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
+    }
+    private void pickFromGallery() {
+        //pick from gallery
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
 }
