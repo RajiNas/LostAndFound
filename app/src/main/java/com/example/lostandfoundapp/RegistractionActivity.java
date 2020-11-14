@@ -208,8 +208,8 @@ public class RegistractionActivity extends AppCompatActivity {
                     HashMap<Object, String> hashMap = new HashMap<>();
                     hashMap.put("email", email);
                     hashMap.put("uid", uid);
-                    hashMap.put("username", "");
-                    hashMap.put("phone", "");
+                    hashMap.put("username", "Please Enter a Username");
+                    hashMap.put("phone", "Please Enter Your Phone");
                     hashMap.put("date", date);
                     hashMap.put("image", "");
 
