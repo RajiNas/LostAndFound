@@ -3,6 +3,7 @@ package com.example.lostandfoundapp;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ComponentCallbacks2;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -103,6 +104,8 @@ public class ProfilFragment extends Fragment {
     }
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -114,12 +117,14 @@ public class ProfilFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("Users");
+        databaseReference = firebaseDatabase.getReference("Users");
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
 //        storageReference = getInstance().getStorageReference();
+
+
 
         //init array of permissions
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -174,18 +179,23 @@ public class ProfilFragment extends Fragment {
             }
         });
 
-
-//        //update images
-//        updateImgprofilebtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Picasso.get().load("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRoX6lhTZKutDXlSB0r6828aCbXuxj91BgHUg&usqp=CAU").into(img);
-//            }
-//        });
-
-
+        checkUserStatus();
         return view;
     }
+
+    private void checkUserStatus(){
+        //get current user
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if(user != null){
+            //user is signed in
+            //set email of logged in user
+            txtEmail.setText(user.getEmail());
+        }else{
+            //user not signed in, go to main activity
+            startActivity(new Intent(getActivity(), MainActivity.class));
+        }
+    }
+
 
 
 
