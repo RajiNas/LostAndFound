@@ -171,7 +171,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 String descriptionitem = descriptiontxt.getText().toString();
                 String status = edStatus.getText().toString();
 
-                saveImgItem =  "com.google.android.gms.tasks.zzu@275dd66";
+              //  saveImgItem =  "com.google.android.gms.tasks.zzu@275dd66";
                // Initialize float
                 Float itemlong;
                 Float itemlat;
