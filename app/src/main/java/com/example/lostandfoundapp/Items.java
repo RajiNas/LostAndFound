@@ -10,9 +10,9 @@ public class Items
     String category;
     String date;
     String status;
+    String image;
 
-
-    public Items(String userName, String title, Float lon, Float lat, String description, String category, String date, String status) {
+    public Items(String userName, String title, Float lon, Float lat, String description, String category, String date, String status, String image) {
         UserName = userName;
         this.title = title;
         this.lon = lon;
@@ -21,6 +21,15 @@ public class Items
         this.category = category;
         this.date = date;
         this.status = status;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getUserName() {

@@ -3,17 +3,19 @@ package com.example.lostandfoundapp;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,21 +34,25 @@ import com.google.firebase.storage.UploadTask;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.provider.MediaStore;
+import android.text.InputType;
+import android.util.Patterns;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -60,12 +66,13 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     ImageView imgItem;
+    FloatingActionButton addItemImgbtn;
 
     EditText titletxt, longtxt,lattxt,descriptiontxt, edStatus;
     Spinner categorysp;
     Button additem , returnback;
 
-    String chosenCategory , chosenCurrentUser;
+    String chosenCategory , chosenCurrentUser , saveImgItem;
     //init progress dialog
 
     //path where images of user profile will be stored
@@ -91,6 +98,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     StorageReference storageReference;
     CollectionReference reff = db.collection("Item");
 
+
+
     private static final String ITEM_TITLE ="title";
     private static final String ITEM_LATITUDE ="latitude";
     private static final String ITEM_LONGITUDE ="longitude";
@@ -113,10 +122,15 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.Categories, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+
+        //init array of permissions
+        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
             //intialize the storage for the pictures
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
+        addItemImgbtn = findViewById(R.id.addpictureiItemRegistraction);
 
         categorysp.setAdapter(adapter);
         categorysp.setOnItemSelectedListener(this);
@@ -129,6 +143,16 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         user = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
+
+        // button that adds the image to the item
+        addItemImgbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addImgPicture();
+            }
+        });
+
+
 
         //Go back to the Container activity
         returnback.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +170,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 String itemTitle = titletxt.getText().toString();
                 String descriptionitem = descriptiontxt.getText().toString();
                 String status = edStatus.getText().toString();
-                String imgItem  = "";
+
+                saveImgItem =  "com.google.android.gms.tasks.zzu@275dd66";
                // Initialize float
                 Float itemlong;
                 Float itemlat;
@@ -173,7 +198,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
                     String date =simpleDateFormat.format(calendar.getTime());
 
-                    Items items = new Items(chosenCurrentUser,itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date, status);
+                    Items items = new Items(chosenCurrentUser,itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date, status,saveImgItem);
                     if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 
@@ -226,16 +251,18 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         //check if storage permission is enabled or not
         //return true if enabled
         //return false if not enabled
-        boolean result = ContextCompat.checkSelfPermission(ItemsRegistrationActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        boolean result = ContextCompat.checkSelfPermission(ItemsRegistrationActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
         return result;
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     private void requestStoragePermission(){
         //request runtime storage permission
-        requestPermissions(storagePermission, STORAGE_REQUEST_CODE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(storagePermission, STORAGE_REQUEST_CODE);
+        }
     }
 
     private boolean checkCameraPermission(){
@@ -251,10 +278,13 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     private void requestCameraPermission(){
         //request runtime camera permission
-        requestPermissions(cameraPermission, CAMERA_REQUEST_CODE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(cameraPermission,CAMERA_REQUEST_CODE);
+        }
     }
 
     @Override
@@ -337,28 +367,11 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                         if(uriTask.isSuccessful()){
                             //image uploaded
                             //add/update url in user's database
-                            HashMap<String, Object> results = new HashMap<>();
-                            results.put("image", downloadUri.toString());
-                            databaseReference.child(user.getUid()).updateChildren(results)//getUid ---> getEmail()
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            //url in database of user is added successfully
-                                            //dismiss progress bar
-                                            pd.dismiss();
-                                            Toast.makeText(ItemsRegistrationActivity.this, "Image Updated...", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            //error adding url in database of user
-                                            //dismiss progress bar
-                                            pd.dismiss();
-                                            Toast.makeText(ItemsRegistrationActivity.this, "Error Updating Image...", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+//                            Map<String,Object> map = new HashMap<>();
+//                            map.put("image",downloadUri);
+//                    reff.document("Image").update(map);
 
+                            saveImgItem = downloadUri.toString();
                         }else{
                             //error
                             pd.dismiss();
@@ -395,5 +408,38 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         Intent galleryIntent = new Intent(Intent.ACTION_PICK);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
+    }
+
+    private  void addImgPicture(){
+        String options[] = {"Camera", "Gallery"};
+        //Alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(ItemsRegistrationActivity.this);
+        //Set title
+        builder.setTitle("Pick Image From");
+        //Set items to dialog
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //handle dialog item click
+                if(which == 0){
+                    // camera clicked
+                    if(!checkCameraPermission()){
+                        requestCameraPermission();
+                    }else{
+                        pickFromCamera();
+                    }
+
+                }else if(which == 1){
+                    // Gallery clicked
+                    if(!checkStoragePermission()){
+                        requestStoragePermission();
+                    }else{
+                        pickFromGallery();
+                    }
+                }
+            }
+        });
+        //create and show dialog
+        builder.create().show();
     }
 }
