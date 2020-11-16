@@ -55,8 +55,9 @@ public class FragmentItemList extends Fragment
                     String status = ds.child("status").getValue(String.class);
                     String title = ds.child("title").getValue(String.class);
                     String userName = ds.child("userName").getValue(String.class);
+                    String image = ds.child("image").getValue(String.class);
 
-                    items.add(new Items(userName,title,lon,lat,description,category,date,status));
+                    items.add(new Items(userName,title,lon,lat,description,category,date,status, image));
 
                 }
             }

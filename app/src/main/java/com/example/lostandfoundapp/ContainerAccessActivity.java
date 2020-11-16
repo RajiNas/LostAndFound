@@ -57,17 +57,11 @@ public class ContainerAccessActivity extends AppCompatActivity {
                 fr = new ProfilFragment();
                 displayFragment();
                 return true;
-            case R.id.lostList_item:
-//                fr = new LostFragment();
-//                displayFragment();
-
+            case R.id.list_item:
                 fr = new FragmentItemList();
                 displayFragment();
                 return true;
-            case R.id.foundList_item:
-                fr = new FoundFragment();
-                displayFragment();
-                return true;
+
             case R.id.logout_item:
                 mAuth.signOut();
                 finish();

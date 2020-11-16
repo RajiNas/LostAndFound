@@ -15,16 +15,16 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/lostList_item"
+        android:id="@+id/list_item"
         android:icon="@drawable/lost_icon"
-        android:title="LostList"
+        android:title="Items List"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/foundList_item"
-        android:icon="@drawable/found_icon"
-        android:title="FoundList"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/foundList_item"-->
+<!--        android:icon="@drawable/found_icon"-->
+<!--        android:title="FoundList"-->
+<!--        app:showAsAction="always" />-->
 
     <item
         android:id="@+id/logout_item"
