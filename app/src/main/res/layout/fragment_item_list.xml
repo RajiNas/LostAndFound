@@ -6,6 +6,7 @@
     tools:context=".FragmentItemList"
     android:background="@color/white"
     android:layout_width="match_parent"
+    android:background="#DD6B6B"
     android:layout_height="match_parent">
 
     <!-- TODO: Update blank fragment layout -->
