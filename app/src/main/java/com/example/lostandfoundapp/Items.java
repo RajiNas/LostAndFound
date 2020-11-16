@@ -12,6 +12,9 @@ public class Items
     String status;
     String image;
 
+    public Items() {
+    }
+
     public Items(String userName, String title, Float lon, Float lat, String description, String category, String date, String status, String image) {
         UserName = userName;
         this.title = title;

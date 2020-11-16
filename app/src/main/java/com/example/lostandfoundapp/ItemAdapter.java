@@ -7,12 +7,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -23,64 +28,119 @@ import java.util.List;
   I do not see a variable that indicates whether
  */
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
-{
-    List<Items> itemsList;
-    Context context;
+public class ItemAdapter extends FirestoreRecyclerAdapter<Items,ItemAdapter.ItemHolder>{
 
-    public ItemAdapter (List<Items> list)
-    {
-        this.itemsList = list;
+
+
+    public ItemAdapter(@NonNull FirestoreRecyclerOptions<Items> options) {
+        super(options);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item, parent, false);
+    protected void onBindViewHolder(@NonNull ItemHolder holder, int position, @NonNull Items items) {
 
-        ViewHolder viewHolder = new ViewHolder(view);
-        context = parent.getContext();
-        return viewHolder;
-
-
+        holder.category.setText(items.getCategory());
+       holder.title.setText(items.getTitle());
+        holder.date.setText(items.getDate());
 
     }
 
-    @SuppressLint("SetTextI18n")
+    @NonNull
     @Override
-    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") final int position)
-    {
-        Items item = itemsList.get(position);
+    public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item,parent,false);
 
-
-        holder.category.setText(item.getCategory());
-        holder.title.setText(item.getTitle());
-        holder.date.setText(item.getDate());
-
+        return new ItemHolder(view);
     }
 
+    class ItemHolder extends RecyclerView.ViewHolder{
 
-    @Override
-    public int getItemCount() {
-        return itemsList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder
-    {
         TextView category, title,date;
-        CardView cv;
-
-        public ViewHolder(View itemView)
-        {
+                CardView cv;
+                ImageView imgItem;
+     public ItemHolder(@NonNull View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.itemTitle);
+
+           title = (TextView) itemView.findViewById(R.id.itemTitle);
             category= (TextView) itemView.findViewById(R.id.itemCategory);
             date = (TextView) itemView.findViewById(R.id.itemDate);
             cv = (CardView) itemView.findViewById(R.id.cv);
+            imgItem =(ImageView) itemView.findViewById(R.id.ItemimageviewFragment);
         }
-
     }
 }
+
+
+//____________________________________________________________________
+
+// i commented the recycle adapter because that it won't work with the firebase
+
+//For this project we had to use FirestoreRecycleAdapter, science we have to fetch from the firestore
+//for info on how i did it follow this link : https://www.youtube.com/watch?v=lAGI6jGS4vs .
+
+
+//___________________________________________________________
+
+//    List<Items> itemsList;
+//    Context context;
+//
+//    public ItemAdapter() {
+//    }
+//
+//    public ItemAdapter(List<Items> itemsList, Context context) {
+//        this.itemsList = itemsList;
+//        this.context = context;
+//    }
+//
+//    @Override
+//    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+//    {
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item, parent, false);
+//
+//        ViewHolder viewHolder = new ViewHolder(view);
+//        context = parent.getContext();
+//        return viewHolder;
+//
+//
+//
+//    }
+//
+//    @SuppressLint("SetTextI18n")
+//    @Override
+//    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") final int position)
+//    {
+//      //  Items item = itemsList.get(position);
+//
+//
+//        holder.category.setText(itemsList.get(position).getCategory());
+//        holder.title.setText(itemsList.get(position).getTitle());
+//        holder.date.setText(itemsList.get(position).getDate());
+//        Picasso.get().load("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/9%2C_Strada_Sp%C4%83tarului%2C_Bucharest_%28Romania%29.jpg/180px-9%2C_Strada_Sp%C4%83tarului%2C_Bucharest_%28Romania%29.jpg").fit().into(holder.imgItem);
+//    }
+//
+//
+//    @Override
+//    public int getItemCount() {
+//        return itemsList.size();
+//    }
+//
+//    public class ViewHolder extends RecyclerView.ViewHolder
+//    {
+//        TextView category, title,date;
+//        CardView cv;
+//        ImageView imgItem;
+//        public ViewHolder(View itemView)
+//        {
+//            super(itemView);
+//            title = (TextView) itemView.findViewById(R.id.itemTitle);
+//            category= (TextView) itemView.findViewById(R.id.itemCategory);
+//            date = (TextView) itemView.findViewById(R.id.itemDate);
+//            cv = (CardView) itemView.findViewById(R.id.cv);
+//            imgItem =(ImageView) itemView.findViewById(R.id.ItemimageviewFragment);
+//        }
+//
+//    }
+//}
 
 
 
