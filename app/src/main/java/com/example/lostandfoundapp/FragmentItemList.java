@@ -38,6 +38,7 @@ public class FragmentItemList extends Fragment {
 
     private ItemAdapter itemAdapter;
 
+
     public FragmentItemList() {
         // Required empty public constructor
     }
@@ -45,6 +46,30 @@ public class FragmentItemList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+
+//        DatabaseReference itemRef = root.child("Item");
+
+//        ValueEventListener eventListener = new ValueEventListener()
+//        {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot)
+//            {
+//                for(DataSnapshot ds : dataSnapshot.getChildren())
+//                {
+//                    String category = ds.child("category").getValue(String.class);
+//                    String date = ds.child("date").getValue(String.class);
+//                    String description = ds.child("description").getValue(String.class);
+//                    float lat = ds.child("lat").getValue(Float.class);
+//                    float lon = ds.child("lon").getValue(Float.class);
+//                    String status = ds.child("status").getValue(String.class);
+//                    String title = ds.child("title").getValue(String.class);
+//                    String userName = ds.child("userName").getValue(String.class);
+//                    String image = ds.child("image").getValue(String.class);
+//
+//
+//                    items.add(new Items(userName,title,lon,lat,description,category,date,status, image));
+//
+
 
 
         db = FirebaseFirestore.getInstance();
