@@ -35,6 +35,7 @@ public class ContainerAccessActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
+
     }
 
     @Override
@@ -43,6 +44,7 @@ public class ContainerAccessActivity extends AppCompatActivity {
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -56,7 +58,10 @@ public class ContainerAccessActivity extends AppCompatActivity {
                 displayFragment();
                 return true;
             case R.id.lostList_item:
-                fr = new LostFragment();
+//                fr = new LostFragment();
+//                displayFragment();
+
+                fr = new FragmentItemList();
                 displayFragment();
                 return true;
             case R.id.foundList_item:
