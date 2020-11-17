@@ -365,6 +365,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
                         //check if image is uploaded  or not
                         if(uriTask.isSuccessful()){
+                            pd.dismiss();
                             //image uploaded
                             //add/update url in user's database
 //                            Map<String,Object> map = new HashMap<>();

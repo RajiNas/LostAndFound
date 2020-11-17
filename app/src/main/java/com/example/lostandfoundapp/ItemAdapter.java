@@ -42,6 +42,7 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Items,ItemAdapter.Item
         holder.category.setText(items.getCategory());
        holder.title.setText(items.getTitle());
         holder.date.setText(items.getDate());
+        Picasso.get().load(items.getImage()).into(holder.imgItem);
 
     }
 
@@ -56,8 +57,9 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Items,ItemAdapter.Item
     class ItemHolder extends RecyclerView.ViewHolder{
 
         TextView category, title,date;
-                CardView cv;
-                ImageView imgItem;
+        CardView cv;
+        ImageView imgItem;
+        
      public ItemHolder(@NonNull View itemView) {
             super(itemView);
 
