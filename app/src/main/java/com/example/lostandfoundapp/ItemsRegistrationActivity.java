@@ -158,7 +158,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         returnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ItemsRegistrationActivity.this , ContainerAccessActivity.class);
+                Intent intent = new Intent(ItemsRegistrationActivity.this , FragmentItemList.class);
                 startActivity(intent);
             }
         });
