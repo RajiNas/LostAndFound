@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:background="#098379"
     tools:context=".ProfilFragment">
 
 
@@ -13,19 +11,19 @@
         android:id="@+id/imageview_ProfileFragment"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="80dp"
         android:src="@mipmap/ic_launcher_round"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/UpdateUserPicture_ProfilFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/edit_icon"
+        app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
@@ -75,7 +73,9 @@
         android:padding="7dp"
         android:text="Date"
 
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_phone_ProfileFragment" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_phone_ProfileFragment"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

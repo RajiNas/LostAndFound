@@ -179,6 +179,8 @@ public class ProfilFragment extends Fragment {
             }
         });
 
+
+
         checkUserStatus();
         return view;
     }
