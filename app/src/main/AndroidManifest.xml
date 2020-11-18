@@ -16,11 +16,10 @@
         <activity
             android:name=".ItemsRegistrationActivity"
             android:label="@string/title_activity_items_registration"
-            android:theme="@style/Theme.LostAndFoundApp.NoActionBar"></activity>
+            android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
         <activity
             android:name=".ContainerAccessActivity"
-            android:label="@string/title_activity_container_access"
-            android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
+            android:label="@string/title_activity_container_access" />
         <activity
             android:name=".CustomerLoginActivity"
             android:label="@string/title_activity_customer_login"

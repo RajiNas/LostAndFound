@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,6 +24,10 @@ import android.view.View;
 import android.widget.Button;
 
 public class ContainerAccessActivity extends AppCompatActivity {
+    // sidebar navigation
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
 
     private FirebaseAuth mAuth;
 
@@ -31,49 +38,57 @@ public class ContainerAccessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container_access);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         mAuth = FirebaseAuth.getInstance();
 
-    }
+        // sidebar navigation
+        drawerLayout = findViewById(R.id.drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.Open, R.string.Close);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView = findViewById(R.id.nav);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.messages_item:
+                        fr = new MessageFragment();
+                        displayFragment();
+                        return true;
+                    case R.id.profile_item:
+                        fr = new ProfilFragment();
+                        displayFragment();
+                        return true;
+                    case R.id.list_item:
+                        fr = new FragmentItemList();
+                        displayFragment();
+                        return true;
+
+                    case R.id.logout_item:
+                        mAuth.signOut();
+                        finish();
+                        startActivity(new Intent(ContainerAccessActivity.this, MainActivity.class));
+                        return true;
+                    case R.id.addItem:
+                        Intent intent = new Intent(ContainerAccessActivity.this, ItemsRegistrationActivity.class);
+                        startActivity(intent);
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.messages_item:
-                fr = new MessageFragment();
-                displayFragment();
-                return true;
-            case R.id.profile_item:
-                fr = new ProfilFragment();
-                displayFragment();
-                return true;
-            case R.id.list_item:
-                fr = new FragmentItemList();
-                displayFragment();
-                return true;
+        if(actionBarDrawerToggle.onOptionsItemSelected(item))
+            return true;
 
-            case R.id.logout_item:
-                mAuth.signOut();
-                finish();
-                startActivity(new Intent(ContainerAccessActivity.this, MainActivity.class));
-                return true;
-            case R.id.addItem:
-                Intent intent = new Intent(ContainerAccessActivity.this, ItemsRegistrationActivity.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void displayFragment() {
