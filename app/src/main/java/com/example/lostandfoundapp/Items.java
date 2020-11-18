@@ -1,16 +1,21 @@
 package com.example.lostandfoundapp;
 
+import com.google.firebase.firestore.Exclude;
+
 public class Items
 {
-    String UserName;
-    String title;
-    Float lon;
-    Float lat;
-    String description;
-    String category;
-    String date;
-    String status;
-    String image;
+    private String UserName;
+    private String title;
+    private Float lon;
+    private Float lat;
+    private String description;
+    private String category;
+    private String date;
+   private String status;
+   private String image;
+    private String mKey;
+
+
 
     public Items() {
     }
@@ -25,6 +30,16 @@ public class Items
         this.date = date;
         this.status = status;
         this.image = image;
+    }
+
+// the @Eclude with exclude the value from the database
+    @Exclude
+    public String getmKey() {
+        return mKey;
+    }
+    @Exclude
+    public void setmKey(String mKey) {
+        this.mKey = mKey;
     }
 
     public String getImage() {

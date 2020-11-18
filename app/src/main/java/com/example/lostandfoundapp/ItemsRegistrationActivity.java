@@ -1,6 +1,7 @@
 package com.example.lostandfoundapp;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,7 +78,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     //init progress dialog
 
     //path where images of user profile will be stored
-    String storagePath = "Users_Profile_Cover_Imgs/";
+    String storagePath = "Item_Imgs/";
 
 
     //Permission constants
@@ -85,8 +87,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     private static final int IMAGE_PICK_GALLERY_CODE = 300;
     private static final int IMAGE_PICK_CAMERA_CODE = 400;
     //Arrays of permissions to be requested
-    String cameraPermission [];
-    String storagePermission[];
+    private String cameraPermission [];
+   private String storagePermission[];
 
     //Progress dialog
     ProgressDialog pd;
@@ -109,6 +111,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_registration);
+
 
         titletxt =(EditText) findViewById(R.id.editextTitleItem);
         longtxt =(EditText) findViewById(R.id.editTextLongitude);
@@ -158,7 +161,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         returnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ItemsRegistrationActivity.this , FragmentItemList.class);
+                Intent intent = new Intent(ItemsRegistrationActivity.this , ContainerAccessActivity.class);
                 startActivity(intent);
             }
         });
@@ -211,6 +214,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                         });
 
                 }
+
+
             }
         });
 
@@ -258,11 +263,14 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
 
 
+
     private void requestStoragePermission(){
         //request runtime storage permission
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(storagePermission, STORAGE_REQUEST_CODE);
+            this.requestPermissions(storagePermission, STORAGE_REQUEST_CODE);
         }
+
     }
 
     private boolean checkCameraPermission(){
@@ -279,12 +287,15 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
 
 
+
     private void requestCameraPermission(){
         //request runtime camera permission
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(cameraPermission,CAMERA_REQUEST_CODE);
+            this.requestPermissions(cameraPermission,CAMERA_REQUEST_CODE);
         }
+
     }
 
     @Override
@@ -373,6 +384,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 //                    reff.document("Image").update(map);
 
                             saveImgItem = downloadUri.toString();
+                            Picasso.get().load(saveImgItem).into(imgItem);
                         }else{
                             //error
                             pd.dismiss();
