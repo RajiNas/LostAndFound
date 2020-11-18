@@ -52,6 +52,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -99,9 +101,9 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     FirebaseStorage storage;
     StorageReference storageReference;
     CollectionReference reff = db.collection("Item");
-
-
-
+    String checkedBtn ;
+    RadioButton radioButton;
+    RadioGroup groupItems;
     private static final String ITEM_TITLE ="title";
     private static final String ITEM_LATITUDE ="latitude";
     private static final String ITEM_LONGITUDE ="longitude";
@@ -117,7 +119,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         longtxt =(EditText) findViewById(R.id.editTextLongitude);
         lattxt =(EditText) findViewById(R.id.editTextLatitude);
         descriptiontxt =(EditText) findViewById(R.id.editTextDescriptionItem);
-        edStatus = (EditText)findViewById(R.id.editextItemStatus_Itemregisration);
+        //edStatus = (EditText)findViewById(R.id.editextItemStatus_Itemregisration);
         imgItem = (ImageView)findViewById(R.id.imageViewItemActivity);
         pd = new ProgressDialog(this);
         //set the categori of the item
@@ -125,6 +127,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.Categories, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+           groupItems = findViewById(R.id.RadioGroup);
 
         //init array of permissions
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -141,11 +144,33 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         additem =(Button) findViewById(R.id.buttonaddItem);
         returnback =(Button) findViewById(R.id.buttonBacktoContainer);
 
+//         foundItem = (RadioButton) findViewById(R.id.RadioItemFound);
+
         // init firebase
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
+
+
+        //initialize Radio button choises
+
+        int selectedId = groupItems.getCheckedRadioButtonId();
+        radioButton = (RadioButton) findViewById(selectedId);
+        boolean isChecked = radioButton.isChecked();
+        if(isChecked){
+            checkedBtn = radioButton.getText().toString();
+            Toast.makeText(this, checkedBtn, Toast.LENGTH_SHORT).show();
+        }
+//        radioButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                 checkedBtn = radioButton.getText().toString();
+//            }
+//        });
+
+
+
 
         // button that adds the image to the item
         addItemImgbtn.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +197,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
             public void onClick(View view) {
                 String itemTitle = titletxt.getText().toString();
                 String descriptionitem = descriptiontxt.getText().toString();
-                String status = edStatus.getText().toString();
+              //  String status = edStatus.getText().toString();
 
               //  saveImgItem =  "com.google.android.gms.tasks.zzu@275dd66";
                // Initialize float
@@ -193,7 +218,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 }
 
                 // if Category is not selected the user won't be able to add item
-                if( itemTitle.equals("") || itemlong == 0.0 || itemlat == 0.0 ||descriptionitem.equals("") || status.equals(""))
+                if( itemTitle.equals("") || itemlong == 0.0 || itemlat == 0.0 ||descriptionitem.equals(""))
                 {
                     Toast.makeText(ItemsRegistrationActivity.this, "Empty fields", Toast.LENGTH_SHORT).show();
                 }else {
@@ -201,7 +226,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
                     String date =simpleDateFormat.format(calendar.getTime());
 
-                    Items items = new Items(chosenCurrentUser,itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date, status,saveImgItem);
+                    Items items = new Items(chosenCurrentUser,itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date, checkedBtn,saveImgItem);
                     if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 

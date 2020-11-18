@@ -11,27 +11,48 @@
         android:id="@+id/imageViewItemActivity"
         android:layout_width="143dp"
         android:layout_height="156dp"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="130dp"
-        android:src="@drawable/ic_launcher_background"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="3dp"
-        />
+        android:src="@drawable/ic_launcher_background" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addpictureiItemRegistraction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/add_icon"
-        android:layout_marginLeft="250dp"/>
+        android:layout_marginLeft="250dp"
+        android:src="@drawable/add_icon" />
 
-
-    <EditText
-        android:id="@+id/editextItemStatus_Itemregisration"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Status"
-        android:inputType="textPersonName" />
+        android:fontFamily="sans-serif-black"
+        android:text="Please Select the type of item"
+        android:textSize="23dp" />
+
+
+
+        <RadioGroup
+            android:id="@+id/RadioGroup"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/RadioItemFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Found" />
+
+        <RadioButton
+            android:id="@+id/RadioItemLost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lost" />
+    </RadioGroup>
+
 
     <EditText
         android:id="@+id/editextTitleItem"
@@ -68,19 +89,19 @@
     <Spinner
         android:id="@+id/editTextCategoryspinner"
         android:layout_width="match_parent"
-        android:layout_marginTop="15dp"
-       android:spinnerMode="dropdown"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:spinnerMode="dropdown"
 
         />
 
     <Button
         android:id="@+id/buttonaddItem"
-        android:layout_marginTop="120dp"
-
         android:layout_width="match_parent"
-        android:hint="Please select a category"
+
         android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:hint="Please select a category"
         android:text="Add" />
 
     <Button
