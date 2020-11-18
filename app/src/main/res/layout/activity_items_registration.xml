@@ -31,16 +31,16 @@
         android:textSize="23dp" />
 
 
-
-        <RadioGroup
-            android:id="@+id/RadioGroup"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content" >
+    <RadioGroup
+        android:id="@+id/RadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/RadioItemFound"
             android:layout_width="wrap_content"
+            android:onClick="onRadioButtonClicked"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Found" />
@@ -49,6 +49,7 @@
             android:id="@+id/RadioItemLost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
             android:layout_weight="1"
             android:text="Lost" />
     </RadioGroup>

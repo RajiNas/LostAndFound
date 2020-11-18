@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,6 +58,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -69,14 +71,15 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+
     ImageView imgItem;
     FloatingActionButton addItemImgbtn;
 
-    EditText titletxt, longtxt,lattxt,descriptiontxt, edStatus;
+    EditText titletxt, longtxt, lattxt, descriptiontxt, edStatus;
     Spinner categorysp;
-    Button additem , returnback;
+    Button additem, returnback;
 
-    String chosenCategory , chosenCurrentUser , saveImgItem;
+    String chosenCategory, chosenCurrentUser, status, saveImgItem;
     //init progress dialog
 
     //path where images of user profile will be stored
@@ -89,8 +92,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     private static final int IMAGE_PICK_GALLERY_CODE = 300;
     private static final int IMAGE_PICK_CAMERA_CODE = 400;
     //Arrays of permissions to be requested
-    private String cameraPermission [];
-   private String storagePermission[];
+    private String cameraPermission[];
+    private String storagePermission[];
 
     //Progress dialog
     ProgressDialog pd;
@@ -101,39 +104,41 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     FirebaseStorage storage;
     StorageReference storageReference;
     CollectionReference reff = db.collection("Item");
-    String checkedBtn ;
+
     RadioButton radioButton;
-    RadioGroup groupItems;
-    private static final String ITEM_TITLE ="title";
-    private static final String ITEM_LATITUDE ="latitude";
-    private static final String ITEM_LONGITUDE ="longitude";
-    private static final String ITEM_DESCRIPTION ="description";
+    RadioGroup radioGroup;
+
+    private static final String ITEM_TITLE = "title";
+    private static final String ITEM_LATITUDE = "latitude";
+    private static final String ITEM_LONGITUDE = "longitude";
+    private static final String ITEM_DESCRIPTION = "description";
     private static final String ITEM_CATEGORY = "category";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_registration);
 
 
-        titletxt =(EditText) findViewById(R.id.editextTitleItem);
-        longtxt =(EditText) findViewById(R.id.editTextLongitude);
-        lattxt =(EditText) findViewById(R.id.editTextLatitude);
-        descriptiontxt =(EditText) findViewById(R.id.editTextDescriptionItem);
+        titletxt = (EditText) findViewById(R.id.editextTitleItem);
+        longtxt = (EditText) findViewById(R.id.editTextLongitude);
+        lattxt = (EditText) findViewById(R.id.editTextLatitude);
+        descriptiontxt = (EditText) findViewById(R.id.editTextDescriptionItem);
         //edStatus = (EditText)findViewById(R.id.editextItemStatus_Itemregisration);
-        imgItem = (ImageView)findViewById(R.id.imageViewItemActivity);
+        imgItem = (ImageView) findViewById(R.id.imageViewItemActivity);
         pd = new ProgressDialog(this);
         //set the categori of the item
         categorysp = (Spinner) findViewById(R.id.editTextCategoryspinner);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.Categories, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Categories, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-           groupItems = findViewById(R.id.RadioGroup);
+
 
         //init array of permissions
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-            //intialize the storage for the pictures
+        //intialize the storage for the pictures
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         addItemImgbtn = findViewById(R.id.addpictureiItemRegistraction);
@@ -141,8 +146,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         categorysp.setAdapter(adapter);
         categorysp.setOnItemSelectedListener(this);
 
-        additem =(Button) findViewById(R.id.buttonaddItem);
-        returnback =(Button) findViewById(R.id.buttonBacktoContainer);
+        additem = (Button) findViewById(R.id.buttonaddItem);
+        returnback = (Button) findViewById(R.id.buttonBacktoContainer);
 
 //         foundItem = (RadioButton) findViewById(R.id.RadioItemFound);
 
@@ -153,23 +158,17 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         databaseReference = firebaseDatabase.getReference("Users");
 
 
-        //initialize Radio button choises
 
-        int selectedId = groupItems.getCheckedRadioButtonId();
-        radioButton = (RadioButton) findViewById(selectedId);
-        boolean isChecked = radioButton.isChecked();
-        if(isChecked){
-            checkedBtn = radioButton.getText().toString();
-            Toast.makeText(this, checkedBtn, Toast.LENGTH_SHORT).show();
-        }
+//
+//
+//        Toast.makeText(this, radioButton.getText(), Toast.LENGTH_SHORT).show();
+
 //        radioButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                 checkedBtn = radioButton.getText().toString();
 //            }
 //        });
-
-
 
 
         // button that adds the image to the item
@@ -181,12 +180,11 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         });
 
 
-
         //Go back to the Container activity
         returnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ItemsRegistrationActivity.this , ContainerAccessActivity.class);
+                Intent intent = new Intent(ItemsRegistrationActivity.this, ContainerAccessActivity.class);
                 startActivity(intent);
             }
         });
@@ -197,36 +195,34 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
             public void onClick(View view) {
                 String itemTitle = titletxt.getText().toString();
                 String descriptionitem = descriptiontxt.getText().toString();
-              //  String status = edStatus.getText().toString();
+                //  String status = edStatus.getText().toString();
 
-              //  saveImgItem =  "com.google.android.gms.tasks.zzu@275dd66";
-               // Initialize float
+                //  saveImgItem =  "com.google.android.gms.tasks.zzu@275dd66";
+                // Initialize float
                 Float itemlong;
                 Float itemlat;
 
-                  // add values so that the float wont be empty with the string
-                if( longtxt.getText().toString().equals("")){
+                // add values so that the float wont be empty with the string
+                if (longtxt.getText().toString().equals("")) {
                     itemlong = 0.0f;
-                }
-                else {
+                } else {
                     itemlong = Float.parseFloat(longtxt.getText().toString());
                 }
-                if( lattxt.getText().toString().equals("")){
+                if (lattxt.getText().toString().equals("")) {
                     itemlat = 0.0f;
-                }else {
+                } else {
                     itemlat = Float.parseFloat(lattxt.getText().toString());
                 }
 
                 // if Category is not selected the user won't be able to add item
-                if( itemTitle.equals("") || itemlong == 0.0 || itemlat == 0.0 ||descriptionitem.equals(""))
-                {
+                if (itemTitle.equals("") || itemlong == 0.0 || itemlat == 0.0 || descriptionitem.equals("")) {
                     Toast.makeText(ItemsRegistrationActivity.this, "Empty fields", Toast.LENGTH_SHORT).show();
-                }else {
-                    Calendar calendar =Calendar.getInstance();
-                    SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MMMM-yyyy");
-                    String date =simpleDateFormat.format(calendar.getTime());
+                } else {
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
+                    String date = simpleDateFormat.format(calendar.getTime());
 
-                    Items items = new Items(chosenCurrentUser,itemTitle,itemlong,itemlat,descriptionitem,chosenCategory, date, checkedBtn,saveImgItem);
+                    Items items = new Items(chosenCurrentUser, itemTitle, itemlong, itemlat, descriptionitem, chosenCategory, date, status, saveImgItem);
                     if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 
@@ -250,7 +246,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String name = " " + ds.child("username").getValue();
 
                     // Select user name and add it into the item
@@ -268,7 +264,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         String categoryText = adapterView.getItemAtPosition(position).toString();
-        Toast.makeText(adapterView.getContext(),categoryText,Toast.LENGTH_SHORT).show();
+        Toast.makeText(adapterView.getContext(), categoryText, Toast.LENGTH_SHORT).show();
         chosenCategory = categoryText;
     }
 
@@ -277,7 +273,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
     }
 
-    private boolean checkStoragePermission(){
+    private boolean checkStoragePermission() {
         //check if storage permission is enabled or not
         //return true if enabled
         //return false if not enabled
@@ -287,9 +283,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     }
 
 
-
-
-    private void requestStoragePermission(){
+    private void requestStoragePermission() {
         //request runtime storage permission
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -298,27 +292,25 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
     }
 
-    private boolean checkCameraPermission(){
+    private boolean checkCameraPermission() {
         //check if camera permission is enabled or not
         //return true if enabled
         //return false if not enabled
         boolean result = ContextCompat.checkSelfPermission(
                 ItemsRegistrationActivity.this, Manifest.permission.CAMERA)
                 == (PackageManager.PERMISSION_GRANTED);
-        boolean result1 = ContextCompat.checkSelfPermission(ItemsRegistrationActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        boolean result1 = ContextCompat.checkSelfPermission(ItemsRegistrationActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
         return result && result1;
     }
 
 
-
-
-    private void requestCameraPermission(){
+    private void requestCameraPermission() {
         //request runtime camera permission
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            this.requestPermissions(cameraPermission,CAMERA_REQUEST_CODE);
+            this.requestPermissions(cameraPermission, CAMERA_REQUEST_CODE);
         }
 
     }
@@ -326,16 +318,16 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         //This method called when user press allow or deny from permission request dialog
-        switch (requestCode){
-            case CAMERA_REQUEST_CODE:{
+        switch (requestCode) {
+            case CAMERA_REQUEST_CODE: {
                 //Picking from camera, first check if camera and storage permissions allowed or not
-                if(grantResults.length > 0){
+                if (grantResults.length > 0) {
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    if(cameraAccepted && writeStorageAccepted){
+                    if (cameraAccepted && writeStorageAccepted) {
                         //permissions enabled
                         pickFromCamera();
-                    }else{
+                    } else {
                         //permissions denied
                         Toast.makeText(ItemsRegistrationActivity.this, "Please enable camera && storage permission", Toast.LENGTH_SHORT).show();
                     }
@@ -343,15 +335,15 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
             }
             break;
-            case STORAGE_REQUEST_CODE:{
+            case STORAGE_REQUEST_CODE: {
                 //Picking from gallery, first check if storage permissions allowed or not
-                if(grantResults.length > 0){
+                if (grantResults.length > 0) {
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    if(writeStorageAccepted){
+                    if (writeStorageAccepted) {
                         //permissions enabled
                         pickFromGallery();
-                    }else{
+                    } else {
                         //permissions denied
                         Toast.makeText(ItemsRegistrationActivity.this, "Please enable storage permission", Toast.LENGTH_SHORT).show();
                     }
@@ -365,15 +357,15 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //This method will be called after picking image from Camera or Gallery
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
 
-            if(requestCode == IMAGE_PICK_GALLERY_CODE){
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 // image is picked from gallery, get uri of image
                 image_uri = data.getData();
                 uploadProfilePhoto(image_uri);
 
             }
-            if(requestCode == IMAGE_PICK_CAMERA_CODE){
+            if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 // image is picked from camera, get uri of image
                 uploadProfilePhoto(image_uri);
 
@@ -396,11 +388,11 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         //image is uploaded to storage, now get it's url and store it in user's database
                         Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uriTask.isSuccessful());
+                        while (!uriTask.isSuccessful()) ;
                         Uri downloadUri = uriTask.getResult();
 
                         //check if image is uploaded  or not
-                        if(uriTask.isSuccessful()){
+                        if (uriTask.isSuccessful()) {
                             pd.dismiss();
                             //image uploaded
                             //add/update url in user's database
@@ -410,7 +402,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
                             saveImgItem = downloadUri.toString();
                             Picasso.get().load(saveImgItem).into(imgItem);
-                        }else{
+                        } else {
                             //error
                             pd.dismiss();
                             Toast.makeText(ItemsRegistrationActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
@@ -441,6 +433,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
+
     private void pickFromGallery() {
         //pick from gallery
         Intent galleryIntent = new Intent(Intent.ACTION_PICK);
@@ -448,7 +441,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
 
-    private  void addImgPicture(){
+    private void addImgPicture() {
         String options[] = {"Camera", "Gallery"};
         //Alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemsRegistrationActivity.this);
@@ -459,19 +452,19 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //handle dialog item click
-                if(which == 0){
+                if (which == 0) {
                     // camera clicked
-                    if(!checkCameraPermission()){
+                    if (!checkCameraPermission()) {
                         requestCameraPermission();
-                    }else{
+                    } else {
                         pickFromCamera();
                     }
 
-                }else if(which == 1){
+                } else if (which == 1) {
                     // Gallery clicked
-                    if(!checkStoragePermission()){
+                    if (!checkStoragePermission()) {
                         requestStoragePermission();
-                    }else{
+                    } else {
                         pickFromGallery();
                     }
                 }
@@ -479,5 +472,21 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         });
         //create and show dialog
         builder.create().show();
+    }
+    public void onRadioButtonClicked(View view){
+        boolean checked = ((RadioButton) view).isChecked();
+        switch (view.getId()){
+            case R.id.RadioItemFound:
+                if(checked)
+                    status = "Found";
+                Toast.makeText(this, "item was clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case  R.id.RadioItemLost:
+                if(checked)
+                    status = "Lost";
+                Toast.makeText(this, "lost item was clicked", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
     }
 }
