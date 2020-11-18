@@ -4,7 +4,7 @@ import com.google.firebase.firestore.Exclude;
 
 public class Items
 {
-    private String UserName;
+    private String username;
     private String title;
     private Float lon;
     private Float lat;
@@ -20,8 +20,8 @@ public class Items
     public Items() {
     }
 
-    public Items(String userName, String title, Float lon, Float lat, String description, String category, String date, String status, String image) {
-        UserName = userName;
+    public Items(String username, String title, Float lon, Float lat, String description, String category, String date, String status, String image) {
+        this.username = username;
         this.title = title;
         this.lon = lon;
         this.lat = lat;
@@ -51,11 +51,10 @@ public class Items
     }
 
     public String getUserName() {
-        return UserName;
+        return username;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setUserName(String userName) { username = userName;
     }
 
     public String getTitle() {
