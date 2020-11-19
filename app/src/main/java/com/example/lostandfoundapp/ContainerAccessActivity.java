@@ -1,6 +1,8 @@
 package com.example.lostandfoundapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,6 +35,8 @@ public class ContainerAccessActivity extends AppCompatActivity {
 
     Fragment fr;
 
+    // declare getShared Preferences
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +52,8 @@ public class ContainerAccessActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        sp = getSharedPreferences("ItemIdentifier", Context.MODE_PRIVATE);
 
         navigationView = findViewById(R.id.nav);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -74,6 +80,7 @@ public class ContainerAccessActivity extends AppCompatActivity {
                         return true;
                     case R.id.addItem:
                         Intent intent = new Intent(ContainerAccessActivity.this, ItemsRegistrationActivity.class);
+
                         startActivity(intent);
                         return true;
                     default:

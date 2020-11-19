@@ -63,6 +63,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class ItemsRegistrationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -157,6 +158,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
 
+            // get sherable experience
 
 
 //
@@ -379,7 +381,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         pd.show();
 
         //path of image to be stored in firebase storage
-        String filePath = storagePath + "_" + titletxt.getText().toString();//getUid ---> getEmail()
+        String filePath = storagePath + "_" + user.getUid() + generateRandomIdForUser();//getUid ---> getEmail()
 
         StorageReference storageReference2nd = storageReference.child(filePath);
         storageReference2nd.putFile(uri)
@@ -487,6 +489,13 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 Toast.makeText(this, "lost item was clicked", Toast.LENGTH_SHORT).show();
                 break;
         }
+
+    }
+
+    public String generateRandomIdForUser(){
+            Random ram = new Random();
+            int id = ram.nextInt(1000 - 1) + 1;
+            return Integer.toString(id);
 
     }
 }
