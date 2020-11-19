@@ -6,10 +6,18 @@
     tools:context=".FragmentItemList"
     android:layout_width="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <!-- TODO: Update blank fragment layout -->
+    <Spinner
+        android:id="@+id/editTextCategoryspinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:spinnerMode="dropdown"
 
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecycleViewItemList"
         android:layout_width="match_parent"

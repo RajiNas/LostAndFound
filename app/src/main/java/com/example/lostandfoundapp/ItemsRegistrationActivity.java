@@ -79,7 +79,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     Spinner categorysp;
     Button additem, returnback;
 
-    String chosenCategory, chosenCurrentUser, status, saveImgItem;
+    String chosenCategory, itemTitle , chosenCurrentUser, status, saveImgItem;
     //init progress dialog
 
     //path where images of user profile will be stored
@@ -193,7 +193,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         additem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String itemTitle = titletxt.getText().toString();
+                 itemTitle = titletxt.getText().toString();
                 String descriptionitem = descriptiontxt.getText().toString();
                 //  String status = edStatus.getText().toString();
 
@@ -379,7 +379,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         pd.show();
 
         //path of image to be stored in firebase storage
-        String filePath = storagePath + "_" + user.getUid();//getUid ---> getEmail()
+        String filePath = storagePath + "_" + titletxt.getText().toString();//getUid ---> getEmail()
 
         StorageReference storageReference2nd = storageReference.child(filePath);
         storageReference2nd.putFile(uri)
