@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -41,6 +42,10 @@ public class ContainerAccessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container_access);
+
+        //ActioBar and its title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Container");
 
         mAuth = FirebaseAuth.getInstance();
 

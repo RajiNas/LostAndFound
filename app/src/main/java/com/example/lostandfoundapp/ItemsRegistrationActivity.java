@@ -37,6 +37,7 @@ import com.squareup.picasso.Picasso;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -119,6 +120,10 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_registration);
+
+//        //ActioBar and its title
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setTitle("Add New Item");
 
 
         titletxt = (EditText) findViewById(R.id.editextTitleItem);
