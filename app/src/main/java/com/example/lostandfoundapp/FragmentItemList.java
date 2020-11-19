@@ -1,16 +1,20 @@
 package com.example.lostandfoundapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.core.OrderBy;
@@ -28,16 +33,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentItemList extends Fragment {
+
     private RecyclerView recyclerView;
-    private DatabaseReference root;
-
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    private CollectionReference reff = db.collection("Item");
-
+    //    private DatabaseReference root;
+    private FirebaseFirestore firebaseFirestore ;
+    private CollectionReference reff;
     private ItemAdapter itemAdapter;
-
 
     public FragmentItemList() {
         // Required empty public constructor
@@ -46,6 +47,62 @@ public class FragmentItemList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        recyclerView = (RecyclerView) view.findViewById(R.id.RecycleViewItemList);
+
+        setUprecycleView();
+        itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Items items = documentSnapshot.toObject(Items.class);
+                String id = documentSnapshot.getId();
+                Toast.makeText(getContext(), "Position: " + position + " ID: " + id, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), ItemDetails.class));
+
+                //here we can delete and update an item
+            }
+        });
+        return view;
+    }
+
+    private void setUprecycleView() {
+        //Query
+        Query query = firebaseFirestore.collection("Item");
+
+        //RecyclerOptions
+        FirestoreRecyclerOptions<Items> options = new FirestoreRecyclerOptions.Builder<Items>()
+                .setQuery(query, Items.class)
+                .build();
+
+        itemAdapter = new ItemAdapter(options);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(itemAdapter);
+
+
+//        Query query = reff.orderBy("date", Query.Direction.DESCENDING);//
+//        FirestoreRecyclerOptions<Items> item = new FirestoreRecyclerOptions.Builder<Items>().setQuery(query, Items.class).build();//
+//        itemAdapter = new ItemAdapter(item);//
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recyclerView.setAdapter(itemAdapter);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        itemAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        itemAdapter.stopListening();
+    }
+}
+
 
 //        DatabaseReference itemRef = root.child("Item");
 
@@ -70,12 +127,6 @@ public class FragmentItemList extends Fragment {
 //                    items.add(new Items(userName,title,lon,lat,description,category,date,status, image));
 //
 
-
-
-        db = FirebaseFirestore.getInstance();
-        recyclerView = (RecyclerView) view.findViewById(R.id.RecycleViewItemList);
-
-        setUprecycleView();
 //
 //        List<Items> items = new ArrayList<>();
 //
@@ -121,33 +172,3 @@ public class FragmentItemList extends Fragment {
 //        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
 //        recyclerView.setAdapter(itemAdapter);
-
-        return view;
-    }
-
-
-    private void setUprecycleView(){
-        Query query = reff.orderBy("date", Query.Direction.DESCENDING);
-
-        FirestoreRecyclerOptions<Items> item = new FirestoreRecyclerOptions.Builder<Items>().setQuery(query, Items.class).build();
-
-        itemAdapter = new ItemAdapter(item);
-
-         recyclerView.setHasFixedSize(true);
-         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(itemAdapter);
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        itemAdapter.startListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        itemAdapter.stopListening();
-    }
-}

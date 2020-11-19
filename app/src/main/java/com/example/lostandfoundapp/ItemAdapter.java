@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -28,9 +31,10 @@ import java.util.List;
   I do not see a variable that indicates whether
  */
 
-public class ItemAdapter extends FirestoreRecyclerAdapter<Items,ItemAdapter.ItemHolder>{
-
-
+public class ItemAdapter extends FirestoreRecyclerAdapter<Items, ItemAdapter.ItemHolder> {
+    private OnItemClickListener listener;
+    //    FirestoreRecyclerOptions<Items> options;
+//    Context mContext;
 
     public ItemAdapter(@NonNull FirestoreRecyclerOptions<Items> options) {
         super(options);
@@ -40,35 +44,56 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Items,ItemAdapter.Item
     protected void onBindViewHolder(@NonNull ItemHolder holder, int position, @NonNull Items items) {
 
         holder.category.setText(items.getCategory());
-       holder.title.setText(items.getTitle());
+        holder.title.setText(items.getTitle());
         holder.date.setText(items.getDate());
         Picasso.get().load(items.getImage()).into(holder.imgItem);
+
 
     }
 
     @NonNull
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item, parent, false);
 
         return new ItemHolder(view);
     }
 
-    class ItemHolder extends RecyclerView.ViewHolder{
+    class ItemHolder extends RecyclerView.ViewHolder {
 
-        TextView category, title,date;
+        TextView category, title, date;
         CardView cv;
         ImageView imgItem;
-        
-     public ItemHolder(@NonNull View itemView) {
+        LinearLayout p_layout;
+
+        public ItemHolder(@NonNull View itemView) {
             super(itemView);
 
-           title = (TextView) itemView.findViewById(R.id.itemTitle);
-            category= (TextView) itemView.findViewById(R.id.itemCategory);
+            title = (TextView) itemView.findViewById(R.id.itemTitle);
+            category = (TextView) itemView.findViewById(R.id.itemCategory);
             date = (TextView) itemView.findViewById(R.id.itemDate);
             cv = (CardView) itemView.findViewById(R.id.cv);
-            imgItem =(ImageView) itemView.findViewById(R.id.ItemimageviewFragment);
+            imgItem = (ImageView) itemView.findViewById(R.id.ItemimageviewFragment);
+            p_layout = (LinearLayout) itemView.findViewById(R.id.parent_layout);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION && listener != null){
+                        listener.OnItemClick(getSnapshots().getSnapshot(position), position);
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener{
+        void OnItemClick(DocumentSnapshot documentSnapshot, int position);
+    }
+
+    public void setOnItemclickListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 }
 
