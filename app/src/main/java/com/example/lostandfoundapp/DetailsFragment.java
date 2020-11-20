@@ -2,6 +2,7 @@ package com.example.lostandfoundapp;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -41,13 +42,14 @@ public class DetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_details, container, false);
 
-        image = (ImageView) getActivity().findViewById(R.id.image_DetailsFragment);
-        txtCategory = (TextView) getActivity().findViewById(R.id.textView_category_DetailsFragment);
-        txtTitle = (TextView) getActivity().findViewById(R.id.textView_title_DetailsFragment);
-        txtDate = (TextView) getActivity().findViewById(R.id.textView_date_DetailsFragment);
-        txtDescription = (TextView) getActivity().findViewById(R.id.textView_description_DetailsFragment);
-        txtStatus = (TextView) getActivity().findViewById(R.id.textView_status_DetailsFragment);
-        btnSendMessage = (Button) getActivity().findViewById(R.id.button_sendAMessage_DetailsFragment);
+
+        image = (ImageView) view.findViewById(R.id.image_DetailsFragment);
+        txtCategory = (TextView) view.findViewById(R.id.textView_category_DetailsFragment);
+        txtTitle = (TextView) view.findViewById(R.id.textView_title_DetailsFragment);
+        txtDate = (TextView) view.findViewById(R.id.textView_date_DetailsFragment);
+        txtDescription = (TextView) view.findViewById(R.id.textView_description_DetailsFragment);
+        txtStatus = (TextView) view.findViewById(R.id.textView_status_DetailsFragment);
+        btnSendMessage = (Button) view.findViewById(R.id.button_sendAMessage_DetailsFragment);
 
 //        Bundle bundle2 = getArguments();
 //        if(bundle2 != null){
@@ -58,7 +60,7 @@ public class DetailsFragment extends Fragment {
 //            String getDescription = bundle2.getString("description");
 //            String getStatus = bundle2.getString("status");
 //            String getImage = bundle2.getString("image");
-
+//
 //            Log.e(TAG, "image: " + getImage);
 //            Log.e(TAG, "category: " + getCategory);
 //            Log.e(TAG, "title: "+getTitle);
@@ -72,22 +74,22 @@ public class DetailsFragment extends Fragment {
 //            txtDate.setText(getDate);
 //            txtDescription.setText(getDescription);
 //            txtStatus.setText(getStatus);
-//
+
 //        }
 
-        String getImage = getActivity().getIntent().getStringExtra("image");
-        String getCategory = getActivity().getIntent().getStringExtra("category");
-        String getTitle = getActivity().getIntent().getStringExtra("title");
-        String getDate = getActivity().getIntent().getStringExtra("date");
-        String getDescription = getActivity().getIntent().getStringExtra("description");
-        String getStatus = getActivity().getIntent().getStringExtra("status");
-
-            Log.e(TAG, "image: " + getImage);
-            Log.e(TAG, "category: " + getCategory);
-            Log.e(TAG, "title: "+getTitle);
-            Log.e(TAG, "date: "+getDate);
-            Log.e(TAG, "description: "+getDescription);
-            Log.e(TAG, "status: "+getStatus);
+//        String getImage = getActivity().getIntent().getStringExtra("image");
+//        String getCategory = getActivity().getIntent().getStringExtra("category");
+//        String getTitle = getActivity().getIntent().getStringExtra("title");
+//        String getDate = getActivity().getIntent().getStringExtra("date");
+//        String getDescription = getActivity().getIntent().getStringExtra("description");
+//        String getStatus = getActivity().getIntent().getStringExtra("status");
+//
+//        Log.e(TAG, "image: " + getImage);
+//        Log.e(TAG, "category: " + getCategory);
+//        Log.e(TAG, "title: "+getTitle);
+//        Log.e(TAG, "date: "+getDate);
+//        Log.e(TAG, "description: "+getDescription);
+//        Log.e(TAG, "status: "+getStatus);
 
 //        Picasso.get().load(getImage).into(image);
 //        txtCategory.setText(getCategory);

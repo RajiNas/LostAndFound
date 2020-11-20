@@ -2,6 +2,7 @@ package com.example.lostandfoundapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ActionBar;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ItemDetails extends AppCompatActivity {
-    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class ItemDetails extends AppCompatActivity {
 //        actionBar.setTitle("Details");
         DetailsFragment detailsFragment = new DetailsFragment();
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
-        ft1.replace(R.id.content, detailsFragment, "");
+        ft1.add(R.id.content, detailsFragment);
         ft1.commit();
     }
 
@@ -68,4 +68,21 @@ public class ItemDetails extends AppCompatActivity {
                     return false;
                 }
             };
+
+
+//    public void f1(String getCategory, String getTitle, String getDate, String getDescription, String getStatus, String getImage) {
+//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentTransaction t1 = fm.beginTransaction();
+//        DetailsFragment detailsFragment  = new DetailsFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("category", getCategory);
+//        bundle.putString("title", getTitle);
+//        bundle.putString("date", getDate);
+//        bundle.putString("description", getDescription);
+//        bundle.putString("status", getStatus);
+//        bundle.putString("image", getImage);
+//        detailsFragment.setArguments(bundle);
+//        t1.add(R.id.content, detailsFragment);
+//        t1.commit();
+//    }
 }

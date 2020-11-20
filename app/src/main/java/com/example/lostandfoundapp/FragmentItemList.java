@@ -83,6 +83,16 @@ public class FragmentItemList extends Fragment {
 //                bundle.putString("status", items.getStatus());
 //                bundle.putString("image", items.getImage());
 
+//                String getCategory = items.getCategory();
+//                String getTitle = items.getTitle();
+//                String getDate = items.getDate();
+//                String getDescription = items.getDescription();
+//                String getStatus = items.getStatus();
+//                String getImage = items.getImage();
+//
+//                ItemDetails mn = (ItemDetails) getActivity();
+//                mn.f1(getCategory, getTitle, getDate, getDescription, getStatus, getImage);
+
 //                FragmentManager manager = getActivity().getSupportFragmentManager();
 //                FragmentTransaction transaction = manager.beginTransaction();
 //
@@ -92,12 +102,12 @@ public class FragmentItemList extends Fragment {
 //                transaction.commit();
 
                 Intent intent = new Intent(getContext(), ItemDetails.class);
-                intent.putExtra("category", items.getCategory());
-                intent.putExtra("title", items.getTitle());
-                intent.putExtra("date", items.getDate());
-                intent.putExtra("description", items.getDescription());
-                intent.putExtra("status", items.getStatus());
-                intent.putExtra("image", items.getImage());
+//                intent.putExtra("category", items.getCategory());
+//                intent.putExtra("title", items.getTitle());
+//                intent.putExtra("date", items.getDate());
+//                intent.putExtra("description", items.getDescription());
+//                intent.putExtra("status", items.getStatus());
+//                intent.putExtra("image", items.getImage());
                 startActivity(intent);
 
                 //here we can delete and update an item
