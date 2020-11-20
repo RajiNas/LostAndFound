@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,7 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Items, ItemAdapter.Ite
         ImageView imgItem;
         LinearLayout p_layout;
 
+
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -73,6 +75,8 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Items, ItemAdapter.Ite
             cv = (CardView) itemView.findViewById(R.id.cv);
             imgItem = (ImageView) itemView.findViewById(R.id.ItemimageviewFragment);
             p_layout = (LinearLayout) itemView.findViewById(R.id.parent_layout);
+
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

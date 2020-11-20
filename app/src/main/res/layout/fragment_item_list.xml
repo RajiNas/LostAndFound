@@ -7,11 +7,12 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
+    android:id="@+id/parent_layout"
     android:layout_height="match_parent">
 
     <!-- TODO: Update blank fragment layout -->
     <Spinner
-        android:id="@+id/editTextCategoryspinner"
+        android:id="@+id/editTextListspinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"

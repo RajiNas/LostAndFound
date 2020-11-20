@@ -18,7 +18,6 @@
 
     //item status values for the items
     <string-array name="Status">
-        <item>Select Category</item>
         <item>Pet</item>
         <item>Wallet</item>
         <item>Book</item>

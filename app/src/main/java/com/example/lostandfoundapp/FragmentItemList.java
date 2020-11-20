@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,13 +40,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class FragmentItemList extends Fragment {
+public class FragmentItemList extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private RecyclerView recyclerView;
     //    private DatabaseReference root;
     private FirebaseFirestore firebaseFirestore ;
     private CollectionReference reff;
     private ItemAdapter itemAdapter;
+
+    //declare the spinner
+    Spinner listCategory;
+    String chosenCategory;
 
     public static final String TAG = "ContainerAccessActivity";
 
@@ -57,15 +64,46 @@ public class FragmentItemList extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         recyclerView = (RecyclerView) view.findViewById(R.id.RecycleViewItemList);
-
-
         setUprecycleView();
+        //Initialize Spinner values
+        listCategory = (Spinner) view.findViewById(R.id.editTextListspinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.Status , android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listCategory.setAdapter(adapter);
+        listCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
+                String categoryText = adapterView.getItemAtPosition(position).toString();
+                Toast.makeText(adapterView.getContext(), categoryText, Toast.LENGTH_SHORT).show();
+
+
+                switch (categoryText){
+            case "Pet":
+                CategoryPet();
+                break;
+            case "Electronics":
+                CategoryElectronic();
+                break;
+            case "Cloth":
+                CategoryCloth();
+                break;
+        }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+      //  setUprecycleView();
         itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
 
 
-                Items items = documentSnapshot.toObject(Items.class);
+     //           Items items = documentSnapshot.toObject(Items.class);
 //                String id = documentSnapshot.getId();
 //                Toast.makeText(getContext(), "Position: " + position + " ID: " + id, Toast.LENGTH_SHORT).show();
 
@@ -118,6 +156,7 @@ public class FragmentItemList extends Fragment {
 
     private void setUprecycleView() {
         //Query
+
         Query query = firebaseFirestore.collection("Item");
 
         //RecyclerOptions
@@ -140,10 +179,65 @@ public class FragmentItemList extends Fragment {
 
     }
 
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
+
+    }
+
+
+    public void CategoryPet(){
+        Query query2 = firebaseFirestore.collection("Item").whereEqualTo("Category","Pet");
+
+        //RecyclerOptions
+        FirestoreRecyclerOptions<Items> options = new FirestoreRecyclerOptions.Builder<Items>()
+                .setQuery(query2, Items.class)
+                .build();
+
+        itemAdapter = new ItemAdapter(options);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(itemAdapter);
+    }
+    public void CategoryElectronic(){
+        Query query3 = firebaseFirestore.collection("Item").whereEqualTo("Category","Electronics");
+
+        //RecyclerOptions
+        FirestoreRecyclerOptions<Items> options = new FirestoreRecyclerOptions.Builder<Items>()
+                .setQuery(query3, Items.class)
+                .build();
+
+        itemAdapter = new ItemAdapter(options);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(itemAdapter);
+    }
+    public void CategoryCloth(){
+        Query query = firebaseFirestore.collection("Item").whereEqualTo("Category","Cloth");
+
+        //RecyclerOptions
+        FirestoreRecyclerOptions<Items> options = new FirestoreRecyclerOptions.Builder<Items>()
+                .setQuery(query, Items.class)
+                .build();
+
+        itemAdapter = new ItemAdapter(options);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(itemAdapter);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
         itemAdapter.startListening();
+        //  setUprecycleView(chosenCategory);
     }
 
     @Override
