@@ -15,6 +15,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -68,29 +69,31 @@ public class ContainerAccessActivity extends AppCompatActivity {
                     case R.id.messages_item:
                         fr = new MessageFragment();
                         displayFragment();
-                        return true;
+                        break;
                     case R.id.profile_item:
                         fr = new ProfilFragment();
                         displayFragment();
-                        return true;
+                        break;
                     case R.id.list_item:
                         fr = new FragmentItemList();
                         displayFragment();
-                        return true;
-
+                        break;
                     case R.id.logout_item:
                         mAuth.signOut();
                         finish();
                         startActivity(new Intent(ContainerAccessActivity.this, MainActivity.class));
-                        return true;
+                        break;
                     case R.id.addItem:
                         Intent intent = new Intent(ContainerAccessActivity.this, ItemsRegistrationActivity.class);
 
                         startActivity(intent);
-                        return true;
+                        break;
                     default:
-                        return true;
+                        break;
                 }
+                navigationView.setCheckedItem(item.getItemId());
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             }
         });
     }

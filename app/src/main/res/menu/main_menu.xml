@@ -2,45 +2,43 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group>
+    <group android:checkableBehavior="single">
         <item android:title="My Account">
             <menu>
-                <item
-                    android:id="@+id/messages_item"
-                    android:icon="@drawable/messages_icon"
-                    android:title="Messages" />
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/messages_item"
+                        android:icon="@drawable/messages_icon"
+                        android:title="Messages" />
 
-                <item
-                    android:id="@+id/profile_item"
-                    android:icon="@drawable/profile_icon"
-                    android:title="Profile" />
+                    <item
+                        android:id="@+id/profile_item"
+                        android:icon="@drawable/profile_icon"
+                        android:title="Profile" />
+                </group>
             </menu>
         </item>
-    </group>
 
-    <group>
+
         <item android:title="Lost and Found Items">
             <menu>
-                <item
-                    android:id="@+id/list_item"
-                    android:icon="@drawable/lost_icon"
-                    android:title="Items List" />
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/list_item"
+                        android:icon="@drawable/lost_icon"
+                        android:title="Items List" />
 
-                <item
-                    android:id="@+id/addItem"
-                    android:icon="@drawable/ic_add_circle_outline"
-                    android:title="Add Item" />
+                    <item
+                        android:id="@+id/addItem"
+                        android:icon="@drawable/ic_add_circle_outline"
+                        android:title="Add Item" />
+                </group>
             </menu>
         </item>
+
     </group>
 
-    <!--    <item-->
-    <!--        android:id="@+id/foundList_item"-->
-    <!--        android:icon="@drawable/found_icon"-->
-    <!--        android:title="FoundList"-->
-    <!--        app:showAsAction="always" />-->
-
-    <group android:id="@+id/group3">
+    <group android:id="@+id/group2">
         <item
             android:id="@+id/logout_item"
             android:icon="@drawable/signout_icon"
