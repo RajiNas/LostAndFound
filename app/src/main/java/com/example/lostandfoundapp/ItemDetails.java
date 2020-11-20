@@ -32,12 +32,12 @@ public class ItemDetails extends AppCompatActivity {
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener(){
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
 
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     //Handle item clicks
-                    switch (item.getItemId()){
+                    switch (item.getItemId()) {
                         case R.id.nav_details:
                             //details fragment transaction
 //                            actionBar.setTitle("Details");

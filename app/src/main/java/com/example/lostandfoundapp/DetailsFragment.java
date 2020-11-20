@@ -3,62 +3,99 @@ package com.example.lostandfoundapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
+
+
 public class DetailsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ImageView image;
+    TextView txtCategory, txtTitle, txtDate, txtDescription, txtStatus;
+    Button btnSendMessage;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public static final String TAG = "DetailsFragment";
 
     public DetailsFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DetailsFragment newInstance(String param1, String param2) {
-        DetailsFragment fragment = new DetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_details, container, false);
+
+        image = (ImageView) getActivity().findViewById(R.id.image_DetailsFragment);
+        txtCategory = (TextView) getActivity().findViewById(R.id.textView_category_DetailsFragment);
+        txtTitle = (TextView) getActivity().findViewById(R.id.textView_title_DetailsFragment);
+        txtDate = (TextView) getActivity().findViewById(R.id.textView_date_DetailsFragment);
+        txtDescription = (TextView) getActivity().findViewById(R.id.textView_description_DetailsFragment);
+        txtStatus = (TextView) getActivity().findViewById(R.id.textView_status_DetailsFragment);
+        btnSendMessage = (Button) getActivity().findViewById(R.id.button_sendAMessage_DetailsFragment);
+
+//        Bundle bundle2 = getArguments();
+//        if(bundle2 != null){
+//
+//            String getCategory = bundle2.getString("category");
+//            String getTitle = bundle2.getString("title");
+//            String getDate = bundle2.getString("date");
+//            String getDescription = bundle2.getString("description");
+//            String getStatus = bundle2.getString("status");
+//            String getImage = bundle2.getString("image");
+
+//            Log.e(TAG, "image: " + getImage);
+//            Log.e(TAG, "category: " + getCategory);
+//            Log.e(TAG, "title: "+getTitle);
+//            Log.e(TAG, "date: "+getDate);
+//            Log.e(TAG, "description: "+getDescription);
+//            Log.e(TAG, "status: "+getStatus);
+
+//            Picasso.get().load(getImage).into(image);
+//            txtCategory.setText(getCategory);
+//            txtTitle.setText(getTitle);
+//            txtDate.setText(getDate);
+//            txtDescription.setText(getDescription);
+//            txtStatus.setText(getStatus);
+//
+//        }
+
+        String getImage = getActivity().getIntent().getStringExtra("image");
+        String getCategory = getActivity().getIntent().getStringExtra("category");
+        String getTitle = getActivity().getIntent().getStringExtra("title");
+        String getDate = getActivity().getIntent().getStringExtra("date");
+        String getDescription = getActivity().getIntent().getStringExtra("description");
+        String getStatus = getActivity().getIntent().getStringExtra("status");
+
+            Log.e(TAG, "image: " + getImage);
+            Log.e(TAG, "category: " + getCategory);
+            Log.e(TAG, "title: "+getTitle);
+            Log.e(TAG, "date: "+getDate);
+            Log.e(TAG, "description: "+getDescription);
+            Log.e(TAG, "status: "+getStatus);
+
+//        Picasso.get().load(getImage).into(image);
+//        txtCategory.setText(getCategory);
+//        txtTitle.setText(getTitle);
+//        txtDate.setText(getDate);
+//        txtDescription.setText(getDescription);
+//        txtStatus.setText(getStatus);
+
+        return view;
     }
 }

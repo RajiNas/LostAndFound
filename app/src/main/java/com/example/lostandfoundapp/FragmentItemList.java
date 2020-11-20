@@ -3,6 +3,7 @@ package com.example.lostandfoundapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +32,9 @@ import com.google.firebase.firestore.core.OrderBy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class FragmentItemList extends Fragment {
@@ -39,6 +44,8 @@ public class FragmentItemList extends Fragment {
     private FirebaseFirestore firebaseFirestore ;
     private CollectionReference reff;
     private ItemAdapter itemAdapter;
+
+    public static final String TAG = "ContainerAccessActivity";
 
     public FragmentItemList() {
         // Required empty public constructor
@@ -51,14 +58,47 @@ public class FragmentItemList extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         recyclerView = (RecyclerView) view.findViewById(R.id.RecycleViewItemList);
 
+
         setUprecycleView();
         itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+
                 Items items = documentSnapshot.toObject(Items.class);
-                String id = documentSnapshot.getId();
-                Toast.makeText(getContext(), "Position: " + position + " ID: " + id, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getContext(), ItemDetails.class));
+//                String id = documentSnapshot.getId();
+//                Toast.makeText(getContext(), "Position: " + position + " ID: " + id, Toast.LENGTH_SHORT).show();
+
+//                Log.e(TAG, items.getCategory());
+//                Log.e(TAG, items.getTitle());
+//                Log.e(TAG, items.getDate());
+//                Log.e(TAG, items.getDescription());
+//                Log.e(TAG, items.getImage());
+
+//                Bundle bundle = new Bundle();
+//                bundle.putString("category", items.getCategory());
+//                bundle.putString("title", items.getTitle());
+//                bundle.putString("date", items.getDate());
+//                bundle.putString("description", items.getDescription());
+//                bundle.putString("status", items.getStatus());
+//                bundle.putString("image", items.getImage());
+
+//                FragmentManager manager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction transaction = manager.beginTransaction();
+//
+//                DetailsFragment detailsFragment = new DetailsFragment();
+//                detailsFragment.setArguments(bundle);
+//                transaction.replace(R.id.content, detailsFragment);
+//                transaction.commit();
+
+                Intent intent = new Intent(getContext(), ItemDetails.class);
+                intent.putExtra("category", items.getCategory());
+                intent.putExtra("title", items.getTitle());
+                intent.putExtra("date", items.getDate());
+                intent.putExtra("description", items.getDescription());
+                intent.putExtra("status", items.getStatus());
+                intent.putExtra("image", items.getImage());
+                startActivity(intent);
 
                 //here we can delete and update an item
             }
