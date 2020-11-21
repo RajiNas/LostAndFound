@@ -6,25 +6,21 @@ public class Items
 {
     private String username;
     private String title;
-    private Float lon;
-    private Float lat;
     private String description;
     private String category;
+    private String address;
     private String date;
-   private String status;
-   private String image;
+    private String status;
+    private String image;
     private String mKey;
-
-
 
     public Items() {
     }
 
-    public Items(String username, String title, Float lon, Float lat, String description, String category, String date, String status, String image) {
+    public Items(String username, String title, String address, String description, String category, String date, String status, String image) {
         this.username = username;
         this.title = title;
-        this.lon = lon;
-        this.lat = lat;
+        this.address = address;
         this.description = description;
         this.category = category;
         this.date = date;
@@ -32,7 +28,7 @@ public class Items
         this.image = image;
     }
 
-// the @Eclude with exclude the value from the database
+// the @Exclude with exclude the value from the database
     @Exclude
     public String getmKey() {
         return mKey;
@@ -50,11 +46,12 @@ public class Items
         this.image = image;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUserName(String userName) { username = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTitle() {
@@ -65,20 +62,8 @@ public class Items
         this.title = title;
     }
 
-    public Float getLon() {
-        return lon;
-    }
-
-    public void setLon(Float lon) {
-        this.lon = lon;
-    }
-
-    public Float getLat() {
-        return lat;
-    }
-
-    public void setLat(Float lat) {
-        this.lat = lat;
+    public String getAddress() {
+        return address;
     }
 
     public String getDescription() {
@@ -97,6 +82,9 @@ public class Items
         this.category = category;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public String getDate() {
         return date;
     }
