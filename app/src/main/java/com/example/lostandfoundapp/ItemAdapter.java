@@ -44,6 +44,7 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Items, ItemAdapter.Ite
     @Override
     protected void onBindViewHolder(@NonNull ItemHolder holder, int position, @NonNull Items items) {
 
+
         holder.category.setText(items.getCategory());
         holder.title.setText(items.getTitle());
         holder.date.setText(items.getDate());

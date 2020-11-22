@@ -2,8 +2,9 @@ package com.example.lostandfoundapp;
 
 import com.google.firebase.firestore.Exclude;
 
-public class Items
-{
+import java.util.Comparator;
+
+public class Items {
     private String username;
     private String title;
     private Float lon;
@@ -11,10 +12,9 @@ public class Items
     private String description;
     private String category;
     private String date;
-   private String status;
-   private String image;
+    private String status;
+    private String image;
     private String mKey;
-
 
 
     public Items() {
@@ -32,11 +32,12 @@ public class Items
         this.image = image;
     }
 
-// the @Eclude with exclude the value from the database
+    // the @Eclude with exclude the value from the database
     @Exclude
     public String getmKey() {
         return mKey;
     }
+
     @Exclude
     public void setmKey(String mKey) {
         this.mKey = mKey;
@@ -54,7 +55,8 @@ public class Items
         return username;
     }
 
-    public void setUserName(String userName) { username = userName;
+    public void setUserName(String userName) {
+        username = userName;
     }
 
     public String getTitle() {
@@ -112,4 +114,16 @@ public class Items
     public void setStatus(String status) {
         this.status = status;
     }
+
+    // add comparator to sort the data
+
+    public static final Comparator<Items> titleComparator = new Comparator<Items>() {
+        @Override
+        public int compare(Items items, Items t1) {
+            return items.getTitle().compareTo(t1.getTitle());
+        }
+    };
+
 }
+
+

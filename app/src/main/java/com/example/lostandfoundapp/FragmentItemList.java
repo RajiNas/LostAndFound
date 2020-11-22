@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -50,7 +51,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
     //declare the spinner
     Spinner listCategory;
-    String chosenCategory;
+    String chosenCategory ;
 
     public static final String TAG = "ContainerAccessActivity";
 
@@ -64,46 +65,22 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         recyclerView = (RecyclerView) view.findViewById(R.id.RecycleViewItemList);
-        setUprecycleView();
+
         //Initialize Spinner values
         listCategory = (Spinner) view.findViewById(R.id.editTextListspinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.Status , android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        listCategory.setAdapter(adapter);
-        listCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-
-                String categoryText = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(adapterView.getContext(), categoryText, Toast.LENGTH_SHORT).show();
 
 
-                switch (categoryText){
-            case "Pet":
-                CategoryPet();
-                break;
-            case "Electronics":
-                CategoryElectronic();
-                break;
-            case "Cloth":
-                CategoryCloth();
-                break;
-        }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
 
-      //  setUprecycleView();
+
+        setUprecycleView();
         itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
 
 
-     //           Items items = documentSnapshot.toObject(Items.class);
+                Items items = documentSnapshot.toObject(Items.class);
 //                String id = documentSnapshot.getId();
 //                Toast.makeText(getContext(), "Position: " + position + " ID: " + id, Toast.LENGTH_SHORT).show();
 
@@ -155,20 +132,54 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
     }
 
     private void setUprecycleView() {
+
+
+        //Spinner values
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.Status , android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listCategory.setAdapter(adapter);
+        listCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String categoryText = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(adapterView.getContext(), categoryText, Toast.LENGTH_SHORT).show();
+                chosenCategory = categoryText;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         //Query
-
         Query query = firebaseFirestore.collection("Item");
+        FirestoreRecyclerOptions<Items> options;
+        if (chosenCategory == "Pet"){
+             query = query.whereEqualTo("category","Pet").orderBy("date", Query.Direction.DESCENDING);
+            //RecyclerOptions
+           options = new FirestoreRecyclerOptions.Builder<Items>()
+                    .setQuery(query, Items.class)
+                    .build();
+            itemAdapter.startListening();
+           // itemAdapter.notifyDataSetChanged();
+        }else{
+             query = query.orderBy("category").whereEqualTo("category","Pet").orderBy("date", Query.Direction.ASCENDING);
+            //RecyclerOptions
+             options = new FirestoreRecyclerOptions.Builder<Items>()
+                    .setQuery(query, Items.class)
+                    .build();
+           // itemAdapter.notifyDataSetChanged();
+        }
 
-        //RecyclerOptions
-        FirestoreRecyclerOptions<Items> options = new FirestoreRecyclerOptions.Builder<Items>()
-                .setQuery(query, Items.class)
-                .build();
 
         itemAdapter = new ItemAdapter(options);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(itemAdapter);
 
+        itemAdapter.notifyDataSetChanged();
 
 //        Query query = reff.orderBy("date", Query.Direction.DESCENDING);//
 //        FirestoreRecyclerOptions<Items> item = new FirestoreRecyclerOptions.Builder<Items>().setQuery(query, Items.class).build();//
@@ -184,9 +195,16 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
 
-
+        String categoryText = adapterView.getItemAtPosition(position).toString();
+        Toast.makeText(adapterView.getContext(), categoryText, Toast.LENGTH_SHORT).show();
+        chosenCategory = categoryText;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     public void CategoryPet(){
         Query query2 = firebaseFirestore.collection("Item").whereEqualTo("Category","Pet");
