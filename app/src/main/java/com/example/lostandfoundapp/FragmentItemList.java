@@ -81,48 +81,17 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
 
                 Items items = documentSnapshot.toObject(Items.class);
-//                String id = documentSnapshot.getId();
-//                Toast.makeText(getContext(), "Position: " + position + " ID: " + id, Toast.LENGTH_SHORT).show();
+                String id = documentSnapshot.getId();
 
-//                Log.e(TAG, items.getCategory());
-//                Log.e(TAG, items.getTitle());
-//                Log.e(TAG, items.getDate());
-//                Log.e(TAG, items.getDescription());
-//                Log.e(TAG, items.getImage());
-
-//                Bundle bundle = new Bundle();
-//                bundle.putString("category", items.getCategory());
-//                bundle.putString("title", items.getTitle());
-//                bundle.putString("date", items.getDate());
-//                bundle.putString("description", items.getDescription());
-//                bundle.putString("status", items.getStatus());
-//                bundle.putString("image", items.getImage());
-
-//                String getCategory = items.getCategory();
-//                String getTitle = items.getTitle();
-//                String getDate = items.getDate();
-//                String getDescription = items.getDescription();
-//                String getStatus = items.getStatus();
-//                String getImage = items.getImage();
-//
-//                ItemDetails mn = (ItemDetails) getActivity();
-//                mn.f1(getCategory, getTitle, getDate, getDescription, getStatus, getImage);
-
-//                FragmentManager manager = getActivity().getSupportFragmentManager();
-//                FragmentTransaction transaction = manager.beginTransaction();
-//
-//                DetailsFragment detailsFragment = new DetailsFragment();
-//                detailsFragment.setArguments(bundle);
-//                transaction.replace(R.id.content, detailsFragment);
-//                transaction.commit();
 
                 Intent intent = new Intent(getContext(), ItemDetails.class);
-//                intent.putExtra("category", items.getCategory());
-//                intent.putExtra("title", items.getTitle());
-//                intent.putExtra("date", items.getDate());
-//                intent.putExtra("description", items.getDescription());
-//                intent.putExtra("status", items.getStatus());
-//                intent.putExtra("image", items.getImage());
+                intent.putExtra("id", id);
+                intent.putExtra("category", items.getCategory());
+                intent.putExtra("title", items.getTitle());
+                intent.putExtra("date", items.getDate());
+                intent.putExtra("description", items.getDescription());
+                intent.putExtra("status", items.getStatus());
+                intent.putExtra("image", items.getImage());
                 startActivity(intent);
 
                 //here we can delete and update an item

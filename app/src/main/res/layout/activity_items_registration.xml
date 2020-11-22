@@ -40,17 +40,17 @@
         <RadioButton
             android:id="@+id/RadioItemFound"
             android:layout_width="wrap_content"
-            android:onClick="onRadioButtonClicked"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onRadioButtonClicked"
             android:text="Found" />
 
         <RadioButton
             android:id="@+id/RadioItemLost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
             android:layout_weight="1"
+            android:onClick="onRadioButtonClicked"
             android:text="Lost" />
     </RadioGroup>
 
@@ -91,9 +91,9 @@
     <Button
         android:id="@+id/buttonaddItem"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
+        android:backgroundTint="#D85BB343"
         android:hint="Please select a category"
         android:text="Add" />
 
@@ -101,6 +101,6 @@
         android:id="@+id/buttonBacktoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#B15E61"
+        android:backgroundTint="#D85BB343"
         android:text="Back" />
 </LinearLayout>
