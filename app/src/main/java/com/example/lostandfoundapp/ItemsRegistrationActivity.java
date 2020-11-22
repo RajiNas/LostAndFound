@@ -68,7 +68,6 @@ import java.util.Random;
 
 public class ItemsRegistrationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-
     FirebaseDatabase firebaseDatabase;
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
@@ -77,7 +76,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     ImageView imgItem;
     FloatingActionButton addItemImgbtn;
 
-    EditText titletxt, longtxt, lattxt, descriptiontxt, edStatus;
+    EditText titletxt, addresstxt, descriptiontxt, edStatus;
     Spinner categorysp;
     Button additem, returnback;
 
@@ -86,7 +85,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
     //path where images of user profile will be stored
     String storagePath = "Item_Imgs/";
-
 
     //Permission constants
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -121,14 +119,12 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_registration);
 
-//        //ActioBar and its title
+//        //ActionBar and its title
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setTitle("Add New Item");
 
-
         titletxt = (EditText) findViewById(R.id.editextTitleItem);
-        longtxt = (EditText) findViewById(R.id.editTextLongitude);
-        lattxt = (EditText) findViewById(R.id.editTextLatitude);
+        addresstxt = (EditText) findViewById(R.id.editTextAddress);
         descriptiontxt = (EditText) findViewById(R.id.editTextDescriptionItem);
         //edStatus = (EditText)findViewById(R.id.editextItemStatus_Itemregisration);
         imgItem = (ImageView) findViewById(R.id.imageViewItemActivity);
@@ -137,8 +133,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         categorysp = (Spinner) findViewById(R.id.editTextCategoryspinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
 
         //init array of permissions
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -163,9 +157,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
 
-            // get sherable experience
-
-
+            // get shareable experience
 //
 //
 //        Toast.makeText(this, radioButton.getText(), Toast.LENGTH_SHORT).show();
@@ -177,7 +169,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 //            }
 //        });
 
-
         // button that adds the image to the item
         addItemImgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,7 +176,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 addImgPicture();
             }
         });
-
 
         //Go back to the Container activity
         returnback.setOnClickListener(new View.OnClickListener() {
@@ -196,16 +186,16 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
             }
         });
 
-
         additem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 itemTitle = titletxt.getText().toString();
-                String descriptionitem = descriptiontxt.getText().toString();
+                String title = titletxt.getText().toString();
+                String description = descriptiontxt.getText().toString();
+                String address = addresstxt.getText().toString();
                 //  String status = edStatus.getText().toString();
 
                 //  saveImgItem =  "com.google.android.gms.tasks.zzu@275dd66";
-                // Initialize float
+/*                // Initialize float
                 Float itemlong;
                 Float itemlat;
 
@@ -219,17 +209,17 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     itemlat = 0.0f;
                 } else {
                     itemlat = Float.parseFloat(lattxt.getText().toString());
-                }
+                }*/
 
                 // if Category is not selected the user won't be able to add item
-                if (itemTitle.equals("") || itemlong == 0.0 || itemlat == 0.0 || descriptionitem.equals("")) {
+                if (title.equals("") || address.equals("") || description.equals("")) {
                     Toast.makeText(ItemsRegistrationActivity.this, "Empty fields", Toast.LENGTH_SHORT).show();
                 } else {
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
                     String date = simpleDateFormat.format(calendar.getTime());
 
-                    Items items = new Items(chosenCurrentUser, itemTitle, itemlong, itemlat, descriptionitem, chosenCategory, date, status, saveImgItem);
+                    Items items = new Items(chosenCurrentUser, title, address, description, chosenCategory, date, status, saveImgItem);
                     if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 
@@ -240,15 +230,11 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                                 Toast.makeText(ItemsRegistrationActivity.this, "Data added", Toast.LENGTH_SHORT).show();
                             }
                         });
-
                 }
-
-
             }
         });
 
-
-        // obtain the name of the user to add into the firestoe
+        // obtain the name of the user to add into the firestore
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -260,7 +246,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     chosenCurrentUser = name;
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -289,14 +274,12 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         return result;
     }
 
-
     private void requestStoragePermission() {
         //request runtime storage permission
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.requestPermissions(storagePermission, STORAGE_REQUEST_CODE);
         }
-
     }
 
     private boolean checkCameraPermission() {
@@ -311,15 +294,11 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         return result && result1;
     }
 
-
     private void requestCameraPermission() {
         //request runtime camera permission
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.requestPermissions(cameraPermission, CAMERA_REQUEST_CODE);
         }
-
     }
 
     @Override
@@ -339,7 +318,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                         Toast.makeText(ItemsRegistrationActivity.this, "Please enable camera && storage permission", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
             break;
             case STORAGE_REQUEST_CODE: {
@@ -355,7 +333,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                         Toast.makeText(ItemsRegistrationActivity.this, "Please enable storage permission", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
             break;
         }
@@ -370,12 +347,10 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 // image is picked from gallery, get uri of image
                 image_uri = data.getData();
                 uploadProfilePhoto(image_uri);
-
             }
             if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 // image is picked from camera, get uri of image
                 uploadProfilePhoto(image_uri);
-
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -452,8 +427,10 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         String options[] = {"Camera", "Gallery"};
         //Alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemsRegistrationActivity.this);
+
         //Set title
         builder.setTitle("Pick Image From");
+
         //Set items to dialog
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
@@ -466,7 +443,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     } else {
                         pickFromCamera();
                     }
-
                 } else if (which == 1) {
                     // Gallery clicked
                     if (!checkStoragePermission()) {
@@ -480,13 +456,14 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         //create and show dialog
         builder.create().show();
     }
+
     public void onRadioButtonClicked(View view){
         boolean checked = ((RadioButton) view).isChecked();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.RadioItemFound:
                 if(checked)
                     status = "Found";
-                Toast.makeText(this, "item was clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "found item was clicked", Toast.LENGTH_SHORT).show();
                 break;
             case  R.id.RadioItemLost:
                 if(checked)
@@ -494,13 +471,11 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 Toast.makeText(this, "lost item was clicked", Toast.LENGTH_SHORT).show();
                 break;
         }
-
     }
 
     public String generateRandomIdForUser(){
-            Random ram = new Random();
-            int id = ram.nextInt(1000 - 1) + 1;
+            Random ran = new Random();
+            int id = ran.nextInt(1000 - 1) + 1;
             return Integer.toString(id);
-
     }
 }

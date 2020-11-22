@@ -64,19 +64,11 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editTextLongitude"
+        android:id="@+id/editTextAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Longitude"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editTextLatitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Latitude"
+        android:hint="Address"
         android:inputType="textPersonName" />
 
     <EditText
