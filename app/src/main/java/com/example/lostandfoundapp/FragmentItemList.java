@@ -176,31 +176,163 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                   editor.putString("cat","Pet");
                   editor.commit();
                   setUprecycleView();
+                  itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
+                      @Override
+                      public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+
+                          Items items = documentSnapshot.toObject(Items.class);
+                          String id = documentSnapshot.getId();
+
+
+                          Intent intent = new Intent(getContext(), ItemDetails.class);
+                          intent.putExtra("id", id);
+                          intent.putExtra("category", items.getCategory());
+                          intent.putExtra("title", items.getTitle());
+                          intent.putExtra("date", items.getDate());
+                          intent.putExtra("description", items.getDescription());
+                          intent.putExtra("status", items.getStatus());
+                          intent.putExtra("image", items.getImage());
+                          startActivity(intent);
+
+                          //here we can delete and update an item
+                      }
+                  });
                   break;
               case "Electronics":
                   editor.putString("cat","Electronic");
                   editor.commit();
                   setUprecycleView();
+                  itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
+                      @Override
+                      public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+
+                          Items items = documentSnapshot.toObject(Items.class);
+                          String id = documentSnapshot.getId();
+
+
+                          Intent intent = new Intent(getContext(), ItemDetails.class);
+                          intent.putExtra("id", id);
+                          intent.putExtra("category", items.getCategory());
+                          intent.putExtra("title", items.getTitle());
+                          intent.putExtra("date", items.getDate());
+                          intent.putExtra("description", items.getDescription());
+                          intent.putExtra("status", items.getStatus());
+                          intent.putExtra("image", items.getImage());
+                          startActivity(intent);
+
+                          //here we can delete and update an item
+                      }
+                  });
                   break;
               case "Jewelry" :
                   editor.putString("cat","Jewelry");
                   editor.commit();
                   setUprecycleView();
+                  itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
+                      @Override
+                      public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+
+                          Items items = documentSnapshot.toObject(Items.class);
+                          String id = documentSnapshot.getId();
+
+
+                          Intent intent = new Intent(getContext(), ItemDetails.class);
+                          intent.putExtra("id", id);
+                          intent.putExtra("category", items.getCategory());
+                          intent.putExtra("title", items.getTitle());
+                          intent.putExtra("date", items.getDate());
+                          intent.putExtra("description", items.getDescription());
+                          intent.putExtra("status", items.getStatus());
+                          intent.putExtra("image", items.getImage());
+                          startActivity(intent);
+
+                          //here we can delete and update an item
+                      }
+                  });
                   break;
               case "Cloth":
                   editor.putString("cat","Cloth");
                   editor.commit();
                   setUprecycleView();
+                  itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
+                      @Override
+                      public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+
+                          Items items = documentSnapshot.toObject(Items.class);
+                          String id = documentSnapshot.getId();
+
+
+                          Intent intent = new Intent(getContext(), ItemDetails.class);
+                          intent.putExtra("id", id);
+                          intent.putExtra("category", items.getCategory());
+                          intent.putExtra("title", items.getTitle());
+                          intent.putExtra("date", items.getDate());
+                          intent.putExtra("description", items.getDescription());
+                          intent.putExtra("status", items.getStatus());
+                          intent.putExtra("image", items.getImage());
+                          startActivity(intent);
+
+                          //here we can delete and update an item
+                      }
+                  });
                   break;
               case "Other":
                   editor.putString("cat","Other");
                   editor.commit();
                   setUprecycleView();
+                  itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
+                      @Override
+                      public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+
+                          Items items = documentSnapshot.toObject(Items.class);
+                          String id = documentSnapshot.getId();
+
+
+                          Intent intent = new Intent(getContext(), ItemDetails.class);
+                          intent.putExtra("id", id);
+                          intent.putExtra("category", items.getCategory());
+                          intent.putExtra("title", items.getTitle());
+                          intent.putExtra("date", items.getDate());
+                          intent.putExtra("description", items.getDescription());
+                          intent.putExtra("status", items.getStatus());
+                          intent.putExtra("image", items.getImage());
+                          startActivity(intent);
+
+                          //here we can delete and update an item
+                      }
+                  });
                   break;
               case "Book":
                   editor.putString("cat","Book");
                   editor.commit();
                   setUprecycleView();
+                  itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
+                      @Override
+                      public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+
+                          Items items = documentSnapshot.toObject(Items.class);
+                          String id = documentSnapshot.getId();
+
+
+                          Intent intent = new Intent(getContext(), ItemDetails.class);
+                          intent.putExtra("id", id);
+                          intent.putExtra("category", items.getCategory());
+                          intent.putExtra("title", items.getTitle());
+                          intent.putExtra("date", items.getDate());
+                          intent.putExtra("description", items.getDescription());
+                          intent.putExtra("status", items.getStatus());
+                          intent.putExtra("image", items.getImage());
+                          startActivity(intent);
+
+                          //here we can delete and update an item
+                      }
+                  });
                   break;
           }
 
