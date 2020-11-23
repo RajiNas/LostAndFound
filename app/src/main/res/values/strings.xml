@@ -14,7 +14,7 @@
         <item>Book</item>
         <item>Cloth</item>
         <item>Electronics</item>
-        <item>Others</item>
+        <item>Other</item>
     </string-array>
 
     //item status values for the items in recycle view
@@ -25,7 +25,7 @@
         <item>Book</item>
         <item>Cloth</item>
         <item>Electronics</item>
-        <item>Others</item>
+        <item>Other</item>
     </string-array>
 
 

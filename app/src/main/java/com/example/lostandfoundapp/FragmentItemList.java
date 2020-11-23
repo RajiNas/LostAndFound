@@ -140,8 +140,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 query = query.whereEqualTo("category", "Book").orderBy("date", Query.Direction.DESCENDING);
                 break;
             case "All":
-                query = query.whereEqualTo("category", "All").orderBy("date", Query.Direction.DESCENDING);
+                query = query;
                 break;
+
         }
         options = new FirestoreRecyclerOptions.Builder<Items>()
                 .setQuery(query, Items.class)
@@ -200,7 +201,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                   });
                   break;
               case "Electronics":
-                  editor.putString("cat","Electronic");
+                  editor.putString("cat","Electronics");
                   editor.commit();
                   setUprecycleView();
                   itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
@@ -334,6 +335,33 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                       }
                   });
                   break;
+              case "All":
+                  editor.putString("cat","All");
+                  editor.commit();
+                  setUprecycleView();
+                  itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
+                      @Override
+                      public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+
+                          Items items = documentSnapshot.toObject(Items.class);
+                          String id = documentSnapshot.getId();
+
+
+                          Intent intent = new Intent(getContext(), ItemDetails.class);
+                          intent.putExtra("id", id);
+                          intent.putExtra("category", items.getCategory());
+                          intent.putExtra("title", items.getTitle());
+                          intent.putExtra("date", items.getDate());
+                          intent.putExtra("description", items.getDescription());
+                          intent.putExtra("status", items.getStatus());
+                          intent.putExtra("image", items.getImage());
+                          startActivity(intent);
+
+                          //here we can delete and update an item
+                      }
+                  });
+                  break;
           }
 
     }
@@ -348,11 +376,11 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
 
     public void CategoryInitialize() {
-        Query query3 = firebaseFirestore.collection("Item").whereEqualTo("Category", "Electronics");
+        Query query = firebaseFirestore.collection("Item");
 
         //RecyclerOptions
         FirestoreRecyclerOptions<Items> options = new FirestoreRecyclerOptions.Builder<Items>()
-                .setQuery(query3, Items.class)
+                .setQuery(query, Items.class)
                 .build();
 
         itemAdapter = new ItemAdapter(options);
