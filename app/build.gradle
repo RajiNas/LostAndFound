@@ -80,10 +80,12 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-firestore:7.0.0'
 
 
-
+    // Messaging
+    compile 'com.firebaseui:firebase-ui:0.6.2'
 
 
 }
+apply plugin: 'com.google.gms.google-services'
 
 repositories {
     mavenCentral()

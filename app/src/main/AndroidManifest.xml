@@ -47,6 +47,11 @@
             android:label="@string/title_activity_customer_login"
             android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
         <activity
+            android:name=".MessageActivity"
+            android:label="MessageActivity"
+            android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
+
+        <activity
             android:name=".RegistractionActivity"
             android:label="@string/title_activity_registraction"
             android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
