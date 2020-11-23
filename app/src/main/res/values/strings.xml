@@ -16,7 +16,7 @@
         <item>Electronics</item>
     </string-array>
 
-    //item status values for the items
+    //item status values for the items in recycle view
     <string-array name="Status">
         <item>Pet</item>
         <item>Wallet</item>
