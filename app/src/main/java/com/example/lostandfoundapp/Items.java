@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 public class Items {
     private String username;
+    private String userEmail;
     private String title;
     private String description;
     private String category;
@@ -19,8 +20,9 @@ public class Items {
     public Items() {
     }
 
-    public Items(String username, String title, String address, String description, String category, String date, String status, String image) {
+    public Items(String username, String userEmail, String title, String address, String description, String category, String date, String status, String image) {
         this.username = username;
+        this.userEmail = userEmail;
         this.title = title;
         this.address = address;
         this.description = description;
@@ -53,10 +55,16 @@ public class Items {
         return username;
     }
 
-
     public void setUsername(String username) {
         this.username = username;
+    }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getTitle() {

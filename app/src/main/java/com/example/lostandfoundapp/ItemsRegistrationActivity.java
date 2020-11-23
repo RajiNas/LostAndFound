@@ -194,6 +194,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 String address = addresstxt.getText().toString();
                 //  String status = edStatus.getText().toString();
 
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                String userEmail = user.getEmail();
                 //  saveImgItem =  "com.google.android.gms.tasks.zzu@275dd66";
 /*                // Initialize float
                 Float itemlong;
@@ -219,7 +221,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
                     String date = simpleDateFormat.format(calendar.getTime());
 
-                    Items items = new Items(chosenCurrentUser, title, address, description, chosenCategory, date, status, saveImgItem);
+                    Items items = new Items(chosenCurrentUser, userEmail, title, address, description, chosenCategory, date, status, saveImgItem);
                     if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 
