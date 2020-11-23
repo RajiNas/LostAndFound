@@ -137,6 +137,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         }
 
 
+
         switch (chosenCat){
             case "Pet":
                 query = query.whereEqualTo("category", "Pet").orderBy("date", Query.Direction.DESCENDING);
@@ -161,10 +162,13 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 query = query;
                 break;
             case "My Item":
+                //fetch the email store in the fireStore to compare
+//                 Query queryFecther = query;
+//                 queryFecther.addSnapshotListener( )
                     if(currentUser.equals("joel@gmail.com")) {
-                        query = query.whereEqualTo("category", "Book").orderBy("date", Query.Direction.DESCENDING);
-                    }else{
-                        query = query.whereEqualTo("username", "Joel").orderBy("date", Query.Direction.DESCENDING);
+                        query = query.whereEqualTo("userEmail", currentUser).orderBy("date", Query.Direction.DESCENDING);
+                    }else {
+                        Toast.makeText(getActivity(), "Sorry, you haven't found or lost an Item yet", Toast.LENGTH_SHORT).show();
                     }
                 break;
 
