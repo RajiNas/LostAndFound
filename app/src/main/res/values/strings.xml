@@ -10,19 +10,22 @@
     <string-array name="Categories">
         <item>Select Category</item>
         <item>Pet</item>
-        <item>Wallet</item>
+        <item>Jewelry</item>
         <item>Book</item>
         <item>Cloth</item>
         <item>Electronics</item>
+        <item>Others</item>
     </string-array>
 
     //item status values for the items in recycle view
     <string-array name="Status">
+        <item>All</item>
         <item>Pet</item>
-        <item>Wallet</item>
+        <item>Jewelry</item>
         <item>Book</item>
         <item>Cloth</item>
         <item>Electronics</item>
+        <item>Others</item>
     </string-array>
 
 

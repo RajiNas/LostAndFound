@@ -50,6 +50,8 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Items, ItemAdapter.Ite
         holder.date.setText(items.getDate());
         Picasso.get().load(items.getImage()).into(holder.imgItem);
 
+
+
     }
 
     @NonNull

@@ -80,7 +80,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
          sp = getActivity().getSharedPreferences("Categories", Context.MODE_PRIVATE);
 
-        CategoryElectronic();
+        CategoryInitialize();
         itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -117,39 +117,42 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         //Query
         Query query = firebaseFirestore.collection("Item");
         FirestoreRecyclerOptions<Items> options;
-        if (chosenCat.equals("Pet")) {
-            query = query.whereEqualTo("category", "Pet").orderBy("date", Query.Direction.DESCENDING);
-            //RecyclerOptions
-            options = new FirestoreRecyclerOptions.Builder<Items>()
-                    .setQuery(query, Items.class)
-                    .build();
-            itemAdapter = new ItemAdapter(options);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(itemAdapter);
 
-            itemAdapter.notifyDataSetChanged();
-            itemAdapter.startListening();
-            // itemAdapter.notifyDataSetChanged();
-        } else {
-            query = query.orderBy("category").whereEqualTo("category", "Electronics").orderBy("date", Query.Direction.ASCENDING);
-            //RecyclerOptions
-            options = new FirestoreRecyclerOptions.Builder<Items>()
-                    .setQuery(query, Items.class)
-                    .build();
-            itemAdapter = new ItemAdapter(options);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(itemAdapter);
 
-            itemAdapter.notifyDataSetChanged();
-            itemAdapter.startListening();
-            // itemAdapter.notifyDataSetChanged();
+        switch (chosenCat){
+            case "Pet":
+                query = query.whereEqualTo("category", "Pet").orderBy("date", Query.Direction.DESCENDING);
+
+                break;
+            case "Electronics":
+                query = query.whereEqualTo("category", "Electronics").orderBy("date", Query.Direction.DESCENDING);
+                break;
+            case "Jewelry" :
+                query = query.whereEqualTo("category", "Jewelry").orderBy("date", Query.Direction.DESCENDING);
+                break;
+            case "Cloth":
+                query = query.whereEqualTo("category", "Cloth").orderBy("date", Query.Direction.DESCENDING);
+                break;
+            case "Other":
+                query = query.whereEqualTo("category", "Other").orderBy("date", Query.Direction.DESCENDING);
+                break;
+            case "Book":
+                query = query.whereEqualTo("category", "Book").orderBy("date", Query.Direction.DESCENDING);
+                break;
+            case "All":
+                query = query.whereEqualTo("category", "All").orderBy("date", Query.Direction.DESCENDING);
+                break;
         }
+        options = new FirestoreRecyclerOptions.Builder<Items>()
+                .setQuery(query, Items.class)
+                .build();
+        itemAdapter = new ItemAdapter(options);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(itemAdapter);
 
-
-
-
+        itemAdapter.notifyDataSetChanged();
+        itemAdapter.startListening();
 //        Query query = reff.orderBy("date", Query.Direction.DESCENDING);//
 //        FirestoreRecyclerOptions<Items> item = new FirestoreRecyclerOptions.Builder<Items>().setQuery(query, Items.class).build();//
 //        itemAdapter = new ItemAdapter(item);//
@@ -179,6 +182,26 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                   editor.commit();
                   setUprecycleView();
                   break;
+              case "Jewelry" :
+                  editor.putString("cat","Jewelry");
+                  editor.commit();
+                  setUprecycleView();
+                  break;
+              case "Cloth":
+                  editor.putString("cat","Cloth");
+                  editor.commit();
+                  setUprecycleView();
+                  break;
+              case "Other":
+                  editor.putString("cat","Other");
+                  editor.commit();
+                  setUprecycleView();
+                  break;
+              case "Book":
+                  editor.putString("cat","Book");
+                  editor.commit();
+                  setUprecycleView();
+                  break;
           }
 
     }
@@ -190,40 +213,14 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
     }
 
-    public void CategoryPet() {
-        Query query2 = firebaseFirestore.collection("Item").whereEqualTo("Category", "Pet");
 
-        //RecyclerOptions
-        FirestoreRecyclerOptions<Items> options = new FirestoreRecyclerOptions.Builder<Items>()
-                .setQuery(query2, Items.class)
-                .build();
 
-        itemAdapter = new ItemAdapter(options);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(itemAdapter);
-    }
-
-    public void CategoryElectronic() {
+    public void CategoryInitialize() {
         Query query3 = firebaseFirestore.collection("Item").whereEqualTo("Category", "Electronics");
 
         //RecyclerOptions
         FirestoreRecyclerOptions<Items> options = new FirestoreRecyclerOptions.Builder<Items>()
                 .setQuery(query3, Items.class)
-                .build();
-
-        itemAdapter = new ItemAdapter(options);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(itemAdapter);
-    }
-
-    public void CategoryCloth() {
-        Query query = firebaseFirestore.collection("Item").whereEqualTo("Category", "Cloth");
-
-        //RecyclerOptions
-        FirestoreRecyclerOptions<Items> options = new FirestoreRecyclerOptions.Builder<Items>()
-                .setQuery(query, Items.class)
                 .build();
 
         itemAdapter = new ItemAdapter(options);
