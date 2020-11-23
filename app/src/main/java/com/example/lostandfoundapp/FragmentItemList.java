@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +57,11 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
     Spinner listCategory;
     String chosenCategory;
 
+    // Identify the current user
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+
+
     public static final String TAG = "ContainerAccessActivity";
     SharedPreferences sp;
     public FragmentItemList() {
@@ -70,6 +77,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
         //Initialize Spinner values
         listCategory = (Spinner) view.findViewById(R.id.editTextListspinner);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
 
 
         //Spinner values
@@ -108,7 +118,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
 
     private void setUprecycleView() {
-
+        String currentUser = "";
         Toast.makeText(getContext(), "chosenCategory", Toast.LENGTH_SHORT).show();
 
         SharedPreferences sp = getActivity().getSharedPreferences("Categories", Context.MODE_PRIVATE);
@@ -117,6 +127,14 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         //Query
         Query query = firebaseFirestore.collection("Item");
         FirestoreRecyclerOptions<Items> options;
+
+        // get current user
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        Log.e("FragmentItemList","the user is " + user.getEmail());
+
+        if(user != null){
+             currentUser = user.getEmail();
+        }
 
 
         switch (chosenCat){
@@ -141,6 +159,13 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 break;
             case "All":
                 query = query;
+                break;
+            case "My Item":
+                    if(currentUser.equals("joel@gmail.com")) {
+                        query = query.whereEqualTo("category", "Book").orderBy("date", Query.Direction.DESCENDING);
+                    }else{
+                        query = query.whereEqualTo("username", "Joel").orderBy("date", Query.Direction.DESCENDING);
+                    }
                 break;
 
         }
@@ -361,6 +386,35 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                           //here we can delete and update an item
                       }
                   });
+                  break;
+              case "My Item":
+
+                  editor.putString("cat","My Item");
+                  editor.commit();
+                  setUprecycleView();
+
+                  itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
+                  @Override
+                  public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+
+                  Items items = documentSnapshot.toObject(Items.class);
+                  String id = documentSnapshot.getId();
+
+
+                  Intent intent = new Intent(getContext(), ItemDetails.class);
+                  intent.putExtra("id", id);
+                  intent.putExtra("category", items.getCategory());
+                  intent.putExtra("title", items.getTitle());
+                  intent.putExtra("date", items.getDate());
+                  intent.putExtra("description", items.getDescription());
+                  intent.putExtra("status", items.getStatus());
+                  intent.putExtra("image", items.getImage());
+                  startActivity(intent);
+
+                  //here we can delete and update an item
+              }
+          });
                   break;
           }
 
