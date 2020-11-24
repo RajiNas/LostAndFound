@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,7 +48,7 @@ public class ContainerAccessActivity extends AppCompatActivity {
 
         //ActioBar and its title
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Container");
+        actionBar.setTitle("LostAndFound");
 
         mAuth = FirebaseAuth.getInstance();
 

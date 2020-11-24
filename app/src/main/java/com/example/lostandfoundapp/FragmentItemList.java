@@ -108,6 +108,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 intent.putExtra("description", items.getDescription());
                 intent.putExtra("status", items.getStatus());
                 intent.putExtra("image", items.getImage());
+                intent.putExtra("address", items.getAddress());
                 startActivity(intent);
 
                 //here we can delete and update an item
@@ -223,6 +224,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                           intent.putExtra("description", items.getDescription());
                           intent.putExtra("status", items.getStatus());
                           intent.putExtra("image", items.getImage());
+                          intent.putExtra("address", items.getAddress());
                           startActivity(intent);
 
                           //here we can delete and update an item
@@ -250,6 +252,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                           intent.putExtra("description", items.getDescription());
                           intent.putExtra("status", items.getStatus());
                           intent.putExtra("image", items.getImage());
+                          intent.putExtra("address", items.getAddress());
                           startActivity(intent);
 
                           //here we can delete and update an item
@@ -277,6 +280,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                           intent.putExtra("description", items.getDescription());
                           intent.putExtra("status", items.getStatus());
                           intent.putExtra("image", items.getImage());
+                          intent.putExtra("address", items.getAddress());
                           startActivity(intent);
 
                           //here we can delete and update an item
@@ -304,6 +308,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                           intent.putExtra("description", items.getDescription());
                           intent.putExtra("status", items.getStatus());
                           intent.putExtra("image", items.getImage());
+                          intent.putExtra("address", items.getAddress());
                           startActivity(intent);
 
                           //here we can delete and update an item
@@ -331,6 +336,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                           intent.putExtra("description", items.getDescription());
                           intent.putExtra("status", items.getStatus());
                           intent.putExtra("image", items.getImage());
+                          intent.putExtra("address", items.getAddress());
                           startActivity(intent);
 
                           //here we can delete and update an item
@@ -358,6 +364,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                           intent.putExtra("description", items.getDescription());
                           intent.putExtra("status", items.getStatus());
                           intent.putExtra("image", items.getImage());
+                          intent.putExtra("address", items.getAddress());
                           startActivity(intent);
 
                           //here we can delete and update an item
@@ -385,6 +392,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                           intent.putExtra("description", items.getDescription());
                           intent.putExtra("status", items.getStatus());
                           intent.putExtra("image", items.getImage());
+                          intent.putExtra("address", items.getAddress());
                           startActivity(intent);
 
                           //here we can delete and update an item
@@ -414,6 +422,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                   intent.putExtra("description", items.getDescription());
                   intent.putExtra("status", items.getStatus());
                   intent.putExtra("image", items.getImage());
+                      intent.putExtra("address", items.getAddress());
                   startActivity(intent);
 
                   //here we can delete and update an item

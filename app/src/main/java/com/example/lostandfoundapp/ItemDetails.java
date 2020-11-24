@@ -2,12 +2,16 @@ package com.example.lostandfoundapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ActionBar;
 import android.app.Notification;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -50,10 +54,28 @@ public class ItemDetails extends AppCompatActivity {
                         case R.id.nav_location:
                             //location fragment transaction
 //                            actionBar.setTitle("Location");
-                            MapsFragment mapsFragment = new MapsFragment();
+                           Fragment mapsFragment = new MapsFragment();
                             FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
                             ft2.replace(R.id.content, mapsFragment, "");
                             ft2.commit();
+
+
+
+//                            Handler mHandler = new Handler();
+//                            Runnable mPendingRunnable = new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    MapsFragment mapsFragment = new MapsFragment();
+//                                    FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
+//                                    ft2.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+//                                    ft2.replace(R.id.content, mapsFragment, "");
+//                                    ft2.commitAllowingStateLoss();
+//                                }
+//                            };
+//                            if (mPendingRunnable != null) {
+//                                mHandler.post(mPendingRunnable);
+//                            }
+
                             return true;
 
                         case R.id.nav_contact:
