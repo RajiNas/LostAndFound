@@ -76,11 +76,11 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     ImageView imgItem;
     FloatingActionButton addItemImgbtn;
 
-    EditText titletxt, addresstxt, descriptiontxt, edStatus;
+    EditText titletxt, addresstxt, descriptiontxt;
     Spinner categorysp;
     Button additem, returnback;
 
-    String chosenCategory, itemTitle , chosenCurrentUser, status, saveImgItem;
+    String chosenCategory, chosenCurrentUser, status, saveImgItem;
     //init progress dialog
 
     //path where images of user profile will be stored
@@ -105,8 +105,6 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     StorageReference storageReference;
     CollectionReference reff = db.collection("Item");
 
-    RadioButton radioButton;
-    RadioGroup radioGroup;
 
     private static final String ITEM_TITLE = "title";
     private static final String ITEM_LATITUDE = "latitude";
