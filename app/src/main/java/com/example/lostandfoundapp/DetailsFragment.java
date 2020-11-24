@@ -78,12 +78,12 @@ public class DetailsFragment extends Fragment {
         String getDescription = getActivity().getIntent().getStringExtra("description");
         String getStatus = getActivity().getIntent().getStringExtra("status");
 
-        Log.e(TAG, "image: " + getImage);
-        Log.e(TAG, "category: " + getCategory);
-        Log.e(TAG, "title: "+getTitle);
-        Log.e(TAG, "date: "+getDate);
-        Log.e(TAG, "description: "+getDescription);
-        Log.e(TAG, "status: "+getStatus);
+//        Log.e(TAG, "image: " + getImage);
+//        Log.e(TAG, "category: " + getCategory);
+//        Log.e(TAG, "title: "+getTitle);
+//        Log.e(TAG, "date: "+getDate);
+//        Log.e(TAG, "description: "+getDescription);
+//        Log.e(TAG, "status: "+getStatus);
 
         Picasso.get().load(getImage).into(image);
         txtCategory.setText(getCategory);
