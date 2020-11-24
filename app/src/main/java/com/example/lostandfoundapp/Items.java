@@ -11,6 +11,7 @@ public class Items {
     private String category;
     private String address;
     private String date;
+    private String userEmail;
     private String status;
     private String image;
     private String mKey;
@@ -30,6 +31,13 @@ public class Items {
         this.image = image;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
     @Exclude
     public String getmKey() {
