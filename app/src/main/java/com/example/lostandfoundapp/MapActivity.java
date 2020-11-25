@@ -42,28 +42,36 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.google_map);
 
 
-        try {
-            geoLocate();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        geoLocate();
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+
+                googleMap.addMarker(new MarkerOptions().position(latLng).title(locationName));
+                //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,20));
+            }
+        });
 
 
         mapFragment.getMapAsync(this);
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.addMarker(new MarkerOptions().position(latLng).title(locationName));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+
     }
 
-    public void geoLocate( ) throws IOException {
+    public void geoLocate( )  {
 
-//         locationName = "montreal";
-        Geocoder geocoder = new Geocoder(this);
-        List<Address> addressList = geocoder.getFromLocationName(locationName,1);
+         locationName = "paris";
+        Geocoder geocoder = new Geocoder(MapActivity.this);
+        List<Address> addressList = null;
+        try {
+            addressList = geocoder.getFromLocationName("Montreal",10);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-         Address add = addressList.get(0);
+        Address add = addressList.get(0);
         String locality = add.getLocality();
         Toast.makeText(this, locality, Toast.LENGTH_SHORT).show();
 
