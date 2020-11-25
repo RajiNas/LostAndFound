@@ -13,10 +13,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ItemDetails extends AppCompatActivity {
+
+    FloatingActionButton floatingActionButton, fab_edit, fab_contact, fab_map;
+    Animation fabOpen, fabClose, fabRClockwise, fabRAntiClockwise;
+    boolean isOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +35,17 @@ public class ItemDetails extends AppCompatActivity {
         BottomNavigationView navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
 
+        floatingActionButton = findViewById(R.id.fab);
+        fab_edit = findViewById(R.id.edit_button);
+        fab_contact = findViewById(R.id.contact_button);
+        fab_map = findViewById(R.id.map_button);
+
+        fabOpen = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.fab_close);
+        fabRClockwise = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.rotate_clockwise);
+        fabRAntiClockwise = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.rotate_anticlockwise);
+
+
         //Details fragment transaction (default on start)
         //details fragment transaction
 //        actionBar.setTitle("Details");
@@ -33,6 +53,60 @@ public class ItemDetails extends AppCompatActivity {
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.add(R.id.content, detailsFragment);
         ft1.commit();
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isOpen) {
+                    fab_edit.startAnimation(fabClose);
+                    fab_contact.startAnimation(fabClose);
+                    fab_map.startAnimation(fabClose);
+                    floatingActionButton.startAnimation(fabRClockwise);
+
+                    fab_edit.setClickable(false);
+                    fab_contact.setClickable(false);
+                    fab_map.setClickable(false);
+
+                    isOpen = false;
+                }
+                else {
+                    fab_edit.startAnimation(fabOpen);
+                    fab_contact.startAnimation(fabOpen);
+                    fab_map.startAnimation(fabOpen);
+                    floatingActionButton.startAnimation(fabRAntiClockwise);
+
+                    fab_edit.setClickable(true);
+                    fab_contact.setClickable(true);
+                    fab_map.setClickable(true);
+
+                    isOpen = true;
+                }
+            }
+        });
+
+        fab_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // enables user to edit their item only
+
+            }
+        });
+
+        fab_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // goes to contact activity
+            }
+        });
+
+        fab_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // goes to map activity
+                Intent intent = new Intent(ItemDetails.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener =
