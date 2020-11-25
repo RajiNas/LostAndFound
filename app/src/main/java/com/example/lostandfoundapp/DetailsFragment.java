@@ -1,5 +1,6 @@
 package com.example.lostandfoundapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -63,6 +64,16 @@ public class DetailsFragment extends Fragment {
         txtDescription = (TextView) view.findViewById(R.id.textView_description_DetailsFragment);
         txtStatus = (TextView) view.findViewById(R.id.textView_status_DetailsFragment);
         btnSendMessage = (Button) view.findViewById(R.id.button_sendAMessage_DetailsFragment);
+
+        String getLocation = getActivity().getIntent().getStringExtra("address");
+        btnSendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                intent.putExtra("address", getLocation);
+                startActivity(intent);
+            }
+        });
 
         String getId = getActivity().getIntent().getStringExtra("id");
 
