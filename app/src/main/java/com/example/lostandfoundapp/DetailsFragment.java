@@ -33,7 +33,7 @@ public class DetailsFragment extends Fragment {
 
     ImageView image;
     TextView txtCategory, txtTitle, txtDate, txtDescription, txtStatus;
-    Button btnSendMessage;
+
 
     FirebaseFirestore firebaseFirestore;
 //    CollectionReference cReff;
@@ -63,17 +63,17 @@ public class DetailsFragment extends Fragment {
         txtDate = (TextView) view.findViewById(R.id.textView_date_DetailsFragment);
         txtDescription = (TextView) view.findViewById(R.id.textView_description_DetailsFragment);
         txtStatus = (TextView) view.findViewById(R.id.textView_status_DetailsFragment);
-        btnSendMessage = (Button) view.findViewById(R.id.button_sendAMessage_DetailsFragment);
 
-        String getLocation = getActivity().getIntent().getStringExtra("address");
-        btnSendMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MapActivity.class);
-                intent.putExtra("address", getLocation);
-                startActivity(intent);
-            }
-        });
+
+//        String getLocation = getActivity().getIntent().getStringExtra("address");
+//        btnSendMessage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), MapActivity.class);
+//                intent.putExtra("address", getLocation);
+//                startActivity(intent);
+//            }
+//        });
 
         String getId = getActivity().getIntent().getStringExtra("id");
 

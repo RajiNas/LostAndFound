@@ -102,8 +102,10 @@ public class ItemDetails extends AppCompatActivity {
         fab_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String getLocation = getIntent().getStringExtra("address");
                 // goes to map activity
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                intent.putExtra("address", getLocation);
                 startActivity(intent);
             }
         });
