@@ -43,17 +43,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
 
         geoLocate();
+
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
 
-                googleMap.addMarker(new MarkerOptions().position(latLng).title(locationName));
-                //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,20));
+                googleMap.addMarker(new MarkerOptions().position(latLng));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,25));
             }
         });
 
 
-        mapFragment.getMapAsync(this);
+
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -79,14 +80,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         double longitude = add.getLongitude();
 
         gotoLocation(lat,longitude);
-
+        latLng = new LatLng(lat, longitude);
 
 
     }
     private void gotoLocation(double lat , double longitude){
          latLng = new LatLng(lat, longitude);
         Log.e("MapActivity", "The location is" +latLng.toString());
-      //  map.addMarker(new MarkerOptions().position(latLng));
+   //   map.addMarker(new MarkerOptions().position(latLng));
         //map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
     }
 
