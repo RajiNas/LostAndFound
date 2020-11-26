@@ -63,11 +63,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     public void geoLocate( )  {
 
-         locationName = "paris";
+        // locationName = "paris";
         Geocoder geocoder = new Geocoder(MapActivity.this);
         List<Address> addressList = null;
         try {
-            addressList = geocoder.getFromLocationName("Montreal",10);
+            addressList = geocoder.getFromLocationName(locationName,20);
         } catch (IOException e) {
             e.printStackTrace();
         }
