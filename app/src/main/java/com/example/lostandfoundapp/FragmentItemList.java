@@ -215,6 +215,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         Items items = documentSnapshot.toObject(Items.class);
                         String id = documentSnapshot.getId();
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
+
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
@@ -225,6 +228,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("status", items.getStatus());
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
+                        intent.putExtra("userEmail", items.getUserEmail());
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -243,6 +247,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         Items items = documentSnapshot.toObject(Items.class);
                         String id = documentSnapshot.getId();
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
+
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
@@ -253,6 +260,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("status", items.getStatus());
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
+                        intent.putExtra("userEmail", items.getUserEmail());
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -271,6 +279,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         Items items = documentSnapshot.toObject(Items.class);
                         String id = documentSnapshot.getId();
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
+
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
@@ -281,6 +292,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("status", items.getStatus());
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
+                        intent.putExtra("userEmail", items.getUserEmail());
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -299,6 +311,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         Items items = documentSnapshot.toObject(Items.class);
                         String id = documentSnapshot.getId();
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
+
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
@@ -309,6 +324,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("status", items.getStatus());
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
+                        intent.putExtra("userEmail", items.getUserEmail());
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -327,6 +343,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         Items items = documentSnapshot.toObject(Items.class);
                         String id = documentSnapshot.getId();
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
+
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
@@ -337,6 +356,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("status", items.getStatus());
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
+                        intent.putExtra("userEmail", items.getUserEmail());
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -353,6 +373,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         Items items = documentSnapshot.toObject(Items.class);
                         String id = documentSnapshot.getId();
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
+
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
                         intent.putExtra("category", items.getCategory());
@@ -362,6 +385,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("status", items.getStatus());
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
+                        intent.putExtra("userEmail", items.getUserEmail());
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -378,6 +402,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         Items items = documentSnapshot.toObject(Items.class);
                         String id = documentSnapshot.getId();
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
+
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
                         intent.putExtra("category", items.getCategory());
@@ -387,6 +414,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("status", items.getStatus());
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
+                        intent.putExtra("userEmail", items.getUserEmail());
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -405,6 +433,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         Items items = documentSnapshot.toObject(Items.class);
                         String id = documentSnapshot.getId();
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
+
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
                         intent.putExtra("category", items.getCategory());
@@ -414,6 +445,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("status", items.getStatus());
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
+                        intent.putExtra("userEmail", items.getUserEmail());
                         startActivity(intent);
 
                         //here we can delete and update an item
