@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/edit_icon"
         app:elevation="0dp"
+        android:backgroundTint="#D85BB343"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"

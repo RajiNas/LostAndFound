@@ -29,13 +29,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     SearchView searchView;
     LatLng latLng;
     String locationName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-         locationName = getIntent().getStringExtra("address");
-//        Toast.makeText(this, "ddddddddddddddddddddddddd" + getLocation, Toast.LENGTH_SHORT).show();
+        locationName = getIntent().getStringExtra("address");
 
         searchView = findViewById(R.id.sv_location);
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -49,25 +49,23 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             public void onMapReady(GoogleMap googleMap) {
 
                 googleMap.addMarker(new MarkerOptions().position(latLng));
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,25));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 25));
             }
         });
-
-
-
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
     }
 
-    public void geoLocate( )  {
+    public void geoLocate() {
 
         // locationName = "paris";
         Geocoder geocoder = new Geocoder(MapActivity.this);
         List<Address> addressList = null;
         try {
-            addressList = geocoder.getFromLocationName(locationName,20);
+            addressList = geocoder.getFromLocationName(locationName, 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,15 +77,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         double lat = add.getLatitude();
         double longitude = add.getLongitude();
 
-        gotoLocation(lat,longitude);
+        gotoLocation(lat, longitude);
         latLng = new LatLng(lat, longitude);
-
-
     }
-    private void gotoLocation(double lat , double longitude){
-         latLng = new LatLng(lat, longitude);
-        Log.e("MapActivity", "The location is" +latLng.toString());
-   //   map.addMarker(new MarkerOptions().position(latLng));
+
+    private void gotoLocation(double lat, double longitude) {
+        latLng = new LatLng(lat, longitude);
+        Log.e("MapActivity", "The location is" + latLng.toString());
+        //   map.addMarker(new MarkerOptions().position(latLng));
         //map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
     }
 

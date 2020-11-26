@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".ItemsRegistrationActivity">
 
     <ImageView
         android:id="@+id/imageViewItemActivity"
         android:layout_width="143dp"
         android:layout_height="156dp"
-        android:layout_marginLeft="130dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="3dp"
         android:src="@drawable/ic_launcher_background" />
@@ -20,6 +21,7 @@
         android:id="@+id/addpictureiItemRegistraction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#D85BB343"
         android:layout_marginLeft="250dp"
         android:src="@drawable/add_icon" />
 
@@ -92,7 +94,7 @@
         android:id="@+id/buttonaddItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:backgroundTint="#D85BB343"
         android:hint="Please select a category"
         android:text="Add" />
