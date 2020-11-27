@@ -51,7 +51,7 @@ import java.util.concurrent.Executor;
 
 public class DetailsFragment extends Fragment {
 
-    FloatingActionButton floatingActionButton, fab_edit, fab_contact, fab_map;
+    FloatingActionButton floatingActionButton, fab_delete, fab_edit, fab_contact, fab_map;
     Animation fabOpen, fabClose, fabRClockwise, fabRAntiClockwise;
     boolean isOpen = false;
 
@@ -92,7 +92,7 @@ public class DetailsFragment extends Fragment {
         pd = new ProgressDialog(getContext());
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        collectionReference = firebaseFirestore.collection("Item");
+//        collectionReference = firebaseFirestore.collection("Item");
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 //        reference = firebaseFirestore.document(getId);
@@ -101,6 +101,7 @@ public class DetailsFragment extends Fragment {
         fab_edit = view.findViewById(R.id.edit_button);
         fab_contact = view.findViewById(R.id.contact_button);
         fab_map = view.findViewById(R.id.map_button);
+        fab_delete = view.findViewById(R.id.delete_button);
 
         fabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
@@ -130,9 +131,6 @@ public class DetailsFragment extends Fragment {
         txtDescription.setText(getDescription);
         txtStatus.setText(getStatus);
 
-
-
-
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,22 +138,26 @@ public class DetailsFragment extends Fragment {
                     fab_edit.startAnimation(fabClose);
                     fab_contact.startAnimation(fabClose);
                     fab_map.startAnimation(fabClose);
+                    fab_delete.startAnimation(fabClose);
                     floatingActionButton.startAnimation(fabRClockwise);
 
                     fab_edit.setClickable(false);
                     fab_contact.setClickable(false);
                     fab_map.setClickable(false);
+                    fab_delete.setClickable(false);
 
                     isOpen = false;
                 } else {
                     fab_edit.startAnimation(fabOpen);
                     fab_contact.startAnimation(fabOpen);
                     fab_map.startAnimation(fabOpen);
+                    fab_delete.startAnimation(fabOpen);
                     floatingActionButton.startAnimation(fabRAntiClockwise);
 
                     fab_edit.setClickable(true);
                     fab_contact.setClickable(true);
                     fab_map.setClickable(true);
+                    fab_delete.setClickable(true);
 
                     isOpen = true;
                 }
@@ -171,25 +173,23 @@ public class DetailsFragment extends Fragment {
                 if (firebaseUser.getEmail().equals(getUserEmail)) {
                     showEditItemDialog();
 
-//                    collectionReference.document(getId).update("title", "category");
-
-
-
-//                    String getImage = getActivity().getIntent().getStringExtra("image");
-//                    String getCategory = getActivity().getIntent().getStringExtra("category");
-//                    String getTitle = getActivity().getIntent().getStringExtra("title");
-//                    String getDate = getActivity().getIntent().getStringExtra("date");
-//                    String getDescription = getActivity().getIntent().getStringExtra("description");
-//                    String getStatus = getActivity().getIntent().getStringExtra("status");
-
-//                    Picasso.get().load(getImage).into(image);
-//                    txtCategory.setText(getCategory);
-//                    txtTitle.setText("onehter trial");
-//                    txtDate.setText(getDate);
-//                    txtDescription.setText(getDescription);
-//                    txtStatus.setText(getStatus);
-
                 } else {
+                    Toast.makeText(getContext(), "Sorry You Don't Have Access To This Item", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        fab_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //delete item
+                getUserEmail = getActivity().getIntent().getStringExtra("userEmail");
+
+                if(firebaseUser.getEmail().equals(getUserEmail)){
+                    DocumentReference documentReference = firebaseFirestore.collection("Item").document(getId);
+                    documentReference.delete();
+                    Toast.makeText(getContext(), "Item Deleted", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), ContainerAccessActivity.class));
+                }else {
                     Toast.makeText(getContext(), "Sorry You Don't Have Access To This Item", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -212,15 +212,6 @@ public class DetailsFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-//        Log.e(TAG, "image: " + getImage);
-//        Log.e(TAG, "category: " + getCategory);
-//        Log.e(TAG, "title: "+getTitle);
-//        Log.e(TAG, "date: "+getDate);
-//        Log.e(TAG, "description: "+getDescription);
-//        Log.e(TAG, "status: "+getStatus);
-
-
 
         return view;
     }
@@ -323,24 +314,10 @@ public class DetailsFragment extends Fragment {
                                             txtDate.setText(value.getString("date"));
                                             txtDescription.setText(value.getString("description"));
                                             txtStatus.setText(value.getString("status"));
-
                                         }
                                     });
-
-
-//                                    Picasso.get().load(getImage).into(image);
-//                                    txtCategory.setText(getCategory);
-//                                   txtTitle.setText(items.getTitle());
-//                                    txtDate.setText(getDate);
-//                                    txtDescription.setText(getDescription);
-//                                    txtStatus.setText(getStatus);
-
-
                                     Toast.makeText(getContext(), "Updated...", Toast.LENGTH_SHORT).show();
-//                                    startActivity(new Intent(getApplicationContext(), ItemDetails.class));
-
                                 }
-
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
