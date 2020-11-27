@@ -228,6 +228,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Toast.makeText(ItemsRegistrationActivity.this, "Data added", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), ContainerAccessActivity.class));
                             }
                         });
                 }
