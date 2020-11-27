@@ -92,7 +92,7 @@ public class DetailsFragment extends Fragment {
         pd = new ProgressDialog(getContext());
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-//        collectionReference = firebaseFirestore.collection("Item");
+        collectionReference = firebaseFirestore.collection("Item");
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 //        reference = firebaseFirestore.document(getId);
@@ -123,6 +123,9 @@ public class DetailsFragment extends Fragment {
         String getDescription = getActivity().getIntent().getStringExtra("description");
         String getStatus = getActivity().getIntent().getStringExtra("status");
         getId = getActivity().getIntent().getStringExtra("id");
+
+//        Log.e("ItemDetails", "getId ddddddd: " + getId);
+//        Toast.makeText(getContext(), "getId ddddddd: " + getId, Toast.LENGTH_SHORT).show();
 
         Picasso.get().load(getImage).into(image);
         txtCategory.setText(getCategory);
