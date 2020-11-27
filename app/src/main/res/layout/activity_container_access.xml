@@ -10,11 +10,17 @@
     <RelativeLayout
          android:layout_width="match_parent"
          android:layout_height="match_parent" >
-        <fragment
-            android:id="@+id/fragment"
-            android:name="com.example.lostandfoundapp.FragmentItemList"
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/fragment"/>
+
+<!--        <fragment-->
+<!--            android:id="@+id/fragment"-->
+<!--            android:name="com.example.lostandfoundapp.FragmentItemList"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

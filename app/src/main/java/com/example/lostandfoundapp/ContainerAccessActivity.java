@@ -60,6 +60,12 @@ public class ContainerAccessActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        
+        Fragment fragmentItemList = new FragmentItemList();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.fragment, fragmentItemList);
+        transaction.commit();
 
         sp = getSharedPreferences("ItemIdentifier", Context.MODE_PRIVATE);
 
@@ -87,7 +93,6 @@ public class ContainerAccessActivity extends AppCompatActivity {
                         break;
                     case R.id.addItem:
                         Intent intent = new Intent(ContainerAccessActivity.this, ItemsRegistrationActivity.class);
-
                         startActivity(intent);
                         break;
                     default:
