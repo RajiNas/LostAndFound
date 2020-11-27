@@ -41,9 +41,9 @@ import java.util.HashMap;
 
 public class ItemDetails extends AppCompatActivity {
 
-    FloatingActionButton floatingActionButton, fab_edit, fab_contact, fab_map;
-    Animation fabOpen, fabClose, fabRClockwise, fabRAntiClockwise;
-    boolean isOpen = false;
+//    FloatingActionButton floatingActionButton, fab_edit, fab_contact, fab_map;
+//    Animation fabOpen, fabClose, fabRClockwise, fabRAntiClockwise;
+//    boolean isOpen = false;
 
     String getUserEmail;
     String id;
@@ -71,15 +71,15 @@ public class ItemDetails extends AppCompatActivity {
         BottomNavigationView navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
 
-        floatingActionButton = findViewById(R.id.fab);
-        fab_edit = findViewById(R.id.edit_button);
-        fab_contact = findViewById(R.id.contact_button);
-        fab_map = findViewById(R.id.map_button);
-
-        fabOpen = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.fab_open);
-        fabClose = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.fab_close);
-        fabRClockwise = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.rotate_clockwise);
-        fabRAntiClockwise = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.rotate_anticlockwise);
+//        floatingActionButton = findViewById(R.id.fab);
+//        fab_edit = findViewById(R.id.edit_button);
+//        fab_contact = findViewById(R.id.contact_button);
+//        fab_map = findViewById(R.id.map_button);
+//
+//        fabOpen = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.fab_open);
+//        fabClose = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.fab_close);
+//        fabRClockwise = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.rotate_clockwise);
+//        fabRAntiClockwise = AnimationUtils.loadAnimation((getApplicationContext()), R.anim.rotate_anticlockwise);
 
 
         //Details fragment transaction (default on start)
@@ -90,69 +90,69 @@ public class ItemDetails extends AppCompatActivity {
         ft1.add(R.id.content, detailsFragment);
         ft1.commit();
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isOpen) {
-                    fab_edit.startAnimation(fabClose);
-                    fab_contact.startAnimation(fabClose);
-                    fab_map.startAnimation(fabClose);
-                    floatingActionButton.startAnimation(fabRClockwise);
-
-                    fab_edit.setClickable(false);
-                    fab_contact.setClickable(false);
-                    fab_map.setClickable(false);
-
-                    isOpen = false;
-                } else {
-                    fab_edit.startAnimation(fabOpen);
-                    fab_contact.startAnimation(fabOpen);
-                    fab_map.startAnimation(fabOpen);
-                    floatingActionButton.startAnimation(fabRAntiClockwise);
-
-                    fab_edit.setClickable(true);
-                    fab_contact.setClickable(true);
-                    fab_map.setClickable(true);
-
-                    isOpen = true;
-                }
-            }
-        });
-
-        fab_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // enables user to edit their item only
-
-                getUserEmail = getIntent().getStringExtra("userEmail");
-                if (firebaseUser.getEmail().equals(getUserEmail)) {
-                    showEditItemDialog();
-
-
-                } else {
-                    Toast.makeText(ItemDetails.this, "Sorry You Don't Have Access To Edit This Item", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-        fab_contact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // goes to contact activity
-            }
-        });
-
-        fab_map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String getLocation = getIntent().getStringExtra("address");
-                // goes to map activity
-                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-                intent.putExtra("address", getLocation);
-                startActivity(intent);
-            }
-        });
+//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isOpen) {
+//                    fab_edit.startAnimation(fabClose);
+//                    fab_contact.startAnimation(fabClose);
+//                    fab_map.startAnimation(fabClose);
+//                    floatingActionButton.startAnimation(fabRClockwise);
+//
+//                    fab_edit.setClickable(false);
+//                    fab_contact.setClickable(false);
+//                    fab_map.setClickable(false);
+//
+//                    isOpen = false;
+//                } else {
+//                    fab_edit.startAnimation(fabOpen);
+//                    fab_contact.startAnimation(fabOpen);
+//                    fab_map.startAnimation(fabOpen);
+//                    floatingActionButton.startAnimation(fabRAntiClockwise);
+//
+//                    fab_edit.setClickable(true);
+//                    fab_contact.setClickable(true);
+//                    fab_map.setClickable(true);
+//
+//                    isOpen = true;
+//                }
+//            }
+//        });
+//
+//        fab_edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // enables user to edit their item only
+//
+////                getUserEmail = getIntent().getStringExtra("userEmail");
+////                if (firebaseUser.getEmail().equals(getUserEmail)) {
+//////                    showEditItemDialog();
+////
+////
+////                } else {
+////                    Toast.makeText(ItemDetails.this, "Sorry You Don't Have Access To Edit This Item", Toast.LENGTH_SHORT).show();
+////                }
+//
+//            }
+//        });
+//
+//        fab_contact.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // goes to contact activity
+//            }
+//        });
+//
+//        fab_map.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String getLocation = getIntent().getStringExtra("address");
+//                // goes to map activity
+//                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+//                intent.putExtra("address", getLocation);
+//                startActivity(intent);
+//            }
+//        });
 //        checkUserStatus();
     }
 
@@ -169,123 +169,123 @@ public class ItemDetails extends AppCompatActivity {
 //        }
 //    }
 
-    private void showEditItemDialog() {
-        //options to show in dialog
-        String options[] = {"Edit Title", "Edit Category", "Edit Description", "Edit Status"};
-
-        //Alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //Set title
-        builder.setTitle("Choose Action");
-        //Set items to dialog
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //handle dialog item click
-                if (which == 0) {
-                    //edit title clicked
-                    pd.setMessage("Updating Title");
-//                    showImagePickDialog();
-                    showUpdateDialog("title");
-
-                } else if (which == 1) {
-                    //edit category clicked
-                    pd.setMessage("Updating Category");
-                    //calling method and pass key "name" as parameter to update it's value in database
-                    showUpdateDialog("category");
-
-                } else if (which == 2) {
-                    //edit description clicked
-                    pd.setMessage("Updating Description");
-                    showUpdateDialog("description");
-
-                } else if (which == 3) {
-                    //edit status clicked
-                    pd.setMessage("Updating Status");
-                    showUpdateDialog("status");
-                }
-
-            }
-        });
-        //create and show dialog
-        builder.create().show();
-    }
-
-    private void showUpdateDialog(String key) {
-        //custom dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Update" + key);
-
-        //set layout of dialog
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setPadding(10, 10, 10, 10);
-        //add edit text
-        EditText editText = new EditText(this);
-        editText.setHint("Enter " + key);
-        linearLayout.addView(editText);
-
-        builder.setView(linearLayout);
-
-        //add button in dialog to update
-        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //input text from edit text
-                String value = editText.getText().toString().trim();
-
-
-
-                //validate if user has entered something or not
-                if (!TextUtils.isEmpty(value)) {
-                    pd.show();
-                    HashMap<String, Object> result = new HashMap<>();
-                    result.put(key, value);
-
-
-                    id = getIntent().getStringExtra("id");
-//                    Toast.makeText(ItemDetails.this, id, Toast.LENGTH_SHORT).show();
-
-                    collectionReference.document(id).update(result)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    //update, dismiss progress
-                                    pd.dismiss();
-
-                                    Toast.makeText(getApplicationContext(), "Updated...", Toast.LENGTH_SHORT).show();
-//                                    startActivity(new Intent(getApplicationContext(), ItemDetails.class));
-
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    //failed, dismiss progress, get and show error message
-                                    pd.dismiss();
-
-                                    Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please enter " + key, Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-        //add button in dialog to cancel
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        //create and show dialog
-        builder.create().show();
-    }
+//    private void showEditItemDialog() {
+//        //options to show in dialog
+//        String options[] = {"Edit Title", "Edit Category", "Edit Description", "Edit Status"};
+//
+//        //Alert dialog
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        //Set title
+//        builder.setTitle("Choose Action");
+//        //Set items to dialog
+//        builder.setItems(options, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                //handle dialog item click
+//                if (which == 0) {
+//                    //edit title clicked
+//                    pd.setMessage("Updating Title");
+////                    showImagePickDialog();
+//                    showUpdateDialog("title");
+//
+//                } else if (which == 1) {
+//                    //edit category clicked
+//                    pd.setMessage("Updating Category");
+//                    //calling method and pass key "name" as parameter to update it's value in database
+//                    showUpdateDialog("category");
+//
+//                } else if (which == 2) {
+//                    //edit description clicked
+//                    pd.setMessage("Updating Description");
+//                    showUpdateDialog("description");
+//
+//                } else if (which == 3) {
+//                    //edit status clicked
+//                    pd.setMessage("Updating Status");
+//                    showUpdateDialog("status");
+//                }
+//
+//            }
+//        });
+//        //create and show dialog
+//        builder.create().show();
+//    }
+//
+//    private void showUpdateDialog(String key) {
+//        //custom dialog
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Update" + key);
+//
+//        //set layout of dialog
+//        LinearLayout linearLayout = new LinearLayout(this);
+//        linearLayout.setOrientation(LinearLayout.VERTICAL);
+//        linearLayout.setPadding(10, 10, 10, 10);
+//        //add edit text
+//        EditText editText = new EditText(this);
+//        editText.setHint("Enter " + key);
+//        linearLayout.addView(editText);
+//
+//        builder.setView(linearLayout);
+//
+//        //add button in dialog to update
+//        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                //input text from edit text
+//                String value = editText.getText().toString().trim();
+//
+//
+//
+//                //validate if user has entered something or not
+//                if (!TextUtils.isEmpty(value)) {
+//                    pd.show();
+//                    HashMap<String, Object> result = new HashMap<>();
+//                    result.put(key, value);
+//
+//
+//                    id = getIntent().getStringExtra("id");
+////                    Toast.makeText(ItemDetails.this, id, Toast.LENGTH_SHORT).show();
+//
+//                    collectionReference.document(id).update(result)
+//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    //update, dismiss progress
+//                                    pd.dismiss();
+//
+//                                    Toast.makeText(getApplicationContext(), "Updated...", Toast.LENGTH_SHORT).show();
+////                                    startActivity(new Intent(getApplicationContext(), ItemDetails.class));
+//
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    //failed, dismiss progress, get and show error message
+//                                    pd.dismiss();
+//
+//                                    Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//                                }
+//                            });
+//
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Please enter " + key, Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
+//
+//        //add button in dialog to cancel
+//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//        //create and show dialog
+//        builder.create().show();
+//    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

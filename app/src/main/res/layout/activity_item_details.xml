@@ -13,58 +13,58 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            android:backgroundTint="#D85BB343"
-            android:elevation="6dp"
-            android:src="@drawable/ic_expand"
-            app:fabSize="normal" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/fab"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="end|bottom"-->
+<!--            android:layout_margin="16dp"-->
+<!--            android:backgroundTint="#D85BB343"-->
+<!--            android:elevation="6dp"-->
+<!--            android:src="@drawable/ic_expand"-->
+<!--            app:fabSize="normal" />-->
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginRight="22dp"
-            android:layout_marginBottom="85dp"
-            android:backgroundTint="#D85BB343"
-            android:elevation="6dp"
-            android:src="@drawable/edit_icon"
-            android:visibility="invisible"
-            app:fabSize="mini"
-            app:pressedTranslationZ="12dp" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/edit_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom|right"-->
+<!--            android:layout_marginRight="22dp"-->
+<!--            android:layout_marginBottom="85dp"-->
+<!--            android:backgroundTint="#D85BB343"-->
+<!--            android:elevation="6dp"-->
+<!--            android:src="@drawable/edit_icon"-->
+<!--            android:visibility="invisible"-->
+<!--            app:fabSize="mini"-->
+<!--            app:pressedTranslationZ="12dp" />-->
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/contact_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginRight="22dp"
-            android:layout_marginBottom="150dp"
-            android:backgroundTint="#D85BB343"
-            android:elevation="6dp"
-            android:src="@drawable/ic_contact_black"
-            android:visibility="invisible"
-            app:fabSize="mini"
-            app:pressedTranslationZ="12dp" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/contact_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom|right"-->
+<!--            android:layout_marginRight="22dp"-->
+<!--            android:layout_marginBottom="150dp"-->
+<!--            android:backgroundTint="#D85BB343"-->
+<!--            android:elevation="6dp"-->
+<!--            android:src="@drawable/ic_contact_black"-->
+<!--            android:visibility="invisible"-->
+<!--            app:fabSize="mini"-->
+<!--            app:pressedTranslationZ="12dp" />-->
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/map_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginRight="22dp"
-            android:layout_marginBottom="215dp"
-            android:backgroundTint="#D85BB343"
-            android:elevation="6dp"
-            android:src="@drawable/ic_map"
-            android:visibility="invisible"
-            app:fabSize="mini"
-            app:pressedTranslationZ="12dp" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/map_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom|right"-->
+<!--            android:layout_marginRight="22dp"-->
+<!--            android:layout_marginBottom="215dp"-->
+<!--            android:backgroundTint="#D85BB343"-->
+<!--            android:elevation="6dp"-->
+<!--            android:src="@drawable/ic_map"-->
+<!--            android:visibility="invisible"-->
+<!--            app:fabSize="mini"-->
+<!--            app:pressedTranslationZ="12dp" />-->
     </FrameLayout>
 
     <!--    <fragment-->
