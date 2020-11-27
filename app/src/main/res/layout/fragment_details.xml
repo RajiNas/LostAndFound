@@ -140,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:backgroundTint="#D85BB343"
+        android:backgroundTint="#D8F4091C"
         android:elevation="6dp"
         android:src="@drawable/icon_delete"
         android:visibility="invisible"
