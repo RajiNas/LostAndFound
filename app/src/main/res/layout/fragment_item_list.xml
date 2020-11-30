@@ -11,11 +11,36 @@
     android:layout_height="match_parent">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <RadioGroup
+        android:id="@+id/RadioGroupinListFrag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/RadioItemFoundinListFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#2BEA0A"
+
+            android:text="Found" />
+
+        <RadioButton
+            android:id="@+id/RadioItemLostinListFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#41DFA8"
+            android:layout_weight="1"
+
+            android:text="Lost" />
+    </RadioGroup>
     <Spinner
         android:id="@+id/editTextListspinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecycleViewItemList"

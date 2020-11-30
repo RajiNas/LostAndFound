@@ -45,7 +45,7 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Items, ItemAdapter.Ite
     protected void onBindViewHolder(@NonNull ItemHolder holder, int position, @NonNull Items items) {
 
 
-        holder.category.setText(items.getCategory());
+        holder.category.setText(items.getStatus());
         holder.title.setText(items.getTitle());
         holder.date.setText(items.getDate());
         Picasso.get().load(items.getImage()).into(holder.imgItem);

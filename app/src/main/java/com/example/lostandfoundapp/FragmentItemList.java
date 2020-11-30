@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -55,7 +57,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
     //declare the spinner
     Spinner listCategory;
-    String chosenCategory;
+    String chosenCategory , status;
 
     // Identify the current user
     FirebaseAuth firebaseAuth;
@@ -83,7 +85,26 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
 
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.RadioGroupinListFrag);
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+              //  boolean checked = ((RadioButton) view).isChecked();
+                switch (i) {
+                    case R.id.RadioItemFound:
+
+                            status = "Found";
+                        Toast.makeText(getActivity(), "found item was clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.RadioItemLost:
+
+                            status = "Lost";
+                        Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
         //Spinner values
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.Status, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -456,13 +477,15 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
     }
 
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
     }
-
 
     public void CategoryInitialize() {
         Query query = firebaseFirestore.collection("Item");
@@ -495,7 +518,11 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         super.onStop();
         itemAdapter.stopListening();
     }
-}
+
+
+    }
+
+
 
 
 //        DatabaseReference itemRef = root.child("Item");
