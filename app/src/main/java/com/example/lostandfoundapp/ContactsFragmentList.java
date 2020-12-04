@@ -1,145 +1,94 @@
 package com.example.lostandfoundapp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Picasso;
 
-public class ContactsFragmentList extends Fragment implements AdapterView.OnItemSelectedListener
+public class ContactsFragmentList extends AppCompatActivity
 {
+    //private FirebaseFirestore firebaseFirestore;
+    private FirebaseListAdapter<Users> adapter;
 
-    private RecyclerView recyclerView;
-    private FirebaseFirestore firebaseFirestore;
-    private MessageAdapter contactAdapter;
-
-    //declare the spinner
-    Spinner listCategory;
-    String chosenCategory;
-
-    // Identify the current user
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-
-
-    public static final String TAG = "ContainerAccessActivity";
-    SharedPreferences sp;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        displayUsers();
 
-    }
-
-    public ContactsFragmentList() {
-        // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public void onResume()
     {
-        View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        recyclerView = (RecyclerView) view.findViewById(R.id.RecycleViewContactList);
-        CollectionReference reff = firebaseFirestore.collection("Message");
+        super.onResume();
+        displayUsers();
+    }
 
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
 
 
-        //Spinner values
+    private void displayUsers()
+    {
 
-        sp = getActivity().getSharedPreferences("Categories", Context.MODE_PRIVATE);
-
-        contactsInitialize();
-        contactAdapter.setOnMessageClickListener(new ItemAdapter.OnItemClickListener()
+        ListView listOfUsers = (ListView)findViewById(R.id.list_of_message);
+        adapter = new FirebaseListAdapter<Users>(this,Users.class,R.layout.fragment_contact, FirebaseDatabase.getInstance().getReference("https://console.firebase.google.com/project/lost-founddatabase/database/lost-founddatabase/data/~2FUsers"))
         {
             @Override
-            public void OnItemClick(DocumentSnapshot documentSnapshot, int position)
+            protected void populateView(View v, Users model, int position)
             {
+                TextView username;
+                ImageView profile_pic;
+                CardView cv;
+                username = (TextView) v.findViewById(R.id.user_name);
+                profile_pic = (ImageView) v.findViewById(R.id.profile_icon);
+                cv = findViewById(R.id.cv_contacts);
 
+                username.setText(model.getUsername());
+                Picasso.get()
+                        .load(model.getImage())
+                        .resize(50, 50)
+                        .centerCrop()
+                        .into(profile_pic);
 
-                Items items = documentSnapshot.toObject(Items.class);
-                String id = documentSnapshot.getId();
-
-
-                Intent intent = new Intent(getContext(), MessageActivity.class);
-                intent.putExtra("id", id);
-                intent.putExtra("category", items.getCategory());
-                intent.putExtra("title", items.getTitle());
-                intent.putExtra("date", items.getDate());
-                intent.putExtra("description", items.getDescription());
-                intent.putExtra("status", items.getStatus());
-                intent.putExtra("image", items.getImage());
-                intent.putExtra("address", items.getAddress());
-                startActivity(intent);
+                cv.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                        String contact = "contact";
+                        intent.putExtra(contact,model.getUsername());
+                        startActivity(intent);
+                    }
+                });
 
             }
-        });
-        return view;
+        };
+        listOfUsers.setAdapter(adapter);
     }
 
 
 
 
-
-    public void contactsInitialize() {
-        Query query = firebaseFirestore.collection("Message");
-
-        //RecyclerOptions
-        FirestoreRecyclerOptions<Message> options = new FirestoreRecyclerOptions.Builder<Message>()
-                .setQuery(query, Message.class)
-                .build();
-
-        contactAdapter = new MessageAdapter(options);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(contactAdapter);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        contactAdapter.startListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        contactAdapter.stopListening();
-    }
 }
