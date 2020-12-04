@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
-public class ContactsFragmentList extends AppCompatActivity
+public class ContactActivity extends AppCompatActivity
 {
     //private FirebaseFirestore firebaseFirestore;
     private FirebaseListAdapter<Users> adapter;
@@ -52,7 +52,7 @@ public class ContactsFragmentList extends AppCompatActivity
     {
 
         ListView listOfUsers = (ListView)findViewById(R.id.list_of_message);
-        adapter = new FirebaseListAdapter<Users>(this,Users.class,R.layout.fragment_contact, FirebaseDatabase.getInstance().getReference("https://console.firebase.google.com/project/lost-founddatabase/database/lost-founddatabase/data/~2FUsers"))
+        adapter = new FirebaseListAdapter<Users>(this,Users.class,R.layout.fragment_contact, FirebaseDatabase.getInstance().getReference("/Users")) // get users?
         {
             @Override
             protected void populateView(View v, Users model, int position)

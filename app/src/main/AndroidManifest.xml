@@ -49,6 +49,10 @@
             android:label="MessageActivity"
             android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
         <activity
+            android:name=".ContactActivity"
+            android:label="ContactActivity"
+            android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
+        <activity
             android:name=".RegistractionActivity"
             android:label="@string/title_activity_registraction"
             android:theme="@style/Theme.LostAndFoundApp.NoActionBar" />
