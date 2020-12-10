@@ -75,7 +75,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
 
-
+// this is a comment that was added to comment something 
 
     // Gets all messages but only displays the messages between the current user and the current contact (that is, the person who the user is talking to).
     private void displayChatMessage(String contact)
