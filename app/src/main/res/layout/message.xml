@@ -16,7 +16,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="96dp"
             android:layout_margin="2dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
@@ -31,9 +31,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="66dp"
-                android:layout_marginLeft="66dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="10dp"
                 android:text="Username"
                 android:textColor="@color/black"
                 android:textSize="16dp"
@@ -41,25 +41,26 @@
 
             <TextView
                 android:id="@+id/message_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginBottom="7dp"
-                android:text="Time" />
-
-            <TextView
-                android:id="@+id/text_send"
-                android:layout_width="wrap_content"
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="141dp"
-                android:layout_marginLeft="141dp"
-                android:layout_marginBottom="22dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="20dp"
+                android:text="Time" />
+
+            <TextView
+                android:id="@+id/text_send"
+                android:layout_width="272dp"
+                android:layout_height="74dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="116dp"
+                android:layout_marginLeft="116dp"
+                android:layout_marginBottom="14dp"
                 android:text="Message" />
 
 

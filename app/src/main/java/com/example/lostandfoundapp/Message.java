@@ -20,6 +20,7 @@ public class Message {
 
     public Message()
     {
+        messageTime = new Date().getTime();
     }
 
     public String getContact() {
