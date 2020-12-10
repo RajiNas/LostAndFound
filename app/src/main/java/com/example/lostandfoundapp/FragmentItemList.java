@@ -86,22 +86,28 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         user = firebaseAuth.getCurrentUser();
 
         RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.RadioGroupinListFrag);
-
+        status = "all";
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
               //  boolean checked = ((RadioButton) view).isChecked();
+                SharedPreferences.Editor editor = sp.edit();
                 switch (i) {
-                    case R.id.RadioItemFound:
+                    case R.id.RadioItemFoundinListFrag:
 
-                            status = "Found";
+
+                        editor.putString("status", "Found");
+                        editor.commit();
                         Toast.makeText(getActivity(), "found item was clicked", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.RadioItemLost:
+                    case R.id.RadioItemLostinListFrag:
 
-                            status = "Lost";
+                        editor.putString("status", "Lost");
+                        editor.commit();
                         Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
                         break;
+
+
                 }
             }
         });
@@ -148,6 +154,8 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         SharedPreferences sp = getActivity().getSharedPreferences("Categories", Context.MODE_PRIVATE);
         String chosenCat = sp.getString("cat", "");
 
+        //obtain the status of the item to sort them in the switch statement
+        String chosestatus = sp.getString("status", "");
         //Query
         Query query = firebaseFirestore.collection("Item");
         FirestoreRecyclerOptions<Items> options;
@@ -160,27 +168,67 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
             currentUser = user.getEmail();
         }
 
-
+        // Sort the Recycle view depending of what the user choose.
         switch (chosenCat) {
             case "Pet":
-                query = query.whereEqualTo("category", "Pet").orderBy("date", Query.Direction.DESCENDING);
 
+                if(chosestatus.equals("Lost"))
+                query = query.whereEqualTo("category", "Pet").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
+                else if(chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Pet").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
+                else
+                    query = query.whereEqualTo("category", "Pet").orderBy("date", Query.Direction.DESCENDING);
                 break;
+
             case "Electronics":
+
+                if(chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Electronics").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
+                    else if(chosestatus.equals("Found"))
+                query = query.whereEqualTo("category", "Electronics").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
+                    else
                 query = query.whereEqualTo("category", "Electronics").orderBy("date", Query.Direction.DESCENDING);
                 break;
+
             case "Jewelry":
+
+                if(chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Jewelry").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
+                    else if(chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Jewelry").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
+                        else
                 query = query.whereEqualTo("category", "Jewelry").orderBy("date", Query.Direction.DESCENDING);
                 break;
+
             case "Cloth":
+
+                if(chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Cloth").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
+                    else if(chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Cloth").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
+                        else
                 query = query.whereEqualTo("category", "Cloth").orderBy("date", Query.Direction.DESCENDING);
                 break;
+
             case "Other":
+
+                if(chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Other").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
+                    else if(chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Other").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
+                        else
                 query = query.whereEqualTo("category", "Other").orderBy("date", Query.Direction.DESCENDING);
                 break;
+
             case "Book":
+                if(chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Book").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
+                    else if(chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Book").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
+                        else
                 query = query.whereEqualTo("category", "Book").orderBy("date", Query.Direction.DESCENDING);
                 break;
+
             case "All":
                 query = query;
                 break;
