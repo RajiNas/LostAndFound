@@ -172,11 +172,16 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         switch (chosenCat) {
             case "Pet":
 
-                if(chosestatus.equals("Lost"))
-                query = query.whereEqualTo("category", "Pet").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
-                else if(chosestatus.equals("Found"))
-                    query = query.whereEqualTo("category", "Pet").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
-                else
+                if(chosestatus.equals("Lost")) {
+                    query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
+                    itemAdapter.notifyDataSetChanged();
+                    itemAdapter.startListening();
+                }
+                else if(chosestatus.equals("Found")) {
+                    query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
+                    itemAdapter.notifyDataSetChanged();
+                    itemAdapter.startListening();
+                }else
                     query = query.whereEqualTo("category", "Pet").orderBy("date", Query.Direction.DESCENDING);
                 break;
 
