@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 
 public class ContactActivity extends AppCompatActivity
 {
-    //private FirebaseFirestore firebaseFirestore;
+    private FirebaseFirestore firebaseFirestore;
     private FirebaseListAdapter<Users> adapter;
 
 
@@ -34,6 +34,7 @@ public class ContactActivity extends AppCompatActivity
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_contact_list);
         displayUsers();
 
     }
@@ -51,8 +52,8 @@ public class ContactActivity extends AppCompatActivity
     private void displayUsers()
     {
 
-        ListView listOfUsers = (ListView)findViewById(R.id.list_of_message);
-        adapter = new FirebaseListAdapter<Users>(this,Users.class,R.layout.fragment_contact, FirebaseDatabase.getInstance().getReference("/Users")) // get users?
+        ListView listOfUsers = (ListView)findViewById(R.id.ContactListView);
+        adapter = new FirebaseListAdapter<Users>(this,Users.class,R.layout.fragment_contact, FirebaseDatabase.getInstance().getReference().child("Users") )
         {
             @Override
             protected void populateView(View v, Users model, int position)
@@ -64,24 +65,32 @@ public class ContactActivity extends AppCompatActivity
                 profile_pic = (ImageView) v.findViewById(R.id.profile_icon);
                 cv = findViewById(R.id.cv_contacts);
 
-                username.setText(model.getUsername());
-                Picasso.get()
-                        .load(model.getImage())
-                        .resize(50, 50)
-                        .centerCrop()
-                        .into(profile_pic);
-
-                cv.setOnClickListener(new View.OnClickListener()
+                if (model.getImage().isEmpty())
                 {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
-                        String contact = "contact";
-                        intent.putExtra(contact,model.getUsername());
-                        startActivity(intent);
-                    }
-                });
+                    profile_pic.setImageResource(R.drawable.bg_profile_green);
+                }
+                else
+                {
+                    username.setText(model.getUsername());
+                    Picasso.get()
+                            .load(model.getImage())
+                            .resize(50, 50)
+                            .centerCrop()
+                            .into(profile_pic);
+                }
+
+
+//                cv.setOnClickListener(new View.OnClickListener()
+//                {
+//                    @Override
+//                    public void onClick(View view)
+//                    {
+//                        Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+//                        String contact = "contact";
+//                        intent.putExtra(contact,model.getUsername());
+//                        startActivity(intent);
+//                    }
+//                });
 
             }
         };
