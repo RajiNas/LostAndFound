@@ -24,6 +24,7 @@ public class MessageActivity extends AppCompatActivity {
 
     EditText TextMessage;
     ImageView submitButton;
+    String contact;
 
 
     @Override
@@ -40,12 +41,13 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_activity);
         Intent intent = getIntent();
-        String contact = intent.getStringExtra("contact");
+        contact = intent.getStringExtra("contact");
 
 
         submitButton = (ImageView)findViewById(R.id.submit_button);
         TextMessage = findViewById(R.id.text_message);
 
+        displayChatMessage(contact);
 
         // Sends message.
         submitButton.setOnClickListener(new View.OnClickListener()
@@ -53,16 +55,25 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                FirebaseDatabase.getInstance().getReference().push().setValue(new Message(TextMessage.getText().toString(),
-                        FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),contact));
+                FirebaseDatabase.getInstance().getReference().child("Message").push().setValue(new Message(TextMessage.getText().toString(),
+                        FirebaseAuth.getInstance().getCurrentUser().getProviderId(),contact));
 
                 TextMessage.setText("");
                 TextMessage.requestFocus();
+                displayChatMessage(contact);
             }
         });
 
+
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
         displayChatMessage(contact);
     }
+
 
 
 
@@ -71,12 +82,13 @@ public class MessageActivity extends AppCompatActivity {
     {
 
         ListView listOfMessage = (ListView)findViewById(R.id.list_of_message);
-        adapter = new FirebaseListAdapter<Message>(this,Message.class,R.layout.message, FirebaseDatabase.getInstance().getReference())
+        adapter = new FirebaseListAdapter<Message>(this,Message.class,R.layout.message, FirebaseDatabase.getInstance().getReference().child("Message"))
         {
             @Override
             protected void populateView(View v, Message model, int position)
             {
-                if (model.getContact().equals(contact))
+
+                if (model.getContact().equals(contact) && ! model.getContact().isEmpty())
                 {
                     TextView messageText, messageUser, messageTime;
                     messageUser = (TextView) v.findViewById(R.id.message_user);
@@ -84,7 +96,7 @@ public class MessageActivity extends AppCompatActivity {
                     messageText =  (TextView) v.findViewById(R.id.text_send);
 
                     messageUser.setText(model.getCurrentUser());
-                    messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getMessageTime()));
+                    messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",model.getMessageTime()) );
                     messageText.setText(model.getMessageText());
                 }
 

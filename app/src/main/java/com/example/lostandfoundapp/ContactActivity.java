@@ -80,17 +80,17 @@ public class ContactActivity extends AppCompatActivity
                 }
 
 
-//                cv.setOnClickListener(new View.OnClickListener()
-//                {
-//                    @Override
-//                    public void onClick(View view)
-//                    {
-//                        Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
-//                        String contact = "contact";
-//                        intent.putExtra(contact,model.getUsername());
-//                        startActivity(intent);
-//                    }
-//                });
+                profile_pic.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                        String contact = "contact";
+                        intent.putExtra(contact,model.getUsername());
+                        startActivity(intent);
+                    }
+                });
 
             }
         };
