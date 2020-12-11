@@ -57,7 +57,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
     //declare the spinner
     Spinner listCategory;
-    String chosenCategory , status;
+    String chosenCategory, status;
 
     // Identify the current user
     FirebaseAuth firebaseAuth;
@@ -90,7 +90,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-              //  boolean checked = ((RadioButton) view).isChecked();
+                //  boolean checked = ((RadioButton) view).isChecked();
                 SharedPreferences.Editor editor = sp.edit();
                 switch (i) {
                     case R.id.RadioItemFoundinListFrag:
@@ -98,12 +98,14 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                         editor.putString("status", "Found");
                         editor.commit();
+                        setUprecycleView();
                         Toast.makeText(getActivity(), "found item was clicked", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.RadioItemLostinListFrag:
 
                         editor.putString("status", "Lost");
                         editor.commit();
+                        setUprecycleView();
                         Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
                         break;
 
@@ -172,61 +174,61 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         switch (chosenCat) {
             case "Pet":
 
-                if(chosestatus.equals("Lost"))
-                query = query.whereEqualTo("category", "Pet").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
-                else if(chosestatus.equals("Found"))
-                    query = query.whereEqualTo("category", "Pet").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
+                if (chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
+                else if (chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
                 else
                     query = query.whereEqualTo("category", "Pet").orderBy("date", Query.Direction.DESCENDING);
                 break;
 
             case "Electronics":
 
-                if(chosestatus.equals("Lost"))
-                    query = query.whereEqualTo("category", "Electronics").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
-                    else if(chosestatus.equals("Found"))
-                query = query.whereEqualTo("category", "Electronics").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
-                    else
-                query = query.whereEqualTo("category", "Electronics").orderBy("date", Query.Direction.DESCENDING);
+                if (chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Electronics").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
+                else if (chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Electronics").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
+                else
+                    query = query.whereEqualTo("category", "Electronics").orderBy("date", Query.Direction.DESCENDING);
                 break;
 
             case "Jewelry":
 
-                if(chosestatus.equals("Lost"))
-                    query = query.whereEqualTo("category", "Jewelry").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
-                    else if(chosestatus.equals("Found"))
-                    query = query.whereEqualTo("category", "Jewelry").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
-                        else
-                query = query.whereEqualTo("category", "Jewelry").orderBy("date", Query.Direction.DESCENDING);
+                if (chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Jewelry").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
+                else if (chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Jewelry").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
+                else
+                    query = query.whereEqualTo("category", "Jewelry").orderBy("date", Query.Direction.DESCENDING);
                 break;
 
             case "Cloth":
 
-                if(chosestatus.equals("Lost"))
-                    query = query.whereEqualTo("category", "Cloth").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
-                    else if(chosestatus.equals("Found"))
-                    query = query.whereEqualTo("category", "Cloth").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
-                        else
-                query = query.whereEqualTo("category", "Cloth").orderBy("date", Query.Direction.DESCENDING);
+                if (chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Cloth").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
+                else if (chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Cloth").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
+                else
+                    query = query.whereEqualTo("category", "Cloth").orderBy("date", Query.Direction.DESCENDING);
                 break;
 
             case "Other":
 
-                if(chosestatus.equals("Lost"))
-                    query = query.whereEqualTo("category", "Other").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
-                    else if(chosestatus.equals("Found"))
-                    query = query.whereEqualTo("category", "Other").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
-                        else
-                query = query.whereEqualTo("category", "Other").orderBy("date", Query.Direction.DESCENDING);
+                if (chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Other").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
+                else if (chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Other").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
+                else
+                    query = query.whereEqualTo("category", "Other").orderBy("date", Query.Direction.DESCENDING);
                 break;
 
             case "Book":
-                if(chosestatus.equals("Lost"))
-                    query = query.whereEqualTo("category", "Book").whereEqualTo("status","Lost").orderBy("date", Query.Direction.DESCENDING);
-                    else if(chosestatus.equals("Found"))
-                    query = query.whereEqualTo("category", "Book").whereEqualTo("status","Found").orderBy("date", Query.Direction.DESCENDING);
-                        else
-                query = query.whereEqualTo("category", "Book").orderBy("date", Query.Direction.DESCENDING);
+                if (chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("category", "Book").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
+                else if (chosestatus.equals("Found"))
+                    query = query.whereEqualTo("category", "Book").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
+                else
+                    query = query.whereEqualTo("category", "Book").orderBy("date", Query.Direction.DESCENDING);
                 break;
 
             case "All":
@@ -243,6 +245,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 break;
 
         }
+//        CategoryInitialize();
         options = new FirestoreRecyclerOptions.Builder<Items>()
                 .setQuery(query, Items.class)
                 .build();
@@ -253,6 +256,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
         itemAdapter.notifyDataSetChanged();
         itemAdapter.startListening();
+
 //        Query query = reff.orderBy("date", Query.Direction.DESCENDING);//
 //        FirestoreRecyclerOptions<Items> item = new FirestoreRecyclerOptions.Builder<Items>().setQuery(query, Items.class).build();//
 //        itemAdapter = new ItemAdapter(item);//
@@ -526,8 +530,6 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
     }
 
 
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -568,9 +570,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
     }
 
 
-    }
-
-
+}
 
 
 //        DatabaseReference itemRef = root.child("Item");
