@@ -104,6 +104,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         editor.putString("status", " ");
                         editor.commit();
                         Toast.makeText(getActivity(), "found item was clicked", Toast.LENGTH_SHORT).show();
+//                        radioGroup.clearCheck();
                         break;
                     case R.id.RadioItemLostinListFrag:
 
@@ -113,12 +114,14 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         editor.putString("status", " ");
                         editor.commit();
                         Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
+//                        radioGroup.clearCheck();
                         break;
                     default:
                         editor.putString("status", " ");
                         editor.commit();
                         setUprecycleView();
                         Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
+//                        radioGroup.clearCheck();
                         break;
                 }
             }
@@ -297,7 +300,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
         itemAdapter.notifyDataSetChanged();
         itemAdapter.startListening();
-
+//        radioGroup.clearCheck();
 
 //        Query query = reff.orderBy("date", Query.Direction.DESCENDING);//
 //        FirestoreRecyclerOptions<Items> item = new FirestoreRecyclerOptions.Builder<Items>().setQuery(query, Items.class).build();//
@@ -322,6 +325,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 editor.putString("cat", "Pet");
                 editor.commit();
                 setUprecycleView();
+                radioGroup.clearCheck();
                 itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -355,6 +359,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 editor.putString("cat", "Electronics");
                 editor.commit();
                 setUprecycleView();
+                radioGroup.clearCheck();
                 itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -388,6 +393,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 editor.putString("cat", "Jewelry");
                 editor.commit();
                 setUprecycleView();
+                radioGroup.clearCheck();
                 itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -421,6 +427,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 editor.putString("cat", "Cloth");
                 editor.commit();
                 setUprecycleView();
+                radioGroup.clearCheck();
                 itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -454,6 +461,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 editor.putString("cat", "Other");
                 editor.commit();
                 setUprecycleView();
+                radioGroup.clearCheck();
                 itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -487,6 +495,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 editor.putString("cat", "Book");
                 editor.commit();
                 setUprecycleView();
+                radioGroup.clearCheck();
                 itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -517,6 +526,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 editor.putString("cat", "All");
                 editor.commit();
                 setUprecycleView();
+                radioGroup.clearCheck();
                 itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -548,7 +558,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 editor.putString("cat", "My Item");
                 editor.commit();
                 setUprecycleView();
-
+                radioGroup.clearCheck();
                 itemAdapter.setOnItemclickListener(new ItemAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
