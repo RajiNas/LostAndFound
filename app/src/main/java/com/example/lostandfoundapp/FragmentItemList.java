@@ -96,8 +96,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 //                setUprecycleView();
 
 
-                editor.putString("status", " ");
-                editor.commit();
+
                 switch (i) {
                     case R.id.RadioItemFoundinListFrag:
 
@@ -105,6 +104,8 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         editor.putString("status", "Found");
                         editor.commit();
                         setUprecycleView();
+                        editor.putString("status", " ");
+                        editor.commit();
                         Toast.makeText(getActivity(), "found item was clicked", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.RadioItemLostinListFrag:
@@ -112,10 +113,15 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         editor.putString("status", "Lost");
                         editor.commit();
                         setUprecycleView();
+                        editor.putString("status", " ");
+                        editor.commit();
                         Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
                         break;
                     default:
+                        editor.putString("status", " ");
+                        editor.commit();
                         setUprecycleView();
+
                         Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -252,8 +258,8 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 break;
 
             case "All":
-                query = query;
-                if (chosestatus.equals("")) {
+
+                if (chosestatus.equals(" ")) {
                     query = query;
 
                 } else if (chosestatus.equals("Lost"))
