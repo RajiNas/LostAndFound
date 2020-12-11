@@ -2,6 +2,7 @@ package com.example.lostandfoundapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -88,6 +89,7 @@ public class MessageActivity extends AppCompatActivity {
             protected void populateView(View v, Message model, int position)
             {
 
+                Log.e("MessageActivity",model.getContact());
                 if (model.getContact().equals(contact) && ! model.getContact().isEmpty())
                 {
                     TextView messageText, messageUser, messageTime;
