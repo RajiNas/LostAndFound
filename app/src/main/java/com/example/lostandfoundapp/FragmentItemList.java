@@ -85,6 +85,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
 
+
         RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.RadioGroupinListFrag);
         status = "all";
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -92,6 +93,11 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 //  boolean checked = ((RadioButton) view).isChecked();
                 SharedPreferences.Editor editor = sp.edit();
+//                setUprecycleView();
+
+
+                editor.putString("status", " ");
+                editor.commit();
                 switch (i) {
                     case R.id.RadioItemFoundinListFrag:
 
@@ -108,8 +114,10 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         setUprecycleView();
                         Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
                         break;
-
-
+                    default:
+                        setUprecycleView();
+                        Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
         });
@@ -156,8 +164,10 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         SharedPreferences sp = getActivity().getSharedPreferences("Categories", Context.MODE_PRIVATE);
         String chosenCat = sp.getString("cat", "");
 
+        String chosestatus = "";
         //obtain the status of the item to sort them in the switch statement
-        String chosestatus = sp.getString("status", "");
+        chosestatus = sp.getString("status", "");
+
         //Query
         Query query = firebaseFirestore.collection("Item");
         FirestoreRecyclerOptions<Items> options;
@@ -175,21 +185,19 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
             case "Pet":
 
                 if (chosestatus.equals("Lost"))
+
                     query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
                 else if (chosestatus.equals("Found"))
                     query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
-                else
-
-                if(chosestatus.equals("Lost")) {
+                else if (chosestatus.equals("Lost")) {
                     query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
                     itemAdapter.notifyDataSetChanged();
                     itemAdapter.startListening();
-                }
-                else if(chosestatus.equals("Found")) {
+                } else if (chosestatus.equals("Found")) {
                     query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
                     itemAdapter.notifyDataSetChanged();
                     itemAdapter.startListening();
-                }else
+                } else
 
                     query = query.whereEqualTo("category", "Pet").orderBy("date", Query.Direction.DESCENDING);
                 break;
@@ -245,9 +253,21 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
             case "All":
                 query = query;
+                if (chosestatus.equals("")) {
+                    query = query;
+
+                } else if (chosestatus.equals("Lost"))
+                    query = query.whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
+                else if (chosestatus.equals("Found"))
+                    query = query.whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
+
+                else
+                    Toast.makeText(getContext(), "There is an error", Toast.LENGTH_SHORT).show();
+
                 break;
             case "My Item":
                 query = query.whereEqualTo("userEmail", currentUser).orderBy("date", Query.Direction.DESCENDING);
+
 
 //                if (currentUser.equals("joel@gmail.com")) {
 //                    query = query.whereEqualTo("userEmail", currentUser).orderBy("date", Query.Direction.DESCENDING);
@@ -268,6 +288,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
         itemAdapter.notifyDataSetChanged();
         itemAdapter.startListening();
+
 
 //        Query query = reff.orderBy("date", Query.Direction.DESCENDING);//
 //        FirestoreRecyclerOptions<Items> item = new FirestoreRecyclerOptions.Builder<Items>().setQuery(query, Items.class).build();//
