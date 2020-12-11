@@ -104,5 +104,10 @@ public class MessageActivity extends AppCompatActivity {
         };
         listOfMessage.setAdapter(adapter);
     }
+
+    public void previousActivity(View view) {
+        Intent intent = new Intent(MessageActivity.this, ContactActivity.class);
+        startActivity(intent);
+    }
 }
 
