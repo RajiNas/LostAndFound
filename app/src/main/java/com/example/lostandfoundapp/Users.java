@@ -10,6 +10,12 @@ public class Users
         this.image = image;
     }
 
+    public Users ()
+    {
+
+    }
+
+
     public String getUsername() {
         return username;
     }
