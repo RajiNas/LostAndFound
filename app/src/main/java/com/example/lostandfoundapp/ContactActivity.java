@@ -28,15 +28,12 @@ public class ContactActivity extends AppCompatActivity
     private FirebaseFirestore firebaseFirestore;
     private FirebaseListAdapter<Users> adapter;
 
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_contact_list);
         displayUsers();
-
     }
 
     @Override
@@ -46,12 +43,8 @@ public class ContactActivity extends AppCompatActivity
         displayUsers();
     }
 
-
-
-
     private void displayUsers()
     {
-
         ListView listOfUsers = (ListView)findViewById(R.id.ContactListView);
         adapter = new FirebaseListAdapter<Users>(this,Users.class,R.layout.fragment_contact, FirebaseDatabase.getInstance().getReference().child("Users") )
         {
@@ -79,7 +72,6 @@ public class ContactActivity extends AppCompatActivity
                             .into(profile_pic);
                 }
 
-
                 profile_pic.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
@@ -91,13 +83,13 @@ public class ContactActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                 });
-
             }
         };
         listOfUsers.setAdapter(adapter);
     }
 
-
-
-
+    public void previousActivity(View view) {
+        Intent intent = new Intent(ContactActivity.this, ContainerAccessActivity.class);
+        startActivity(intent);
+    }
 }
