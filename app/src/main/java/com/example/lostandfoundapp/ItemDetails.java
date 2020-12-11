@@ -93,15 +93,13 @@ public class ItemDetails extends AppCompatActivity {
                             ft1.commit();
                             return true;
 
-                        case R.id.nav_location:
+                        case R.id.nav_allChats:
                             //location fragment transaction
 //                            actionBar.setTitle("Location");
-//                           MapActivity mapsFragment = new MapActivity();
-//                            FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
-//                            ft2.replace(R.id.content, mapsFragment, "");
-//                            ft2.commit();
-//                            Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-//                            startActivity(intent);
+                           UsersChatFragment usersChatFragment = new UsersChatFragment();
+                            FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
+                            ft2.replace(R.id.content, usersChatFragment, "");
+                            ft2.commit();
                             return true;
 
                         case R.id.nav_contact:

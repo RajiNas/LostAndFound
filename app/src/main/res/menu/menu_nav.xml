@@ -4,9 +4,9 @@
     <item android:id="@+id/nav_details"
         android:title="Details"
         android:icon="@drawable/ic_description_black"/>
-    <item android:id="@+id/nav_location"
-        android:title="Location"
-        android:icon="@drawable/ic_location_black"/>
+    <item android:id="@+id/nav_allChats"
+        android:title="My Chats"
+        android:icon="@drawable/ic_chat"/>
     <item android:id="@+id/nav_contact"
         android:title="Contact"
         android:icon="@drawable/ic_contact_black"/>

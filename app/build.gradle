@@ -83,6 +83,10 @@ dependencies {
     // Messaging
     compile 'com.firebaseui:firebase-ui:0.6.2'
 
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

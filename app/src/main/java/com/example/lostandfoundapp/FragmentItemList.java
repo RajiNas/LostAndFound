@@ -67,6 +67,8 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
     public static final String TAG = "ContainerAccessActivity";
     SharedPreferences sp;
 
+    RadioGroup radioGroup;
+
     public FragmentItemList() {
         // Required empty public constructor
     }
@@ -86,21 +88,16 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
         user = firebaseAuth.getCurrentUser();
 
 
-        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.RadioGroupinListFrag);
+        radioGroup = (RadioGroup) view.findViewById(R.id.RadioGroupinListFrag);
         status = "all";
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 //  boolean checked = ((RadioButton) view).isChecked();
                 SharedPreferences.Editor editor = sp.edit();
-//                setUprecycleView();
-
-
 
                 switch (i) {
                     case R.id.RadioItemFoundinListFrag:
-
-
                         editor.putString("status", "Found");
                         editor.commit();
                         setUprecycleView();
@@ -121,12 +118,14 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         editor.putString("status", " ");
                         editor.commit();
                         setUprecycleView();
-
                         Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
+
         });
+
+
         //Spinner values
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.Status, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -147,6 +146,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                 Intent intent = new Intent(getContext(), ItemDetails.class);
                 intent.putExtra("id", id);
+                intent.putExtra("username", items.getUsername());
                 intent.putExtra("category", items.getCategory());
                 intent.putExtra("title", items.getTitle());
                 intent.putExtra("date", items.getDate());
@@ -159,6 +159,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 //here we can delete and update an item
             }
         });
+
         return view;
     }
 
@@ -193,6 +194,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 if (chosestatus.equals("Lost"))
 
                     query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Lost").orderBy("date", Query.Direction.DESCENDING);
+
                 else if (chosestatus.equals("Found"))
                     query = query.whereEqualTo("category", "Pet").whereEqualTo("status", "Found").orderBy("date", Query.Direction.DESCENDING);
                 else if (chosestatus.equals("Lost")) {
@@ -282,6 +284,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 //                }
                 break;
 
+
         }
 //        CategoryInitialize();
         options = new FirestoreRecyclerOptions.Builder<Items>()
@@ -333,6 +336,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
+                        intent.putExtra("username", items.getUsername());
                         intent.putExtra("category", items.getCategory());
                         intent.putExtra("title", items.getTitle());
                         intent.putExtra("date", items.getDate());
@@ -365,6 +369,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
+                        intent.putExtra("username", items.getUsername());
                         intent.putExtra("category", items.getCategory());
                         intent.putExtra("title", items.getTitle());
                         intent.putExtra("date", items.getDate());
@@ -397,6 +402,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
+                        intent.putExtra("username", items.getUsername());
                         intent.putExtra("category", items.getCategory());
                         intent.putExtra("title", items.getTitle());
                         intent.putExtra("date", items.getDate());
@@ -429,6 +435,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
+                        intent.putExtra("username", items.getUsername());
                         intent.putExtra("category", items.getCategory());
                         intent.putExtra("title", items.getTitle());
                         intent.putExtra("date", items.getDate());
@@ -461,6 +468,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
+                        intent.putExtra("username", items.getUsername());
                         intent.putExtra("category", items.getCategory());
                         intent.putExtra("title", items.getTitle());
                         intent.putExtra("date", items.getDate());
@@ -490,6 +498,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
+                        intent.putExtra("username", items.getUsername());
                         intent.putExtra("category", items.getCategory());
                         intent.putExtra("title", items.getTitle());
                         intent.putExtra("date", items.getDate());
@@ -519,6 +528,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
+                        intent.putExtra("username", items.getUsername());
                         intent.putExtra("category", items.getCategory());
                         intent.putExtra("title", items.getTitle());
                         intent.putExtra("date", items.getDate());
@@ -550,6 +560,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
                         Intent intent = new Intent(getContext(), ItemDetails.class);
                         intent.putExtra("id", id);
+                        intent.putExtra("username", items.getUsername());
                         intent.putExtra("category", items.getCategory());
                         intent.putExtra("title", items.getTitle());
                         intent.putExtra("date", items.getDate());
