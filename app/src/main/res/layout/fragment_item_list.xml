@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#2BEA0A"
+            android:background="#CBF4C4"
 
             android:text="Found" />
 
@@ -31,7 +31,7 @@
             android:id="@+id/RadioItemLostinListFrag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#41DFA8"
+            android:background="#FACFCC"
             android:layout_weight="1"
 
             android:text="Lost" />

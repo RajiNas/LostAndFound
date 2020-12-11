@@ -117,6 +117,7 @@ public class DetailsFragment extends Fragment {
         txtStatus = (TextView) view.findViewById(R.id.textView_status_DetailsFragment);
 
         String getImage = getActivity().getIntent().getStringExtra("image");
+        String getUsername = getActivity().getIntent().getStringExtra("username");
         String getCategory = getActivity().getIntent().getStringExtra("category");
         String getTitle = getActivity().getIntent().getStringExtra("title");
         String getDate = getActivity().getIntent().getStringExtra("date");
@@ -187,21 +188,26 @@ public class DetailsFragment extends Fragment {
                 //delete item
                 getUserEmail = getActivity().getIntent().getStringExtra("userEmail");
 
-                if(firebaseUser.getEmail().equals(getUserEmail)){
+                if (firebaseUser.getEmail().equals(getUserEmail)) {
                     DocumentReference documentReference = firebaseFirestore.collection("Item").document(getId);
                     documentReference.delete();
                     Toast.makeText(getContext(), "Item Deleted", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), ContainerAccessActivity.class));
-                }else {
+                } else {
                     Toast.makeText(getContext(), "Sorry You Don't Have Access To This Item", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
+        
         fab_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // goes to contact activity
+//                Toast.makeText(getContext(), "getid------------: " + getId, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), ChatActivity.class);
+                intent.putExtra("hisId", getId);
+                intent.putExtra("username", getUsername);
+                intent.putExtra("image", getImage);
+                startActivity(intent);
             }
         });
 
