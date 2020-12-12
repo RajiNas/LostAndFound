@@ -134,7 +134,7 @@ public class DetailsFragment extends Fragment {
         String getCreatorUid = getActivity().getIntent().getStringExtra("creatorUid");
         getId = getActivity().getIntent().getStringExtra("id");
 
-        SharedPreferences.Editor editor = sp.edit();
+      //  SharedPreferences.Editor editor = sp.edit();
 
         Intent intent = new Intent(getContext(), ChatActivity.class);
 
@@ -261,10 +261,10 @@ public class DetailsFragment extends Fragment {
             }
         });
 
-        editor.putString("hisId",getCreatorUid);
-        editor.putString("username",getUsername);
-        editor.putString("image",userImage);
-        editor.commit();
+//        editor.putString("hisId",getCreatorUid);
+//        editor.putString("username",getUsername);
+//        editor.putString("image",userImage);
+//        editor.commit();
 
         return view;
     }
