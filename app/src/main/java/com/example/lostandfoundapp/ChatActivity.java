@@ -61,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
     String myUid;
     String hisImage;
     String userName;
-    String userImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +92,14 @@ public class ChatActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         usersDbRef = firebaseDatabase.getReference("Users");
 
+        FirebaseUser user1 = firebaseAuth.getCurrentUser();
+        myUid = user1.getUid();
+
         hisUid = getIntent().getStringExtra("hisId");
         userName = getIntent().getStringExtra("username");
-        userImage = getIntent().getStringExtra("image");
-//        Toast.makeText(ChatActivity.this, "username: " + userName, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(ChatActivity.this, "image: " + userImage, Toast.LENGTH_SHORT).show();
+        hisImage = getIntent().getStringExtra("image");
+        Toast.makeText(ChatActivity.this, "hisUid: " + hisUid, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ChatActivity.this, "myUid: " + myUid, Toast.LENGTH_SHORT).show();
 
 
         //search user to get that user's info
@@ -222,26 +225,26 @@ public class ChatActivity extends AppCompatActivity {
         messageEt.setText("");
     }
 
-    private void checkUserStatus() {
-        //get current user
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            //user is signed in
-            //set email of logged in user
-            myUid = user.getUid();
-
-        } else {
-            //user not signed in, go to main activity
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        checkUserStatus();
-        super.onStart();
-    }
+//    private void checkUserStatus() {
+//        //get current user
+//        FirebaseUser user = firebaseAuth.getCurrentUser();
+//        if (user != null) {
+//            //user is signed in
+//            //set email of logged in user
+//            myUid = user.getUid();
+//
+//        } else {
+//            //user not signed in, go to main activity
+//            startActivity(new Intent(this, MainActivity.class));
+//            finish();
+//        }
+//    }
+//
+//    @Override
+//    protected void onStart() {
+//        checkUserStatus();
+//        super.onStart();
+//    }
 
     @Override
     protected void onPause() {
