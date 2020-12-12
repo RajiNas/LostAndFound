@@ -180,6 +180,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    // comment line
     private void readMessages() {
         chatList = new ArrayList<>();
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Chats");
@@ -189,10 +190,10 @@ public class ChatActivity extends AppCompatActivity {
                 chatList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-//                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid) ||
-         //                   chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
+                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid) ||
+                            chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
                         chatList.add(chat);
-            //        }
+                    }
                     //adapter
                     adapterChat = new AdapterChat(ChatActivity.this, chatList, hisImage);
                     adapterChat.notifyDataSetChanged();

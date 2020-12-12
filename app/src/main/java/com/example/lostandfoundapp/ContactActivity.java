@@ -43,6 +43,7 @@ public class ContactActivity extends AppCompatActivity
         displayUsers();
     }
 
+    // comment line
     private void displayUsers()
     {
         ListView listOfUsers = (ListView)findViewById(R.id.ContactListView);
