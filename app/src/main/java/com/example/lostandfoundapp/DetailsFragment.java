@@ -136,7 +136,7 @@ public class DetailsFragment extends Fragment {
 
       //  SharedPreferences.Editor editor = sp.edit();
 
-        Intent intent = new Intent(getContext(), ChatActivity.class);
+
 
 
 
@@ -238,15 +238,14 @@ public class DetailsFragment extends Fragment {
 //                Toast.makeText(getContext(), "getid------------: " + getId, Toast.LENGTH_SHORT).show();
                 // change into Sharedpreferences
 
-
                 Intent intent = new Intent(getContext(), ChatActivity.class);
+
                 intent.putExtra("hisId", getCreatorUid);
                 intent.putExtra("username", getUsername);
                 intent.putExtra("image", userImage);
                 Toast.makeText(getContext(), "userImage: " + userImage, Toast.LENGTH_SHORT).show();
-
-
                 startActivity(intent);
+
             }
         });
 

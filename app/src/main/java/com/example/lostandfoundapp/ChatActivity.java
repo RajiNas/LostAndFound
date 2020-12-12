@@ -61,6 +61,7 @@ public class ChatActivity extends AppCompatActivity {
     String myUid;
     String hisImage;
     String userName;
+    String userImage;
 
 
     @Override
@@ -164,11 +165,11 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
+//                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
                         HashMap<String, Object> hasSeenhashMap = new HashMap<>();
                         hasSeenhashMap.put("isSeen", true);
                         ds.getRef().updateChildren(hasSeenhashMap);
-                    }
+                //    }
                 }
             }
 
@@ -188,10 +189,10 @@ public class ChatActivity extends AppCompatActivity {
                 chatList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid) ||
-                            chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
+//                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid) ||
+         //                   chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
                         chatList.add(chat);
-                    }
+            //        }
                     //adapter
                     adapterChat = new AdapterChat(ChatActivity.this, chatList, hisImage);
                     adapterChat.notifyDataSetChanged();
