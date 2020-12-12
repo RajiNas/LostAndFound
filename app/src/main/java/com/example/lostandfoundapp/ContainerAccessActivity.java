@@ -78,7 +78,7 @@ public class ContainerAccessActivity extends AppCompatActivity {
 //                        fr = new MessageFragment();
 //                        displayFragment();
 
-                        startActivity( new Intent(ContainerAccessActivity.this, MessageActivity.class));
+                        startActivity( new Intent(ContainerAccessActivity.this, ContactActivity.class));
 
                         break;
                     case R.id.profile_item:
