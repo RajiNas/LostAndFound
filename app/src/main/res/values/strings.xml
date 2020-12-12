@@ -40,4 +40,5 @@
     <string name="sign_out">Sign out</string>
     <string name="Open">Open</string>
     <string name="Close">Close</string>
+    <string name="title_activity_message_viewer">MessageViewer</string>
 </resources>

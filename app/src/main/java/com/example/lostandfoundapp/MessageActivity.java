@@ -89,7 +89,7 @@ public class MessageActivity extends AppCompatActivity {
             protected void populateView(View v, Message model, int position)
             {
 
-                Log.e("MessageActivity",model.getContact());
+                Log.e("MessageActivity","The Message owner is this guys " + model.getContact());
                 if (model.getContact().equals(contact) && ! model.getContact().isEmpty())
                 {
                     TextView messageText, messageUser, messageTime;
