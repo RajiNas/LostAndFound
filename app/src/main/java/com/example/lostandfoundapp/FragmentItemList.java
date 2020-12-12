@@ -157,6 +157,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 intent.putExtra("status", items.getStatus());
                 intent.putExtra("image", items.getImage());
                 intent.putExtra("address", items.getAddress());
+                intent.putExtra("creatorUid", items.getCreatorUid());
+                Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+
                 startActivity(intent);
 
                 //here we can delete and update an item
@@ -349,6 +352,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
+                        intent.putExtra("creatorUid", items.getCreatorUid());
+                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -383,6 +389,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
+                        intent.putExtra("creatorUid", items.getCreatorUid());
+                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -417,6 +426,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
+                        intent.putExtra("creatorUid", items.getCreatorUid());
+                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -451,6 +463,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
+                        intent.putExtra("creatorUid", items.getCreatorUid());
+                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -485,6 +500,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
+                        intent.putExtra("creatorUid", items.getCreatorUid());
+                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -516,6 +534,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
+                        intent.putExtra("creatorUid", items.getCreatorUid());
+                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -547,6 +568,9 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
+                        intent.putExtra("creatorUid", items.getCreatorUid());
+                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+
                         startActivity(intent);
 
                         //here we can delete and update an item
@@ -579,7 +603,10 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("image", items.getImage());
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
+                        intent.putExtra("creatorUid", items.getCreatorUid());
+                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
                         startActivity(intent);
+
 
                         //here we can delete and update an item
                     }

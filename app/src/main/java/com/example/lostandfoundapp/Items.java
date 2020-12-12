@@ -15,25 +15,33 @@ public class Items {
 
     private String status;
     private String image;
+    private String creatorUid;
     private String mKey;
 
 
     public Items() {
     }
 
-    public Items(String username, String userEmail, String title, String address, String description, String category, String date, String status, String image) {
+    public Items(String username, String userEmail, String title, String description, String category, String address, String date, String status, String image, String creatorUid) {
         this.username = username;
         this.userEmail = userEmail;
         this.title = title;
-        this.address = address;
         this.description = description;
         this.category = category;
+        this.address = address;
         this.date = date;
         this.status = status;
         this.image = image;
+        this.creatorUid = creatorUid;
     }
 
+    public String getCreatorUid() {
+        return creatorUid;
+    }
 
+    public void setCreatorUid(String creatorUid) {
+        this.creatorUid = creatorUid;
+    }
 
     @Exclude
     public String getmKey() {

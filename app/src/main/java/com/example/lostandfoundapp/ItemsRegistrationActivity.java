@@ -86,6 +86,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     //path where images of user profile will be stored
     String storagePath = "Item_Imgs/";
 
+    String creatorUid;
+
     //Permission constants
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 200;
@@ -155,6 +157,8 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
 
+        creatorUid = user.getUid();
+
             // get shareable experience
 //
 //
@@ -219,7 +223,10 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
                     String date = simpleDateFormat.format(calendar.getTime());
 
-                    Items items = new Items(chosenCurrentUser, userEmail, title, address, description, chosenCategory, date, status, saveImgItem);
+
+
+
+                    Items items = new Items(chosenCurrentUser, userEmail, title, address, description, chosenCategory, date, status, saveImgItem, creatorUid);
                     if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 
@@ -234,6 +241,9 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                 }
             }
         });
+
+        Toast.makeText(ItemsRegistrationActivity.this, "creatorUid------: " + creatorUid, Toast.LENGTH_SHORT).show();
+
 
         // obtain the name of the user to add into the firestore
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());

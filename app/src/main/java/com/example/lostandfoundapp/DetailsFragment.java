@@ -35,6 +35,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -42,7 +45,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -60,12 +62,14 @@ public class DetailsFragment extends Fragment {
 
     String getUserEmail;
     String getId;
+    String userImage;
 
     FirebaseFirestore firebaseFirestore;
     CollectionReference collectionReference;
     DocumentReference reference;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase databaseReference;
 
 
     //Progress dialog
@@ -95,6 +99,7 @@ public class DetailsFragment extends Fragment {
         collectionReference = firebaseFirestore.collection("Item");
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance();
 //        reference = firebaseFirestore.document(getId);
 
         floatingActionButton = view.findViewById(R.id.fab);
@@ -123,10 +128,31 @@ public class DetailsFragment extends Fragment {
         String getDate = getActivity().getIntent().getStringExtra("date");
         String getDescription = getActivity().getIntent().getStringExtra("description");
         String getStatus = getActivity().getIntent().getStringExtra("status");
+        String getCreatorUid = getActivity().getIntent().getStringExtra("creatorUid");
         getId = getActivity().getIntent().getStringExtra("id");
 
+
+
+        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("uid").equalTo(getCreatorUid);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds: snapshot.getChildren()){
+                    userImage = ""+ds.child("image").getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+//        CollectionReference collectUserImage = firebaseFirestore.collection("Users");
+
+
 //        Log.e("ItemDetails", "getId ddddddd: " + getId);
-//        Toast.makeText(getContext(), "getId ddddddd: " + getId, Toast.LENGTH_SHORT).show();
+
 
         Picasso.get().load(getImage).into(image);
         txtCategory.setText(getCategory);
@@ -204,9 +230,10 @@ public class DetailsFragment extends Fragment {
             public void onClick(View v) {
 //                Toast.makeText(getContext(), "getid------------: " + getId, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), ChatActivity.class);
-                intent.putExtra("hisId", getId);
+                intent.putExtra("hisId", getCreatorUid);
                 intent.putExtra("username", getUsername);
-                intent.putExtra("image", getImage);
+                intent.putExtra("image", userImage);
+                Toast.makeText(getContext(), "userImage: " + userImage, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
