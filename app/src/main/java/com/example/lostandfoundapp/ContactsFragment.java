@@ -1,64 +1,216 @@
 package com.example.lostandfoundapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ContactsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+
 public class ContactsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //    Toolbar toolbar;
+    RecyclerView recyclerView;
+    ImageView profileIv;
+    TextView nameTv, userStatusTv;
+    EditText messageEt;
+    ImageButton sendBtn;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    //Firebase auth
+    FirebaseAuth firebaseAuth;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference usersDbRef;
+
+    //For checking if the user seen the message
+    ValueEventListener seenListener;
+    DatabaseReference userRefForSeen;
+
+    List<ModelChat> chatList;
+    AdapterChat adapterChat;
+
+    String hisUid;
+    String myUid;
+    String hisImage;
+    String userName;
+
+    SharedPreferences sp;
 
     public ContactsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ContactsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ContactsFragment newInstance(String param1, String param2) {
-        ContactsFragment fragment = new ContactsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contacts_og, container, false);
+        View view = inflater.inflate(R.layout.fragment_contacts_og, container, false);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.chat_recyclerView);
+        profileIv = (ImageView) view.findViewById(R.id.profileIv);
+        nameTv = (TextView) view.findViewById(R.id.nameTv);
+        userStatusTv = (TextView) view.findViewById(R.id.userStatusTv);
+        messageEt = (EditText) view.findViewById(R.id.messageEt);
+        sendBtn = (ImageButton) view.findViewById(R.id.sendBtn);
+
+        //Layout for recyclerView
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setStackFromEnd(true);
+        //recyclerView properties
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        //firebase auth instance
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        usersDbRef = firebaseDatabase.getReference("Users");
+
+        FirebaseUser user1 = firebaseAuth.getCurrentUser();
+        myUid = user1.getUid();
+
+        // cause of probably error Note <--- I decided to change it from getString extra to a getSharedPrefereneces
+        SharedPreferences sp = getActivity().getSharedPreferences("hisId", Context.MODE_PRIVATE);
+        SharedPreferences sp2 = getActivity().getSharedPreferences("username", Context.MODE_PRIVATE);
+        SharedPreferences sp3 = getActivity().getSharedPreferences("image", Context.MODE_PRIVATE);
+        hisUid = sp.getString("hisId", "");//getActivity().getIntent().getStringExtra("hisId");
+        userName = sp.getString("username", "");//getActivity().getIntent().getStringExtra("username");
+        hisImage = sp.getString("image", "");//getActivity().getIntent().getStringExtra("image");
+
+        Toast.makeText(getContext(), "hisUid: " + hisUid, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "myUid: " + myUid, Toast.LENGTH_SHORT).show();
+
+        //search user to get that user's info
+        Query userQuery = usersDbRef.orderByChild("uid").equalTo(hisUid);
+        nameTv.setText(userName);
+        Picasso.get().load(hisImage).into(profileIv);
+
+        //click button to send message
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //get text from edit text
+                String message = messageEt.getText().toString().trim();
+                //check if text is empty
+                if (TextUtils.isEmpty(message)) {
+                    //text empty
+                    Toast.makeText(getContext(), "Cannot send an empty message...", Toast.LENGTH_SHORT).show();
+                } else {
+                    //text not empty
+                    sendMessage(message);
+                }
+            }
+        });
+        readMessages();
+        seenMessages();
+        return view;
     }
+
+
+    private void seenMessages() {
+        userRefForSeen = FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener = userRefForSeen.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    ModelChat chat = ds.getValue(ModelChat.class);
+                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
+                        HashMap<String, Object> hasSeenhashMap = new HashMap<>();
+                        hasSeenhashMap.put("isSeen", true);
+                        ds.getRef().updateChildren(hasSeenhashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+
+    private void readMessages() {
+        chatList = new ArrayList<>();
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Chats");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chatList.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    ModelChat chat = ds.getValue(ModelChat.class);
+                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid) ||
+                            chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
+                        chatList.add(chat);
+                    }
+                    //adapter
+                    adapterChat = new AdapterChat(getContext(), chatList, hisImage);
+                    adapterChat.notifyDataSetChanged();
+
+                    //set adapter to recyclerView
+                    recyclerView.setAdapter(adapterChat);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void sendMessage(String message) {
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("sender", myUid);
+        hashMap.put("receiver", hisUid);
+        hashMap.put("message", message);
+        hashMap.put("timestamp", timestamp);
+        hashMap.put("isSeen", false);
+        databaseReference.child("Chats").push().setValue(hashMap);
+
+        //reset the edittext after sending the message
+        messageEt.setText("");
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        userRefForSeen.removeEventListener(seenListener);
+    }
+
 }

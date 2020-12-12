@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -75,6 +76,8 @@ public class DetailsFragment extends Fragment {
     //Progress dialog
     ProgressDialog pd;
 
+    //SharedPreferences
+    SharedPreferences sp;
 
     public static final String TAG = "DetailsFragment";
 
@@ -130,6 +133,10 @@ public class DetailsFragment extends Fragment {
         String getStatus = getActivity().getIntent().getStringExtra("status");
         String getCreatorUid = getActivity().getIntent().getStringExtra("creatorUid");
         getId = getActivity().getIntent().getStringExtra("id");
+
+        SharedPreferences.Editor editor = sp.edit();
+
+        Intent intent = new Intent(getContext(), ChatActivity.class);
 
 
 
@@ -229,11 +236,16 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(getContext(), "getid------------: " + getId, Toast.LENGTH_SHORT).show();
+                // change into Sharedpreferences
+
+
                 Intent intent = new Intent(getContext(), ChatActivity.class);
                 intent.putExtra("hisId", getCreatorUid);
                 intent.putExtra("username", getUsername);
                 intent.putExtra("image", userImage);
                 Toast.makeText(getContext(), "userImage: " + userImage, Toast.LENGTH_SHORT).show();
+
+
                 startActivity(intent);
             }
         });
@@ -248,6 +260,11 @@ public class DetailsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        editor.putString("hisId",getCreatorUid);
+        editor.putString("username",getUsername);
+        editor.putString("image",userImage);
+        editor.commit();
 
         return view;
     }
