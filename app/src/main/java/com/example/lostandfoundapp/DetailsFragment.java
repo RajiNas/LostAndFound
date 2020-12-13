@@ -2,6 +2,7 @@ package com.example.lostandfoundapp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,7 +65,7 @@ public class DetailsFragment extends Fragment {
 
     String getUserEmail;
     String getId;
-    String userImage;
+    String userImage , getUsername , getCreatorUid;
 
     FirebaseFirestore firebaseFirestore;
     CollectionReference collectionReference;
@@ -125,18 +127,17 @@ public class DetailsFragment extends Fragment {
         txtStatus = (TextView) view.findViewById(R.id.textView_status_DetailsFragment);
 
         String getImage = getActivity().getIntent().getStringExtra("image");
-        String getUsername = getActivity().getIntent().getStringExtra("username");
+         getUsername = getActivity().getIntent().getStringExtra("username");
         String getCategory = getActivity().getIntent().getStringExtra("category");
         String getTitle = getActivity().getIntent().getStringExtra("title");
         String getDate = getActivity().getIntent().getStringExtra("date");
         String getDescription = getActivity().getIntent().getStringExtra("description");
         String getStatus = getActivity().getIntent().getStringExtra("status");
-        String getCreatorUid = getActivity().getIntent().getStringExtra("creatorUid");
+         getCreatorUid = getActivity().getIntent().getStringExtra("creatorUid");
         getId = getActivity().getIntent().getStringExtra("id");
 
       //  SharedPreferences.Editor editor = sp.edit();
-
-
+            sp = getActivity().getSharedPreferences("DetailsInfo",Context.MODE_PRIVATE);
 
 
 
@@ -146,6 +147,10 @@ public class DetailsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     userImage = ""+ds.child("image").getValue();
+                    SharedPreferences.Editor editor = sp.edit();
+
+                    editor.putString("image",userImage);
+                    editor.commit();
                 }
             }
 
@@ -247,6 +252,8 @@ public class DetailsFragment extends Fragment {
                 startActivity(intent);
 
             }
+
+
         });
 
         fab_map.setOnClickListener(new View.OnClickListener() {
@@ -260,10 +267,13 @@ public class DetailsFragment extends Fragment {
             }
         });
 
-//        editor.putString("hisId",getCreatorUid);
-//        editor.putString("username",getUsername);
-//        editor.putString("image",userImage);
-//        editor.commit();
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putString("hisId",getCreatorUid);
+        editor.commit();
+        editor.putString("username",getUsername);
+        editor.commit();
+
 
         return view;
     }

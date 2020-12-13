@@ -99,9 +99,8 @@ public class ContactsFragment extends Fragment {
         myUid = user1.getUid();
 
         // cause of probably error Note <--- I decided to change it from getString extra to a getSharedPrefereneces
-        SharedPreferences sp = getActivity().getSharedPreferences("hisId", Context.MODE_PRIVATE);
-        SharedPreferences sp2 = getActivity().getSharedPreferences("username", Context.MODE_PRIVATE);
-        SharedPreferences sp3 = getActivity().getSharedPreferences("image", Context.MODE_PRIVATE);
+        SharedPreferences sp = getContext().getSharedPreferences("DetailsInfo", Context.MODE_PRIVATE);
+
         hisUid = sp.getString("hisId", "");//getActivity().getIntent().getStringExtra("hisId");
         userName = sp.getString("username", "");//getActivity().getIntent().getStringExtra("username");
         hisImage = sp.getString("image", "");//getActivity().getIntent().getStringExtra("image");
@@ -143,11 +142,11 @@ public class ContactsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
+      //              if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
                         HashMap<String, Object> hasSeenhashMap = new HashMap<>();
                         hasSeenhashMap.put("isSeen", true);
                         ds.getRef().updateChildren(hasSeenhashMap);
-                    }
+           //         }
                 }
             }
 
@@ -169,10 +168,10 @@ public class ContactsFragment extends Fragment {
                 chatList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid) ||
-                            chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
+   //                 if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid) ||
+   //                         chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
                         chatList.add(chat);
-                    }
+               //     }
                     //adapter
                     adapterChat = new AdapterChat(getContext(), chatList, hisImage);
                     adapterChat.notifyDataSetChanged();
