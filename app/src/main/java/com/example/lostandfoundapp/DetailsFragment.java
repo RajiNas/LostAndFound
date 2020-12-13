@@ -65,7 +65,7 @@ public class DetailsFragment extends Fragment {
 
     String getUserEmail;
     String getId;
-    String userImage , getUsername , getCreatorUid;
+    String userImage , getUsername , getCreatorUid , getTitle;
 
     FirebaseFirestore firebaseFirestore;
     CollectionReference collectionReference;
@@ -129,7 +129,7 @@ public class DetailsFragment extends Fragment {
         String getImage = getActivity().getIntent().getStringExtra("image");
          getUsername = getActivity().getIntent().getStringExtra("username");
         String getCategory = getActivity().getIntent().getStringExtra("category");
-        String getTitle = getActivity().getIntent().getStringExtra("title");
+         getTitle = getActivity().getIntent().getStringExtra("title");
         String getDate = getActivity().getIntent().getStringExtra("date");
         String getDescription = getActivity().getIntent().getStringExtra("description");
         String getStatus = getActivity().getIntent().getStringExtra("status");
@@ -248,6 +248,7 @@ public class DetailsFragment extends Fragment {
                 intent.putExtra("hisId", getCreatorUid);
                 intent.putExtra("username", getUsername);
                 intent.putExtra("image", userImage);
+                intent.putExtra("ItemTitle", getTitle);
                 Toast.makeText(getContext(), "userImage: " + userImage, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
 
@@ -273,6 +274,9 @@ public class DetailsFragment extends Fragment {
         editor.commit();
         editor.putString("username",getUsername);
         editor.commit();
+        editor.putString("ItemTitle",getTitle);
+        editor.commit();
+
 
 
         return view;

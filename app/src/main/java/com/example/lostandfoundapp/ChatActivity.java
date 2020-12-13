@@ -61,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
     String myUid;
     String hisImage;
     String userName;
-    String userImage;
+    String smgTitle;
 
 
     @Override
@@ -99,6 +99,7 @@ public class ChatActivity extends AppCompatActivity {
         hisUid = getIntent().getStringExtra("hisId");
         userName = getIntent().getStringExtra("username");
         hisImage = getIntent().getStringExtra("image");
+        smgTitle = getIntent().getStringExtra("ItemTitle");
         Toast.makeText(ChatActivity.this, "hisUid: " + hisUid, Toast.LENGTH_SHORT).show();
         Toast.makeText(ChatActivity.this, "myUid: " + myUid, Toast.LENGTH_SHORT).show();
 
@@ -221,6 +222,7 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("message", message);
         hashMap.put("timestamp", timestamp);
         hashMap.put("isSeen", false);
+        hashMap.put("titleOfMsg",smgTitle);
         databaseReference.child("Chats").push().setValue(hashMap);
 
         //reset the edittext after sending the message

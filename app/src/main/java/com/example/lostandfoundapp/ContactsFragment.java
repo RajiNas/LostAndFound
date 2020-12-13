@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class ContactsFragment extends Fragment {
     String myUid;
     String hisImage;
     String userName;
+    String smgTitle;
 
     SharedPreferences sp;
 
@@ -104,7 +106,7 @@ public class ContactsFragment extends Fragment {
         hisUid = sp.getString("hisId", "");//getActivity().getIntent().getStringExtra("hisId");
         userName = sp.getString("username", "");//getActivity().getIntent().getStringExtra("username");
         hisImage = sp.getString("image", "");//getActivity().getIntent().getStringExtra("image");
-
+        smgTitle = sp.getString("ItemTitle","");
         Toast.makeText(getContext(), "hisUid: " + hisUid, Toast.LENGTH_SHORT).show();
         Toast.makeText(getContext(), "myUid: " + myUid, Toast.LENGTH_SHORT).show();
 
@@ -131,6 +133,8 @@ public class ContactsFragment extends Fragment {
         });
         readMessages();
         seenMessages();
+        Log.e("ContactsFragments"," My uid is : " + myUid);
+        Log.e("ContactsFragments"," his uid is : " + hisUid);
         return view;
     }
 
@@ -142,11 +146,13 @@ public class ContactsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-      //              if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
+
+                   // if(chat.getTitleOfMsg().equals(msgTitle) )
+                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
                         HashMap<String, Object> hasSeenhashMap = new HashMap<>();
                         hasSeenhashMap.put("isSeen", true);
                         ds.getRef().updateChildren(hasSeenhashMap);
-           //         }
+                    }
                 }
             }
 
@@ -168,10 +174,11 @@ public class ContactsFragment extends Fragment {
                 chatList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-   //                 if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid) ||
-   //                         chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
+                  if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)||
+                            chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
+
                         chatList.add(chat);
-               //     }
+                   }
                     //adapter
                     adapterChat = new AdapterChat(getContext(), chatList, hisImage);
                     adapterChat.notifyDataSetChanged();
@@ -199,6 +206,7 @@ public class ContactsFragment extends Fragment {
         hashMap.put("message", message);
         hashMap.put("timestamp", timestamp);
         hashMap.put("isSeen", false);
+        hashMap.put("titleOfMsg",smgTitle);
         databaseReference.child("Chats").push().setValue(hashMap);
 
         //reset the edittext after sending the message
