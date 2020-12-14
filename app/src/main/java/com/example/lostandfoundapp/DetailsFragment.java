@@ -327,7 +327,7 @@ public class DetailsFragment extends Fragment {
     private void showUpdateDialog(String key) {
         //custom dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Update" + key);
+        builder.setTitle("Update " + key);
 
         //set layout of dialog
         LinearLayout linearLayout = new LinearLayout(getContext());
