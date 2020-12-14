@@ -7,33 +7,6 @@
     tools:context=".RegistractionActivity">
 
 
-<!--    <EditText-->
-<!--        android:id="@+id/editText_registrationActivity_phone"-->
-<!--        android:layout_width="350dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:ems="10"-->
-<!--        android:hint="Phone"-->
-<!--        android:inputType="textPersonName"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.497"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/editText_registrationActivity_email" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/editText_registrationActivity_username"-->
-
-<!--        android:layout_width="350dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="80dp"-->
-<!--        android:ems="10"-->
-<!--        android:hint="Username"-->
-<!--        android:inputType="textPersonName"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.491"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
-
 
     <EditText
         android:id="@+id/editText_registrationActivity_email"
