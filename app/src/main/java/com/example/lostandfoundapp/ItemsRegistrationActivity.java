@@ -271,7 +271,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         String categoryText = adapterView.getItemAtPosition(position).toString();
-        Toast.makeText(adapterView.getContext(), categoryText, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(adapterView.getContext(), categoryText, Toast.LENGTH_SHORT).show();
         chosenCategory = categoryText;
     }
 
@@ -478,12 +478,12 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
             case R.id.RadioItemFound:
                 if(checked)
                     status = "Found";
-                Toast.makeText(this, "found item was clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "found item was clicked", Toast.LENGTH_SHORT).show();
                 break;
             case  R.id.RadioItemLost:
                 if(checked)
                     status = "Lost";
-                Toast.makeText(this, "lost item was clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "lost item was clicked", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

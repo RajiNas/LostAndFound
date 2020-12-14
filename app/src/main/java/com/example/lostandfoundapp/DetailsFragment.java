@@ -249,7 +249,7 @@ public class DetailsFragment extends Fragment {
                 intent.putExtra("username", getUsername);
                 intent.putExtra("image", userImage);
                 intent.putExtra("ItemTitle", getTitle);
-                Toast.makeText(getContext(), "userImage: " + userImage, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "userImage: " + userImage, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
 
             }

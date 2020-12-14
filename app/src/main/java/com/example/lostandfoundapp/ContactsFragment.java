@@ -107,8 +107,8 @@ public class ContactsFragment extends Fragment {
         userName = sp.getString("username", "");//getActivity().getIntent().getStringExtra("username");
         hisImage = sp.getString("image", "");//getActivity().getIntent().getStringExtra("image");
         smgTitle = sp.getString("ItemTitle","");
-        Toast.makeText(getContext(), "hisUid: " + hisUid, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "myUid: " + myUid, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "hisUid: " + hisUid, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "myUid: " + myUid, Toast.LENGTH_SHORT).show();
 
         //search user to get that user's info
         Query userQuery = usersDbRef.orderByChild("uid").equalTo(hisUid);

@@ -103,7 +103,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         setUprecycleView();
                         editor.putString("status", " ");
                         editor.commit();
-                        Toast.makeText(getActivity(), "found item was clicked", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "found item was clicked", Toast.LENGTH_SHORT).show();
 //                        radioGroup.clearCheck();
                         break;
                     case R.id.RadioItemLostinListFrag:
@@ -113,14 +113,14 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         setUprecycleView();
                         editor.putString("status", " ");
                         editor.commit();
-                        Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
 //                        radioGroup.clearCheck();
                         break;
                     default:
                         editor.putString("status", " ");
                         editor.commit();
                         setUprecycleView();
-                        Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "lost item was clicked", Toast.LENGTH_SHORT).show();
 //                        radioGroup.clearCheck();
                         break;
                 }
@@ -159,7 +159,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 intent.putExtra("address", items.getAddress());
                 intent.putExtra("creatorUid", items.getCreatorUid());
                 intent.putExtra("userEmail", items.getUserEmail());
-                Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
 
                 startActivity(intent);
 
@@ -173,7 +173,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
     private void setUprecycleView() {
         String currentUser = "";
-        Toast.makeText(getContext(), "chosenCategory", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "chosenCategory", Toast.LENGTH_SHORT).show();
 
         SharedPreferences sp = getActivity().getSharedPreferences("Categories", Context.MODE_PRIVATE);
         String chosenCat = sp.getString("cat", "");
@@ -321,7 +321,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
 
         String categoryText = adapterView.getItemAtPosition(position).toString();
         chosenCategory = categoryText;
-        Toast.makeText(adapterView.getContext(), chosenCategory, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(adapterView.getContext(), chosenCategory, Toast.LENGTH_SHORT).show();
         SharedPreferences.Editor editor = sp.edit();
 
         switch (categoryText) {
@@ -354,7 +354,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
                         intent.putExtra("creatorUid", items.getCreatorUid());
-                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
 
                         startActivity(intent);
 
@@ -391,7 +391,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
                         intent.putExtra("creatorUid", items.getCreatorUid());
-                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
 
                         startActivity(intent);
 
@@ -428,7 +428,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
                         intent.putExtra("creatorUid", items.getCreatorUid());
-                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
 
                         startActivity(intent);
 
@@ -465,7 +465,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
                         intent.putExtra("creatorUid", items.getCreatorUid());
-                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
 
                         startActivity(intent);
 
@@ -502,7 +502,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
                         intent.putExtra("creatorUid", items.getCreatorUid());
-                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
 
                         startActivity(intent);
 
@@ -536,7 +536,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
                         intent.putExtra("creatorUid", items.getCreatorUid());
-                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
 
                         startActivity(intent);
 
@@ -570,7 +570,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
                         intent.putExtra("creatorUid", items.getCreatorUid());
-                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
 
                         startActivity(intent);
 
@@ -605,7 +605,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                         intent.putExtra("address", items.getAddress());
                         intent.putExtra("userEmail", items.getUserEmail());
                         intent.putExtra("creatorUid", items.getCreatorUid());
-                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
                         startActivity(intent);
 
 
