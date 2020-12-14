@@ -100,8 +100,8 @@ public class ChatActivity extends AppCompatActivity {
         userName = getIntent().getStringExtra("username");
         hisImage = getIntent().getStringExtra("image");
         smgTitle = getIntent().getStringExtra("ItemTitle");
-        Toast.makeText(ChatActivity.this, "hisUid: " + hisUid, Toast.LENGTH_SHORT).show();
-        Toast.makeText(ChatActivity.this, "myUid: " + myUid, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(ChatActivity.this, "hisUid: " + hisUid, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(ChatActivity.this, "myUid: " + myUid, Toast.LENGTH_SHORT).show();
 
 
         //search user to get that user's info
