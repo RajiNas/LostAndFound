@@ -7,6 +7,24 @@
     android:background="#F1EDED"
     tools:context=".ChatActivity">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Contact the person on email: "
+        android:textColor="@color/black"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/contact_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_below="@id/title"
+        android:layout_centerInParent="true"/>
+<!--
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -30,7 +48,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <!--            Receiver name-->
+            &lt;!&ndash;            Receiver name&ndash;&gt;
             <TextView
                 android:id="@+id/nameTv"
                 android:layout_width="match_parent"
@@ -40,7 +58,7 @@
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
-            <!--            Receiver status-->
+            &lt;!&ndash;            Receiver status&ndash;&gt;
             <TextView
                 android:id="@+id/userStatusTv"
                 android:layout_width="match_parent"
@@ -88,5 +106,6 @@
 
     </LinearLayout>
 
+-->
 
 </RelativeLayout>

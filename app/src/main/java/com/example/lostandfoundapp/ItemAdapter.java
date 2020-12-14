@@ -175,6 +175,3 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Items, ItemAdapter.Ite
 //    }
 //}
 
-
-
-

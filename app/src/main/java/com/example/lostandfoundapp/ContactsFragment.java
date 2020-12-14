@@ -37,12 +37,12 @@ import java.util.List;
 
 public class ContactsFragment extends Fragment {
 
-    //    Toolbar toolbar;
+    /*//    Toolbar toolbar;
     RecyclerView recyclerView;
     ImageView profileIv;
     TextView nameTv, userStatusTv;
     EditText messageEt;
-    ImageButton sendBtn;
+    ImageButton sendBtn;*/
 
     //Firebase auth
     FirebaseAuth firebaseAuth;
@@ -50,6 +50,7 @@ public class ContactsFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference usersDbRef;
 
+/*
     //For checking if the user seen the message
     ValueEventListener seenListener;
     DatabaseReference userRefForSeen;
@@ -64,12 +65,14 @@ public class ContactsFragment extends Fragment {
     String smgTitle;
 
     SharedPreferences sp;
-
+*/
+/*
     public ContactsFragment() {
         // Required empty public constructor
-    }
+    }*/
 
 
+    TextView contactInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,27 +80,33 @@ public class ContactsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contacts_og, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.chat_recyclerView);
+        contactInfo = (TextView) view.findViewById(R.id.contact_info);
+      /*  recyclerView = (RecyclerView) view.findViewById(R.id.chat_recyclerView);
         profileIv = (ImageView) view.findViewById(R.id.profileIv);
         nameTv = (TextView) view.findViewById(R.id.nameTv);
         userStatusTv = (TextView) view.findViewById(R.id.userStatusTv);
         messageEt = (EditText) view.findViewById(R.id.messageEt);
-        sendBtn = (ImageButton) view.findViewById(R.id.sendBtn);
+        sendBtn = (ImageButton) view.findViewById(R.id.sendBtn);*/
 
-        //Layout for recyclerView
+/*        //Layout for recyclerView
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setStackFromEnd(true);
         //recyclerView properties
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(linearLayoutManager);*/
 
         //firebase auth instance
-        firebaseAuth = FirebaseAuth.getInstance();
+        //firebaseAuth = FirebaseAuth.getInstance();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        usersDbRef = firebaseDatabase.getReference("Users");
+        //usersDbRef = firebaseDatabase.getReference("Users");
 
-        FirebaseUser user1 = firebaseAuth.getCurrentUser();
+        String userEmail = getActivity().getIntent().getStringExtra("userEmail");
+
+        contactInfo.setText(userEmail);
+        return view;
+    }
+/*        FirebaseUser user1 = firebaseAuth.getCurrentUser();
         myUid = user1.getUid();
 
         // cause of probably error Note <--- I decided to change it from getString extra to a getSharedPrefereneces
@@ -145,14 +154,14 @@ public class ContactsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    ModelChat chat = ds.getValue(ModelChat.class);
+                    //ModelChat chat = ds.getValue(ModelChat.class);
 
                    // if(chat.getTitleOfMsg().equals(msgTitle) )
-                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
+                    *//*if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
                         HashMap<String, Object> hasSeenhashMap = new HashMap<>();
                         hasSeenhashMap.put("isSeen", true);
                         ds.getRef().updateChildren(hasSeenhashMap);
-                    }
+                    }*//*
                 }
             }
 
@@ -173,14 +182,14 @@ public class ContactsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    ModelChat chat = ds.getValue(ModelChat.class);
-                  if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)||
+                    //ModelChat chat = ds.getValue(ModelChat.class);
+                 *//* if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)||
                             chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
-
-                        chatList.add(chat);
+*//*
+                        //chatList.add(chat);
                    }
                     //adapter
-                    adapterChat = new AdapterChat(getContext(), chatList, hisImage);
+                    //adapterChat = new AdapterChat(getContext(), chatList, hisImage);
                     adapterChat.notifyDataSetChanged();
 
                     //set adapter to recyclerView
@@ -188,7 +197,7 @@ public class ContactsFragment extends Fragment {
 
                 }
 
-            }
+            //}
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -218,6 +227,5 @@ public class ContactsFragment extends Fragment {
     public void onPause() {
         super.onPause();
         userRefForSeen.removeEventListener(seenListener);
-    }
-
+    }*/
 }
