@@ -158,6 +158,7 @@ public class FragmentItemList extends Fragment implements AdapterView.OnItemSele
                 intent.putExtra("image", items.getImage());
                 intent.putExtra("address", items.getAddress());
                 intent.putExtra("creatorUid", items.getCreatorUid());
+                intent.putExtra("userEmail", items.getUserEmail());
                 Toast.makeText(getContext(), "creator:  " + items.getCreatorUid(), Toast.LENGTH_SHORT).show();
 
                 startActivity(intent);

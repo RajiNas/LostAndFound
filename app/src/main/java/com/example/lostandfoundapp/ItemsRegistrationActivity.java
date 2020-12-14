@@ -223,9 +223,14 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
                     String date = simpleDateFormat.format(calendar.getTime());
 
+                    
+
 
 
                     Items items = new Items(chosenCurrentUser, userEmail, title, description, chosenCategory,address, date, status, saveImgItem, creatorUid);
+
+
+
                     if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 
