@@ -74,13 +74,7 @@ public class ContainerAccessActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.messages_item:
-//                        fr = new MessageFragment();
-//                        displayFragment();
 
-                        startActivity( new Intent(ContainerAccessActivity.this, ContactActivity.class));
-
-                        break;
                     case R.id.profile_item:
                         fr = new ProfilFragment();
                         displayFragment();
