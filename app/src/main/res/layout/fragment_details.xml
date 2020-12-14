@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F1C1C1"
     tools:context=".DetailsFragment">
 
 
@@ -28,7 +29,7 @@
         android:text="Category"
         android:textSize="15sp"
         android:textColor="@color/black"
-        android:background="@android:color/holo_green_light"
+        android:background="#F1D46D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +43,7 @@
         android:text="Title"
         android:textSize="15sp"
         android:textColor="@color/black"
-        android:background="@android:color/holo_green_light"
+        android:background="#F1D46D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +57,7 @@
         android:text="Date"
         android:textSize="15sp"
         android:textColor="@color/black"
-        android:background="@android:color/holo_green_light"
+        android:background="#F1D46D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_title_DetailsFragment" />
@@ -69,7 +70,7 @@
         android:text="Description"
         android:textSize="15sp"
         android:textColor="@color/black"
-        android:background="@android:color/holo_green_light"
+        android:background="#F1D46D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_date_DetailsFragment" />
@@ -80,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Status"
-        android:background="@android:color/holo_green_light"
+        android:background="#F1D46D"
         android:textSize="15sp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
