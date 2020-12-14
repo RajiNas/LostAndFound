@@ -195,11 +195,10 @@ public class ChatActivity extends AppCompatActivity {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         ModelChat chat = ds.getValue(ModelChat.class);
 
-                            if ( ((chat.getReceiver().equals(myUid) && chat.getTitleOfMsg().equals(smgTitle)) && ((chat.getSender().equals(hisUid) && chat.getTitleOfMsg().equals(smgTitle)))) ||
-                                    ((chat.getReceiver().equals(hisUid) && chat.getTitleOfMsg().equals(smgTitle))) && ((chat.getSender().equals(myUid) && chat.getTitleOfMsg().equals(smgTitle))))
-                        {
-                                chatList.add(chat);
-                            }
+
+                        if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid) ||
+                                chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
+                            chatList.add(chat);
                         }
                         //adapter
                         adapterChat = new AdapterChat(ChatActivity.this, chatList, hisImage);
@@ -209,7 +208,7 @@ public class ChatActivity extends AppCompatActivity {
                         recyclerView.setAdapter(adapterChat);
 
                     }
-
+            }
 
 
 

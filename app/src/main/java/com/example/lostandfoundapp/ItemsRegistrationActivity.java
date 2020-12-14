@@ -225,8 +225,7 @@ public class ItemsRegistrationActivity extends AppCompatActivity implements Adap
 
 
 
-
-                    Items items = new Items(chosenCurrentUser, userEmail, title, address, description, chosenCategory, date, status, saveImgItem, creatorUid);
+                    Items items = new Items(chosenCurrentUser, userEmail, title, description, chosenCategory,address, date, status, saveImgItem, creatorUid);
                     if (chosenCategory.equals("Select Category")) {
                         Toast.makeText(ItemsRegistrationActivity.this, "Please Select a category", Toast.LENGTH_SHORT).show();
 

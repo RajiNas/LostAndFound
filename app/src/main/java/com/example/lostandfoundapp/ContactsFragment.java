@@ -174,7 +174,7 @@ public class ContactsFragment extends Fragment {
                 chatList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-                  if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)||
+                  if ( chat.getReceiver().equals(myUid)  && chat.getSender().equals(hisUid)||
                             chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
 
                         chatList.add(chat);
